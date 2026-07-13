@@ -437,12 +437,19 @@ function LeadershipSection({ leaders }: { leaders: Employee[] }) {
         cta={directoryLink}
       />
 
+      {/* Rules are drawn per-tile rather than by a gap-px background: an incomplete
+          final row would otherwise expose the grid's fill as a grey block. */}
       <RevealGroup
-        className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-card border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4"
+        className="mt-12 grid grid-cols-1 overflow-hidden rounded-card border border-hairline sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4"
         gap={0.05}
       >
         {leaders.map((leader) => (
-          <LeaderTile key={leader.id} leader={leader} href={directoryLink?.href ?? '/directory'} />
+          <div
+            key={leader.id}
+            className="border-b border-r border-hairline last:border-b-0 sm:[&:nth-last-child(-n+1)]:border-b-0"
+          >
+            <LeaderTile leader={leader} href={directoryLink?.href ?? '/directory'} />
+          </div>
         ))}
       </RevealGroup>
     </Section>

@@ -156,12 +156,14 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
                   aria-selected={position === index}
                   aria-label={item.title}
                   onClick={() => setIndex(position)}
-                  className="group relative h-1 w-10 overflow-hidden rounded-full bg-white/20"
+                  /* 44px tap target with a 4px visual rail inside it */
+                  className="group relative flex h-11 w-11 items-center justify-center"
                 >
+                  <span className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 overflow-hidden rounded-full bg-white/20" />
                   {position === index ? (
                     <motion.span
                       key={`${item.id}-${playing}`}
-                      className="absolute inset-y-0 left-0 bg-ember"
+                      className="absolute left-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-ember"
                       initial={{ width: reduceMotion ? '100%' : 0 }}
                       animate={{ width: '100%' }}
                       transition={{
@@ -170,7 +172,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
                       }}
                     />
                   ) : (
-                    <span className="absolute inset-y-0 left-0 w-0 bg-white/50 transition-[width] duration-300 group-hover:w-full" />
+                    <span className="absolute left-0 top-1/2 h-1 w-0 -translate-y-1/2 rounded-full bg-white/50 transition-[width] duration-300 group-hover:w-full" />
                   )}
                 </button>
               ))}
@@ -180,7 +182,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
               type="button"
               onClick={() => setPlaying((value) => !value)}
               aria-label={playing ? 'Pause slideshow' : 'Play slideshow'}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:text-white"
             >
               {playing ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
             </button>
