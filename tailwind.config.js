@@ -70,8 +70,17 @@ export default {
       transitionTimingFunction: { premium: 'cubic-bezier(0.22, 1, 0.36, 1)' },
       keyframes: {
         marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+        'page-in': {
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
+          '100%': { opacity: '1', transform: 'none' },
+        },
       },
-      animation: { marquee: 'marquee 44s linear infinite' },
+      animation: {
+        marquee: 'marquee 44s linear infinite',
+        // The route entrance. CSS rather than JS: a dropped frame leaves the page at its
+        // resting opacity, where a stalled JS animation would leave it invisible.
+        'page-in': 'page-in 0.32s cubic-bezier(0.22, 1, 0.36, 1)',
+      },
     },
   },
   plugins: [],

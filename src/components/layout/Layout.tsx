@@ -1,6 +1,5 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { PageSkeleton } from './PageSkeleton';
@@ -11,7 +10,6 @@ import { navigation } from '@/data/navigation';
 import { footer } from '@/data/footer';
 import { market } from '@/data/homepage';
 import { prefetchAllRoutes } from '@/routes/pages';
-import { EASE } from '@/lib/motion';
 
 export function Layout() {
   const { pathname } = useLocation();
@@ -35,21 +33,16 @@ export function Layout() {
       <Navbar items={navigation} commodities={market.commodities} />
 
       <main id="main" className="flex-1">
-        {/* The exit is deliberately much shorter than the entrance: a long fade-out is
-            dead time where the user stares at an empty viewport waiting for the swap. */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.12, ease: 'linear' } }}
-            transition={{ duration: 0.3, ease: EASE }}
-          >
-            <Suspense fallback={<PageSkeleton />}>
-              <Outlet />
-            </Suspense>
-          </motion.div>
-        </AnimatePresence>
+        {/* The entrance is a CSS animation, not a motion component. A JS fade that never
+            gets its first frame — which happened on the heavier pages, where mounting the
+            tree blew the frame budget — strands the whole page at `opacity: 0` until some
+            unrelated repaint (opening DevTools, resizing) shakes it loose. CSS animates off
+            the compositor and, worst case, simply lands on the resting style: visible. */}
+        <div key={pathname} className="animate-page-in">
+          <Suspense fallback={<PageSkeleton />}>
+            <Outlet />
+          </Suspense>
+        </div>
       </main>
 
       <Footer content={footer} />
