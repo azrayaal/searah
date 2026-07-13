@@ -55,7 +55,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
       </AnimatePresence>
 
       <div
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/70 to-transparent"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-600/10 to-transparent"
         aria-hidden
       />
       <div

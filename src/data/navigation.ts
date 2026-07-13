@@ -33,9 +33,9 @@ export const navigation: NavItem[] = [
       {
         title: 'Entities',
         links: [
-          { label: 'Searah Mahakam (SM)', href: '/entity/SM' },
-          { label: 'Searah Kutai (SK)', href: '/entity/SK' },
-          { label: 'Searah Malaysia Borneo (SMB)', href: '/entity/SMB' },
+          { label: 'Searah Ketapang (SKT)', href: '/entity/SKT' },
+          { label: 'Searah Muara Bakau (SMB)', href: '/entity/SMB' },
+          { label: 'Searah Malaysia (SMY)', href: '/entity/SMY' },
         ],
       },
       {
@@ -80,9 +80,9 @@ export const navigation: NavItem[] = [
       {
         title: 'By Entity',
         links: [
-          { label: 'Searah Mahakam', href: '/newsletter?entity=SM' },
-          { label: 'Searah Kutai', href: '/newsletter?entity=SK' },
-          { label: 'Searah Malaysia Borneo', href: '/newsletter?entity=SMB' },
+          { label: 'Searah Ketapang', href: '/newsletter?entity=SKT' },
+          { label: 'Searah Muara Bakau', href: '/newsletter?entity=SMB' },
+          { label: 'Searah Malaysia', href: '/newsletter?entity=SMY' },
         ],
       },
     ],

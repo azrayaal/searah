@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, FileText, Lock } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
+import { NAVBAR_HEIGHT, useNavbarHidden } from '@/components/layout/navbarVisibility';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { Tabs } from '@/components/ui/Tabs';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
@@ -88,6 +89,14 @@ export default function EntityPage() {
   const entity = code ? getEntity(code) : undefined;
   const [active, setActive] = useState('overview');
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+  const navHidden = useNavbarHidden();
+
+  // Switching entity reuses this component, so the section rail and any open asset
+  // would otherwise carry over from the entity the user just left.
+  useEffect(() => {
+    setActive('overview');
+    setSelectedAsset(null);
+  }, [code]);
 
   const entityAssets = useMemo(() => (entity ? getEntityAssets(entity.id) : []), [entity]);
   const entityNews = useMemo(() => (entity ? getArticlesByEntity(entity.id) : []), [entity]);
@@ -134,8 +143,12 @@ export default function EntityPage() {
         </dl>
       </PageHero>
 
-      {/* Sticky in-page navigation */}
-      <div className="sticky top-[68px] z-30 border-b border-hairline bg-white/95 backdrop-blur-md">
+      {/* Sticky in-page navigation. It rides up with the navbar when the navbar retracts,
+          otherwise it would hold its 68px offset and leave a strip of bare page above it. */}
+      <div
+        style={{ top: navHidden ? 0 : NAVBAR_HEIGHT }}
+        className="sticky z-30 border-b border-hairline bg-white/95 backdrop-blur-md transition-[top] duration-[450ms] ease-premium"
+      >
         <div className="mx-auto w-full max-w-container px-4 md:px-6 lg:px-8 3xl:px-16">
           <Tabs
             items={SECTIONS}

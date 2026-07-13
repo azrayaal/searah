@@ -222,7 +222,7 @@ export const emergencyGroups: EmergencyGroup[] = [
       {
         id: 'ops-balikpapan',
         label: 'Balikpapan Integrated Control Room',
-        role: 'Duty Production Superintendent — SM assets',
+        role: 'Duty Production Superintendent — SKT assets',
         phone: '+62 542 800 100',
         email: 'balikpapan.control@searah.com',
         availability: '24/7',
@@ -232,7 +232,7 @@ export const emergencyGroups: EmergencyGroup[] = [
       {
         id: 'ops-bintulu',
         label: 'Bintulu Integrated Control Room',
-        role: 'Duty Production Superintendent — SMB assets',
+        role: 'Duty Production Superintendent — SMY assets',
         phone: '+60 86 330 100',
         email: 'bintulu.control@searah.com',
         availability: '24/7',
@@ -242,7 +242,7 @@ export const emergencyGroups: EmergencyGroup[] = [
       {
         id: 'ops-deepwater',
         label: 'Deepwater Operations Desk',
-        role: 'Duty Offshore Installation Manager — SK assets',
+        role: 'Duty Offshore Installation Manager — SMB assets',
         phone: '+62 542 800 108',
         availability: '24/7, Makassar Strait',
         severity: 'urgent',
@@ -286,7 +286,7 @@ export const regionalContacts: RegionalContact[] = [
   {
     id: 'reg-balikpapan',
     region: 'East Kalimantan',
-    site: 'Balikpapan Operating Base — SM',
+    site: 'Balikpapan Operating Base — SKT',
     country: 'Indonesia',
     control: '+62 542 800 100',
     medic: '+62 542 800 160',
@@ -295,7 +295,7 @@ export const regionalContacts: RegionalContact[] = [
   {
     id: 'reg-mahakam',
     region: 'Mahakam Delta',
-    site: 'Offshore Mahakam Hub — SM',
+    site: 'Offshore Mahakam Hub — SKT',
     country: 'Indonesia',
     control: '+62 542 800 104',
     medic: '+62 542 800 164',
@@ -304,7 +304,7 @@ export const regionalContacts: RegionalContact[] = [
   {
     id: 'reg-makassar',
     region: 'Makassar Strait',
-    site: 'Deepwater Kutai Hub — SK',
+    site: 'Deepwater Kutai Hub — SMB',
     country: 'Indonesia',
     control: '+62 542 800 108',
     medic: '+62 542 800 168',
@@ -313,7 +313,7 @@ export const regionalContacts: RegionalContact[] = [
   {
     id: 'reg-kuala-lumpur',
     region: 'Kuala Lumpur',
-    site: 'Regional Office — SMB',
+    site: 'Regional Office — SMY',
     country: 'Malaysia',
     control: '+60 3 2600 911',
     medic: '+60 3 2600 640',
@@ -322,7 +322,7 @@ export const regionalContacts: RegionalContact[] = [
   {
     id: 'reg-bintulu',
     region: 'Sarawak',
-    site: 'Bintulu Operating Base — SMB',
+    site: 'Bintulu Operating Base — SMY',
     country: 'Malaysia',
     control: '+60 86 330 100',
     medic: '+60 86 330 160',
@@ -340,7 +340,7 @@ export const regionalContacts: RegionalContact[] = [
   {
     id: 'reg-kota-kinabalu',
     region: 'Sabah',
-    site: 'Kota Kinabalu Operating Base — SMB',
+    site: 'Kota Kinabalu Operating Base — SMY',
     country: 'Malaysia',
     control: '+60 88 250 100',
     medic: '+60 88 250 160',

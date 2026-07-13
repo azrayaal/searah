@@ -17,10 +17,10 @@ function leaderFrom(employeeId: string, fallbackRole: string) {
 
 export const entities: Entity[] = [
   {
-    id: 'SM',
-    code: 'SM',
-    name: 'Searah Mahakam',
-    fullName: 'PT Searah Mahakam Energi',
+    id: 'SKT',
+    code: 'SKT',
+    name: 'Searah Ketapang',
+    fullName: 'PT Searah Ketapang Energi',
     tagline: 'The producing heart of the portfolio',
     established: '2024',
     headquarters: 'Balikpapan, East Kalimantan',
@@ -29,7 +29,7 @@ export const entities: Entity[] = [
     summary:
       'Seven producing and development assets in the Kutai Basin and Mahakam Delta, supplying gas to Bontang and liquids to Senipah.',
     overview: [
-      'Searah Mahakam operates the group’s largest producing hub. From eight wellhead platforms offshore and clustered swamp pads across the delta, the entity delivers roughly two-fifths of group production every day.',
+      'Searah Ketapang operates the group’s largest producing hub. From eight wellhead platforms offshore and clustered swamp pads across the delta, the entity delivers roughly two-fifths of group production every day.',
       'The asset base is mature, and that is precisely where the entity’s engineering culture shows. Low-pressure compression, infill drilling and full field electrification have kept fields discovered in the 1970s on plateau, at a cost per barrel that competes with far younger developments.',
       'The next chapter is Peciko Deep — a high-pressure deepwater gas development tied back 62 kilometres to the existing North Mahakam complex, and the clearest expression of the entity’s reuse-first philosophy.',
     ],
@@ -96,10 +96,10 @@ export const entities: Entity[] = [
     downloads: ['res-production-factsheet-q2-2026', 'res-hse-golden-rules', 'res-annual-report-2025', 'res-permit-to-work-procedure'],
   },
   {
-    id: 'SK',
-    code: 'SK',
-    name: 'Searah Kutai',
-    fullName: 'PT Searah Kutai Deepwater',
+    id: 'SMB',
+    code: 'SMB',
+    name: 'Searah Muara Bakau',
+    fullName: 'PT Searah Muara Bakau Deepwater',
     tagline: 'Deepwater growth engine',
     established: '2024',
     headquarters: 'Balikpapan, East Kalimantan',
@@ -108,7 +108,7 @@ export const entities: Entity[] = [
     summary:
       'Seven deepwater and frontier assets in the Makassar Strait and beyond, including the Geng North discovery that will anchor the North Kutai hub.',
     overview: [
-      'Searah Kutai is where the group’s production target is won or lost. The entity operates the deepwater portfolio — Jangkrik, Merakes and the sanctioned developments that will lift group output past 500,000 BOE/D.',
+      'Searah Muara Bakau is where the group’s production target is won or lost. The entity operates the deepwater portfolio — Jangkrik, Merakes and the sanctioned developments that will lift group output past 500,000 BOE/D.',
       'Its operating model is deliberately asset-light. Merakes was delivered as a subsea tieback to an existing floating unit with no new surface facilities, and Merakes East reuses the same risers and umbilicals again. Capital intensity below USD 6 per barrel of oil equivalent is the result.',
       'Geng North, the largest discovery in the Kutai Basin in twenty years, is being designed as an open-access hub that can host third-party tiebacks — an unusual commitment for an operator, and a deliberate one.',
     ],
@@ -174,10 +174,10 @@ export const entities: Entity[] = [
     downloads: ['res-annual-report-2025', 'res-well-control-manual', 'res-drilling-operations-manual', 'res-corporate-overview-deck'],
   },
   {
-    id: 'SMB',
-    code: 'SMB',
-    name: 'Searah Malaysia Borneo',
-    fullName: 'Searah Malaysia Borneo Sdn Bhd',
+    id: 'SMY',
+    code: 'SMY',
+    name: 'Searah Malaysia',
+    fullName: 'Searah Malaysia Sdn Bhd',
     tagline: 'Lower-carbon gas for the region',
     established: '2024',
     headquarters: 'Kuala Lumpur, Malaysia',
@@ -186,7 +186,7 @@ export const entities: Entity[] = [
     summary:
       'Five offshore assets in Sarawak and Sabah, home to one of the world’s largest offshore carbon capture facilities at Kasawari.',
     overview: [
-      'Searah Malaysia Borneo operates five assets offshore Sarawak and Sabah, feeding the Bintulu LNG complex and the regional gas grid.',
+      'Searah Malaysia operates five assets offshore Sarawak and Sabah, feeding the Bintulu LNG complex and the regional gas grid.',
       'Its defining asset is Kasawari: a high-CO₂ gas field paired with a carbon capture facility that strips and reinjects 3.3 million tonnes of CO₂ each year into a depleted reservoir nearby. It is one of the largest offshore CCS schemes anywhere in the world, and it turns a reservoir others would have left behind into a commercial, lower-carbon barrel.',
       'Alongside it, Kikeh remains Malaysia’s first deepwater development and now hosts three satellite tiebacks, while Rotan will produce through a floating liquefaction vessel from 2028 — no export trunkline required.',
     ],

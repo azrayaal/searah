@@ -3,12 +3,12 @@ import type { NewsArticle, NewsCategory } from '@/types';
 /**
  * Newsletter collection.
  *
- * `entityId` carries the entity code ("SM", "SK", "SMB") or `null` for
+ * `entityId` carries the entity code ("SKT", "SMB", "SMY") or `null` for
  * group-wide corporate news. Entity pages filter this list by that field.
  * Articles are ordered newest first.
  */
 export const news: NewsArticle[] = [
-  /* ---------------------------------------------------------------- 1 — SK */
+  /* ---------------------------------------------------------------- 1 — SMB */
   {
     id: 'news-2026-07-09-geng-north-fid',
     slug: 'geng-north-final-investment-decision',
@@ -16,7 +16,7 @@ export const news: NewsArticle[] = [
     excerpt:
       'The USD 4.6bn deepwater gas project has taken final investment decision, anchoring a shared hub in the North Ganal area that will accept third-party tiebacks from 2029.',
     category: 'Corporate',
-    entityId: 'SK',
+    entityId: 'SMB',
     date: '2026-07-09',
     readingTime: '6 min read',
     author: { name: 'Andi Mappanyukki', role: 'Head of Corporate Communications' },
@@ -28,7 +28,7 @@ export const news: NewsArticle[] = [
       src: '/media/drilling.jpg',
       alt: 'Deepwater drilling unit operating over the Geng North field at first light',
       caption: 'The Geng North discovery well was drilled in 1,950 metres of water in 2023.',
-      credit: 'Searah Kutai',
+      credit: 'Searah Muara Bakau',
     },
     featured: true,
     content: [
@@ -38,7 +38,7 @@ export const news: NewsArticle[] = [
       },
       {
         type: 'paragraph',
-        text: 'The field sits in 1,950 metres of water in the North Ganal area of the Makassar Strait and holds an estimated 660 million barrels of oil equivalent of contingent resource. Searah Kutai holds a 70 per cent working interest and will operate the development on behalf of the partnership.',
+        text: 'The field sits in 1,950 metres of water in the North Ganal area of the Makassar Strait and holds an estimated 660 million barrels of oil equivalent of contingent resource. Searah Muara Bakau holds a 70 per cent working interest and will operate the development on behalf of the partnership.',
       },
       {
         type: 'stat',
@@ -61,7 +61,7 @@ export const news: NewsArticle[] = [
       {
         type: 'quote',
         text: 'We could have built a fence around Geng North and produced it on our own. A hub that other operators can plug into is worth more to the basin, and in the end it is worth more to us.',
-        attribution: 'Alessandro Conti, Managing Director, Searah Kutai',
+        attribution: 'Alessandro Conti, Managing Director, Searah Muara Bakau',
       },
       {
         type: 'image',
@@ -203,7 +203,7 @@ export const news: NewsArticle[] = [
     tags: ['Results', 'Production', 'Guidance', 'Capital discipline', 'Group'],
   },
 
-  /* --------------------------------------------------------------- 3 — SMB */
+  /* --------------------------------------------------------------- 3 — SMY */
   {
     id: 'news-2026-06-24-kasawari-ccs',
     slug: 'kasawari-carbon-capture-three-million-tonnes',
@@ -211,16 +211,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'The Sarawak project has now reinjected more CO₂ than any other offshore scheme in Southeast Asia, and injectivity in the depleted reservoir is holding above forecast.',
     category: 'Sustainability',
-    entityId: 'SMB',
+    entityId: 'SMY',
     date: '2026-06-24',
     readingTime: '5 min read',
-    author: { name: 'Nurul Aisyah Rahman', role: 'Carbon Management Lead, Searah Malaysia Borneo' },
+    author: { name: 'Nurul Aisyah Rahman', role: 'Carbon Management Lead, Searah Malaysia' },
     thumbnail: { src: '/media/gas-plant.jpg', alt: 'Kasawari gas processing and carbon capture platform' },
     cover: {
       src: '/media/gas-plant.jpg',
       alt: 'The Kasawari carbon capture platform offshore Sarawak',
       caption: 'Kasawari separates CO₂ from raw gas before it reaches the Bintulu LNG complex.',
-      credit: 'Searah Malaysia Borneo',
+      credit: 'Searah Malaysia',
     },
     content: [
       {
@@ -385,7 +385,7 @@ export const news: NewsArticle[] = [
     tags: ['Graduates', 'Early careers', 'Recruitment', 'Talent', 'Group'],
   },
 
-  /* ---------------------------------------------------------------- 5 — SM */
+  /* ---------------------------------------------------------------- 5 — SKT */
   {
     id: 'news-2026-05-28-peciko-tieback',
     slug: 'peciko-deep-longest-subsea-tieback',
@@ -393,16 +393,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'At 62 kilometres, the line linking Peciko Deep to the North Mahakam complex pushes flow assurance to its limits. The team explains how the design holds together.',
     category: 'Technology',
-    entityId: 'SM',
+    entityId: 'SKT',
     date: '2026-05-28',
     readingTime: '7 min read',
-    author: { name: 'Marco Bellini', role: 'Subsea Engineering Manager, Searah Mahakam' },
+    author: { name: 'Marco Bellini', role: 'Subsea Engineering Manager, Searah Ketapang' },
     thumbnail: { src: '/media/subsea.jpg', alt: 'Subsea production tree prepared for installation at Peciko Deep' },
     cover: {
       src: '/media/subsea.jpg',
       alt: 'Subsea production tree on the deck of an installation vessel',
       caption: 'Peciko Deep will produce through five subsea wells in 1,120 metres of water.',
-      credit: 'Searah Mahakam',
+      credit: 'Searah Ketapang',
     },
     content: [
       {
@@ -491,7 +491,7 @@ export const news: NewsArticle[] = [
     tags: ['Peciko Deep', 'Subsea', 'Flow assurance', 'Tieback', 'Engineering', 'Mahakam'],
   },
 
-  /* --------------------------------------------------------------- 6 — SMB */
+  /* --------------------------------------------------------------- 6 — SMY */
   {
     id: 'news-2026-05-14-kikeh-lti-free',
     slug: 'kikeh-one-thousand-days-lti-free',
@@ -499,16 +499,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'The milestone covers the FPSO, the dry-tree unit and every contractor crew that has worked on the facility since mid-2023.',
     category: 'Safety',
-    entityId: 'SMB',
+    entityId: 'SMY',
     date: '2026-05-14',
     readingTime: '4 min read',
-    author: { name: 'Faridah binti Osman', role: 'HSE Manager, Searah Malaysia Borneo' },
+    author: { name: 'Faridah binti Osman', role: 'HSE Manager, Searah Malaysia' },
     thumbnail: { src: '/media/worker-ppe.jpg', alt: 'Offshore technician in full personal protective equipment' },
     cover: {
       src: '/media/fpso.jpg',
       alt: 'The Kikeh FPSO on station offshore Sabah',
       caption: 'Kikeh has been producing since 2007 and now hosts three satellite tiebacks.',
-      credit: 'Searah Malaysia Borneo',
+      credit: 'Searah Malaysia',
     },
     content: [
       {
@@ -536,7 +536,7 @@ export const news: NewsArticle[] = [
       {
         type: 'quote',
         text: 'A thousand days is the result. The stop-work cards are the reason. When a scaffolder feels able to halt a lift because something looks wrong, that is when you know it is working.',
-        attribution: 'Faridah binti Osman, HSE Manager, Searah Malaysia Borneo',
+        attribution: 'Faridah binti Osman, HSE Manager, Searah Malaysia',
       },
       {
         type: 'image',
@@ -677,7 +677,7 @@ export const news: NewsArticle[] = [
     tags: ['Digital', 'Remote operations', 'Balikpapan', 'Predictive maintenance', 'Group'],
   },
 
-  /* ---------------------------------------------------------------- 8 — SK */
+  /* ---------------------------------------------------------------- 8 — SMB */
   {
     id: 'news-2026-04-16-gendalo-obn',
     slug: 'gendalo-ocean-bottom-node-survey',
@@ -685,16 +685,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'A 96-day acquisition campaign has produced the sharpest subsurface image yet of the Ganal play, and the first appraisal well location has been fixed.',
     category: 'Operations',
-    entityId: 'SK',
+    entityId: 'SMB',
     date: '2026-04-16',
     readingTime: '5 min read',
-    author: { name: 'Lorenzo Ricci', role: 'Exploration Manager, Searah Kutai' },
+    author: { name: 'Lorenzo Ricci', role: 'Exploration Manager, Searah Muara Bakau' },
     thumbnail: { src: '/media/seismic-vessel.jpg', alt: 'Seismic vessel deploying ocean-bottom nodes' },
     cover: {
       src: '/media/seismic-vessel.jpg',
       alt: 'Seismic survey vessel working over the Gendalo prospect in the Makassar Strait',
       caption: 'The survey deployed 14,000 nodes across 1,850 square kilometres of seabed.',
-      credit: 'Searah Kutai',
+      credit: 'Searah Muara Bakau',
     },
     content: [
       {
@@ -722,7 +722,7 @@ export const news: NewsArticle[] = [
       {
         type: 'quote',
         text: 'We were looking at the reservoir through frosted glass. The node data is the first time we have been able to see the internal architecture of the fan rather than just its outline.',
-        attribution: 'Lorenzo Ricci, Exploration Manager, Searah Kutai',
+        attribution: 'Lorenzo Ricci, Exploration Manager, Searah Muara Bakau',
       },
       {
         type: 'image',
@@ -770,7 +770,7 @@ export const news: NewsArticle[] = [
     tags: ['Exploration', 'Gendalo', 'Seismic', 'Ocean-bottom nodes', 'Kutai Basin'],
   },
 
-  /* ---------------------------------------------------------------- 9 — SM */
+  /* ---------------------------------------------------------------- 9 — SKT */
   {
     id: 'news-2026-04-02-tunu-mangrove',
     slug: 'tunu-mangrove-rehabilitation-milestone',
@@ -778,16 +778,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'Five years of planting in the Mahakam delta has restored more mangrove than the operation occupies, and the survival rate is holding above 80 per cent.',
     category: 'Sustainability',
-    entityId: 'SM',
+    entityId: 'SKT',
     date: '2026-04-02',
     readingTime: '5 min read',
-    author: { name: 'Siti Nuraini', role: 'Environment and Social Performance Lead, Searah Mahakam' },
+    author: { name: 'Siti Nuraini', role: 'Environment and Social Performance Lead, Searah Ketapang' },
     thumbnail: { src: '/media/mangrove.jpg', alt: 'Mangrove seedlings planted along a delta channel' },
     cover: {
       src: '/media/mangrove.jpg',
       alt: 'Restored mangrove forest lining a channel in the Mahakam delta',
       caption: 'The Tunu field is developed from clustered pads within the delta mangrove system.',
-      credit: 'Searah Mahakam',
+      credit: 'Searah Ketapang',
     },
     content: [
       {
@@ -964,7 +964,7 @@ export const news: NewsArticle[] = [
     tags: ['Emissions', 'Methane', 'Flaring', 'Net zero', 'Sustainability report', 'Group'],
   },
 
-  /* -------------------------------------------------------------- 11 — SMB */
+  /* -------------------------------------------------------------- 11 — SMY */
   {
     id: 'news-2026-03-05-rotan-flng-hull',
     slug: 'rotan-floating-lng-hull-launched',
@@ -972,16 +972,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'The 1.5 million tonne per year liquefaction vessel has left the drydock in Geoje and will arrive on location in early 2027.',
     category: 'Operations',
-    entityId: 'SMB',
+    entityId: 'SMY',
     date: '2026-03-05',
     readingTime: '5 min read',
-    author: { name: 'Hafiz Zulkifli', role: 'Rotan Project Director, Searah Malaysia Borneo' },
+    author: { name: 'Hafiz Zulkifli', role: 'Rotan Project Director, Searah Malaysia' },
     thumbnail: { src: '/media/lng-carrier.jpg', alt: 'Floating liquefaction vessel under construction at the shipyard' },
     cover: {
       src: '/media/lng-carrier.jpg',
       alt: 'The Rotan floating liquefaction vessel after launch from the drydock',
       caption: 'Topsides integration continues at the quayside through 2026.',
-      credit: 'Searah Malaysia Borneo',
+      credit: 'Searah Malaysia',
     },
     content: [
       {
@@ -1058,7 +1058,7 @@ export const news: NewsArticle[] = [
     tags: ['Rotan', 'Floating LNG', 'Sabah', 'Project execution', 'Deepwater', 'Malaysia'],
   },
 
-  /* --------------------------------------------------------------- 12 — SM */
+  /* --------------------------------------------------------------- 12 — SKT */
   {
     id: 'news-2026-02-19-north-mahakam-process-safety',
     slug: 'north-mahakam-process-safety-milestone',
@@ -1066,16 +1066,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'The group’s largest producing hub has gone four and a half years without an LTI while running an eight-platform complex and a continuous infill drilling programme.',
     category: 'Safety',
-    entityId: 'SM',
+    entityId: 'SKT',
     date: '2026-02-19',
     readingTime: '4 min read',
-    author: { name: 'Rina Kusumaningrum', role: 'HSE Manager, Searah Mahakam' },
+    author: { name: 'Rina Kusumaningrum', role: 'HSE Manager, Searah Ketapang' },
     thumbnail: { src: '/media/offshore-platform.jpg', alt: 'The North Mahakam central processing complex' },
     cover: {
       src: '/media/offshore-platform.jpg',
       alt: 'The eight-platform North Mahakam complex seen from a support vessel',
       caption: 'North Mahakam runs eight wellhead platforms feeding one central processing complex.',
-      credit: 'Searah Mahakam',
+      credit: 'Searah Ketapang',
     },
     content: [
       {
@@ -1103,7 +1103,7 @@ export const news: NewsArticle[] = [
       {
         type: 'quote',
         text: 'A clean injury record can hide a plant that is quietly getting worse. We treat every small leak as a rehearsal for a large one.',
-        attribution: 'Rina Kusumaningrum, HSE Manager, Searah Mahakam',
+        attribution: 'Rina Kusumaningrum, HSE Manager, Searah Ketapang',
       },
       {
         type: 'image',
@@ -1151,7 +1151,7 @@ export const news: NewsArticle[] = [
     tags: ['Safety', 'Process safety', 'North Mahakam', 'LTI-free', 'Asset integrity'],
   },
 
-  /* --------------------------------------------------------------- 13 — SK */
+  /* --------------------------------------------------------------- 13 — SMB */
   {
     id: 'news-2026-02-05-merakes-east-epc',
     slug: 'merakes-east-subsea-contract-award',
@@ -1159,16 +1159,16 @@ export const news: NewsArticle[] = [
     excerpt:
       'The two-well development will reuse spare capacity in the existing Merakes risers and umbilicals, holding capital intensity below USD 6 per barrel of oil equivalent.',
     category: 'Operations',
-    entityId: 'SK',
+    entityId: 'SMB',
     date: '2026-02-05',
     readingTime: '4 min read',
-    author: { name: 'Alessandro Conti', role: 'Managing Director, Searah Kutai' },
+    author: { name: 'Alessandro Conti', role: 'Managing Director, Searah Muara Bakau' },
     thumbnail: { src: '/media/fpso.jpg', alt: 'The Jangkrik floating production unit, host for Merakes East' },
     cover: {
       src: '/media/fpso.jpg',
       alt: 'The Jangkrik floating production unit, which will host the Merakes East tieback',
       caption: 'Merakes East ties back to the same floating unit that already hosts Merakes.',
-      credit: 'Searah Kutai',
+      credit: 'Searah Muara Bakau',
     },
     content: [
       {
@@ -1196,7 +1196,7 @@ export const news: NewsArticle[] = [
       {
         type: 'quote',
         text: 'The cheapest barrel is the one that travels through a pipe you have already paid for.',
-        attribution: 'Alessandro Conti, Managing Director, Searah Kutai',
+        attribution: 'Alessandro Conti, Managing Director, Searah Muara Bakau',
       },
       {
         type: 'image',

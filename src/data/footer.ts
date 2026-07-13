@@ -16,9 +16,9 @@ export const footer: FooterContent = {
       title: 'Operations',
       links: [
         { label: 'Asset Map', href: '/assets' },
-        { label: 'Searah Mahakam', href: '/entity/SM' },
-        { label: 'Searah Kutai', href: '/entity/SK' },
-        { label: 'Searah Malaysia Borneo', href: '/entity/SMB' },
+        { label: 'Searah Ketapang', href: '/entity/SKT' },
+        { label: 'Searah Muara Bakau', href: '/entity/SMB' },
+        { label: 'Searah Malaysia', href: '/entity/SMY' },
       ],
     },
     {

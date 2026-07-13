@@ -35,9 +35,9 @@ export const faqs: FaqItem[] = [
   },
   {
     id: 'faq-entities',
-    question: 'What are SM, SK and SMB?',
+    question: 'What are SKT, SMB and SMY?',
     answer:
-      'They are Searah’s three operating entities. Searah Mahakam (SM) runs the shallow-water and onshore fields of the Mahakam Delta in East Kalimantan; Searah Kutai (SK) holds the deepwater acreage in the Makassar Strait; and Searah Malaysia Borneo (SMB) operates the offshore assets in Sarawak and Sabah. All three work to a single set of group standards.',
+      'They are Searah’s three operating entities. Searah Ketapang (SKT) runs the shallow-water and onshore fields of the Mahakam Delta in East Kalimantan; Searah Muara Bakau (SMB) holds the deepwater acreage in the Makassar Strait; and Searah Malaysia (SMY) operates the offshore assets in Sarawak and Sabah. All three work to a single set of group standards.',
     category: 'Company',
   },
   {

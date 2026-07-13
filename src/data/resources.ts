@@ -93,7 +93,7 @@ export const resources: Resource[] = [
     id: 'res-letterhead-template',
     title: 'Letterhead & Correspondence Template',
     description:
-      'Word templates for group and entity letterhead, memoranda and formal correspondence, with the required legal footer for SM, SK and SMB registered addresses.',
+      'Word templates for group and entity letterhead, memoranda and formal correspondence, with the required legal footer for SKT, SMB and SMY registered addresses.',
     category: 'Templates',
     type: 'DOCX',
     size: '640 KB',
@@ -224,9 +224,9 @@ export const resources: Resource[] = [
   },
   {
     id: 'res-entity-logo-lockups',
-    title: 'Entity Logo Lockups (SM, SK, SMB)',
+    title: 'Entity Logo Lockups (SKT, SMB, SMY)',
     description:
-      'Approved endorsement lockups for Searah Mahakam, Searah Kutai and Searah Malaysia Borneo, plus the joint Eni and PETRONAS shareholder lockup.',
+      'Approved endorsement lockups for Searah Ketapang, Searah Muara Bakau and Searah Malaysia, plus the joint Eni and PETRONAS shareholder lockup.',
     category: 'Logos',
     type: 'AI',
     size: '11.4 MB',

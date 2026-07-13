@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Menu, PhoneCall, Search } from 'lucide-react';
-import { Logo } from './Logo';
+// import { Logo } from './Logo';
 import { MegaMenu } from './MegaMenu';
 import { MobileNav } from './MobileNav';
 import { Container } from '@/components/ui/Container';
@@ -16,9 +16,11 @@ interface NavbarProps {
   items: NavItem[];
   /** Still supplied by the layout — re-enable the utility rail below to consume it. */
   commodities: Commodity[];
+  /** Lets sticky page furniture below the bar track the retraction. */
+  onHiddenChange?: (hidden: boolean) => void;
 }
 
-export function Navbar({ items }: NavbarProps) {
+export function Navbar({ items, onHiddenChange }: NavbarProps) {
   const [openLabel, setOpenLabel] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { direction, scrolled } = useScrollDirection();
@@ -49,6 +51,8 @@ export function Navbar({ items }: NavbarProps) {
 
   const activeItem = items.find((item) => item.label === openLabel);
   const hidden = direction === 'down' && !openLabel;
+
+  useEffect(() => onHiddenChange?.(hidden), [hidden, onHiddenChange]);
 
   return (
     <>
@@ -88,8 +92,14 @@ export function Navbar({ items }: NavbarProps) {
             scrolled ? 'border-hairline shadow-raised' : 'border-transparent',
           )}
         >
-          <Container className="flex h-[68px] items-center justify-between gap-6">
-            <Logo />
+          <Container className="flex h-[74px] items-center justify-between gap-6">
+            {/* <Logo /> */}
+              <a href="/">
+            <div className="flex items-center">
+                <img src="/favicon.png" alt="Searah Logo" className="h-16 shrink-0" />
+                <img src="/text_searah.png" alt="Searah Logo" className="h-14 shrink-0" />
+            </div>
+              </a>
 
             <nav aria-label="Primary" className="hidden h-full items-center gap-1 lg:flex">
               {items.map((item) => {

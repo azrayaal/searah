@@ -247,7 +247,7 @@ export interface NewsArticle {
   title: string;
   excerpt: string;
   category: NewsCategory;
-  /** Entity code (e.g. "SM"); `null` marks a group-wide article. */
+  /** Entity code (e.g. "SKT"); `null` marks a group-wide article. */
   entityId: ID | null;
   date: string;
   readingTime: string;

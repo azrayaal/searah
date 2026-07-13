@@ -119,7 +119,7 @@ export const legalDocuments: LegalDocument[] = [
         id: 'privacy-scope',
         heading: '1. Scope and who we are',
         paragraphs: [
-          'Searah Energy Holdings is an upstream oil and gas joint venture owned in equal shares by Eni and PETRONAS, with its headquarters at Menara Searah, Jakarta, a regional office in Kuala Lumpur, and operating bases in Balikpapan, Bintulu and Kota Kinabalu. This policy covers processing carried out by Searah and by its operating entities Searah Mahakam (SM), Searah Kutai (SK) and Searah Malaysia Borneo (SMB).',
+          'Searah Energy Holdings is an upstream oil and gas joint venture owned in equal shares by Eni and PETRONAS, with its headquarters at Menara Searah, Jakarta, a regional office in Kuala Lumpur, and operating bases in Balikpapan, Bintulu and Kota Kinabalu. This policy covers processing carried out by Searah and by its operating entities Searah Ketapang (SKT), Searah Muara Bakau (SMB) and Searah Malaysia (SMY).',
           'Where Searah processes personal data on behalf of a shareholder, a joint venture partner or a regulator, that party may be a separate controller with its own privacy notice. This policy does not cover processing carried out by third-party websites linked from our portal.',
         ],
       },

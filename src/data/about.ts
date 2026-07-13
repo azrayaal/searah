@@ -26,7 +26,7 @@ export const about: AboutContent = {
     },
     body: [
       'Searah is an upstream oil and gas company owned in equal shares by Eni and PETRONAS. The company was established in 2024 to bring both shareholders’ Indonesian and Malaysian upstream interests under one operator, and completed the consolidation of its assets, licences and workforce in 2025. It is not a holding vehicle: Searah carries operatorship, budgets and accountability for delivery on the majority of the acreage it holds.',
-      'The portfolio comprises 19 assets — 14 in Indonesia and 5 in Malaysia — spanning shallow-water, deepwater and onshore acreage. Operations are organised under three entities. Searah Mahakam (SM) manages the mature shallow-water and onshore fields of the Mahakam Delta in East Kalimantan. Searah Kutai (SK) holds the deepwater acreage of the Makassar Strait, including the Kutai Basin gas discoveries that underpin the company’s growth case. Searah Malaysia Borneo (SMB) operates the offshore Sarawak and Sabah assets that connect Searah’s gas into the region’s established LNG infrastructure.',
+      'The portfolio comprises 19 assets — 14 in Indonesia and 5 in Malaysia — spanning shallow-water, deepwater and onshore acreage. Operations are organised under three entities. Searah Ketapang (SKT) manages the mature shallow-water and onshore fields of the Mahakam Delta in East Kalimantan. Searah Muara Bakau (SMB) holds the deepwater acreage of the Makassar Strait, including the Kutai Basin gas discoveries that underpin the company’s growth case. Searah Malaysia (SMY) operates the offshore Sarawak and Sabah assets that connect Searah’s gas into the region’s established LNG infrastructure.',
       'Group production stands above 300,000 barrels of oil equivalent per day, weighted towards gas. The company has set a target of more than 500,000 BOE/D within three years, supported by a capital programme of USD 20 billion over five years. That programme is directed principally at deepwater gas development in the Kutai Basin, at brownfield infill and compression work in the Mahakam Delta, and at the subsea tiebacks and processing capacity needed to move new volumes into existing plants rather than build new ones.',
       'Searah’s operating model is deliberately conventional. Standardised well designs, phased development concepts and the reuse of existing trunklines and terminals shorten the distance between discovery and first gas. Several of the company’s projects are structured as tiebacks to facilities that are already installed and already paid for, which is the principal reason Searah can commit to a step change in volumes without a proportional step change in emissions or capital intensity.',
       'The company employs a majority-national workforce across its two host countries, with corporate functions in Jakarta and Kuala Lumpur and operating bases at Balikpapan, Bintulu and Kota Kinabalu. Gas produced by Searah supplies domestic power generation and industry in Indonesia and Malaysia, and feeds the Bontang and Bintulu LNG value chains for export.',
@@ -50,7 +50,7 @@ export const about: AboutContent = {
       {
         label: 'Countries of operation',
         value: '2',
-        caption: 'Indonesia and Malaysia, operated under three entities: SM, SK and SMB.',
+        caption: 'Indonesia and Malaysia, operated under three entities: SKT, SMB and SMY.',
       },
     ],
   },
@@ -203,7 +203,7 @@ export const about: AboutContent = {
         year: '2024',
         title: 'Entities incorporated',
         description:
-          'Searah Mahakam (SM), Searah Kutai (SK) and Searah Malaysia Borneo (SMB) are incorporated, and the corporate headquarters is established at Menara Searah in Jakarta with a regional office in Kuala Lumpur.',
+          'Searah Ketapang (SKT), Searah Muara Bakau (SMB) and Searah Malaysia (SMY) are incorporated, and the corporate headquarters is established at Menara Searah in Jakarta with a regional office in Kuala Lumpur.',
       },
       {
         id: 'tl-2025-consolidation',
