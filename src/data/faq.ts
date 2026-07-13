@@ -16,7 +16,7 @@ export const faqs: FaqItem[] = [
     id: 'faq-who-owns',
     question: 'Who owns Searah?',
     answer:
-      'Searah is a joint venture owned in equal shares by Eni, headquartered in Italy, and PETRONAS, headquartered in Malaysia — each holds 50 per cent. Both shareholders are represented on the board and second technical staff into the company. We describe ourselves publicly as "An Eni and PETRONAS Company".',
+      'Searah is a joint venture owned in equal shares by Eni, headquartered in Italy, and PETRONAS, headquartered in Malaysia — each holds 50 per cent. Both shareholders are represented on the board and second technical staff into the company.',
     category: 'Company',
   },
   {

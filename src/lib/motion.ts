@@ -34,7 +34,13 @@ export const stagger = (delayChildren = 0, staggerChildren = 0.08): Variants => 
   visible: { transition: { delayChildren, staggerChildren } },
 });
 
-export const viewportOnce = { once: true, amount: 0.25 } as const;
+/**
+ * `amount: 'some'` rather than a ratio: a ratio is measured against the element's own
+ * height, so a list taller than ~4x the viewport can never satisfy it and would stay
+ * hidden forever. The bottom margin holds the entrance back until the element is
+ * properly on screen.
+ */
+export const viewportOnce = { once: true, amount: 'some', margin: '0px 0px -64px 0px' } as const;
 
 export const presets = { fadeUp, fadeIn, fadeLeft, fadeRight, scaleIn } as const;
 

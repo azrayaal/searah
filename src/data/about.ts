@@ -33,22 +33,22 @@ export const about: AboutContent = {
     ],
     figures: [
       {
-        label: '19 Assets',
+        label: 'Assets under management',
         value: '19',
         caption: '14 in Indonesia and 5 in Malaysia, across producing, development and exploration acreage.',
       },
       {
-        label: '300k+ BOE/D',
+        label: 'Daily production (BOE/D)',
         value: '300,000+',
         caption: 'Group production today, gas-weighted, with a target of 500,000+ BOE/D within three years.',
       },
       {
-        label: 'USD 20bn',
+        label: 'Committed investment',
         value: 'USD 20bn',
         caption: 'Committed investment across the portfolio over the next five years.',
       },
       {
-        label: '2 Countries',
+        label: 'Countries of operation',
         value: '2',
         caption: 'Indonesia and Malaysia, operated under three entities: SM, SK and SMB.',
       },

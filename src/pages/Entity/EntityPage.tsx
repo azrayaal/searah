@@ -57,8 +57,9 @@ function ProductionChart({ entity }: { entity: Entity }) {
 
       <div className="mt-10 flex h-56 items-end justify-between gap-4">
         {history.map((point, index) => (
-          <div key={point.period} className="flex flex-1 flex-col items-center gap-3">
-            <div className="flex h-full w-full items-end justify-center gap-1.5">
+          <div key={point.period} className="flex h-full flex-1 flex-col items-center gap-3">
+            {/* min-h-0 so the bar track can actually claim the column's height */}
+            <div className="flex min-h-0 w-full flex-1 items-end justify-center gap-1.5">
               {[
                 { value: point.oil, colour: 'bg-navy-deep' },
                 { value: point.gas, colour: 'bg-ocean' },
