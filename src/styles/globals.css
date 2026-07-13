@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --header-height: 68px;
+    --ticker-height: 36px;
+  }
+
+  html,
+  body {
+    /* `clip` rather than `hidden`: it contains the horizontally-offset entrance
+       animations without creating a scroll container, so `position: sticky` keeps working. */
+    overflow-x: clip;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: calc(var(--header-height) + 24px);
+  }
+
+  body {
+    @apply bg-white font-sans text-body-sm text-charcoal antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-balance text-navy-deep;
+  }
+
+  ::selection {
+    @apply bg-ocean/20 text-navy-deep;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ocean ring-offset-2 ring-offset-white;
+  }
+
+  .on-dark :focus-visible {
+    @apply ring-offset-navy;
+  }
+}
+
+@layer components {
+  /* Frosted glass surface for overlays on dark imagery */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .glass:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Editorial rule used above section headers */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-sans text-[0.72rem] font-bold uppercase tracking-[0.16em];
+  }
+
+  .hairline-grid {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 25% 100%;
+  }
+
+  .media-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 29, 72, 0.15) 0%,
+      rgba(10, 29, 72, 0.45) 55%,
+      rgba(10, 29, 72, 0.88) 100%
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

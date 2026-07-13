@@ -1,0 +1,15 @@
+import { motion, useScroll, useSpring } from 'framer-motion';
+
+/** Hairline reading-progress rail pinned under the header. */
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
+
+  return (
+    <motion.div
+      style={{ scaleX }}
+      className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-gradient-to-r from-ocean via-ember to-ember-deep"
+      aria-hidden
+    />
+  );
+}
