@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, PhoneCall } from 'lucide-react';
 import { Drawer } from '@/components/ui/Drawer';
@@ -68,13 +68,13 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                                 <ul className="space-y-3">
                                   {column.links.map((link) => (
                                     <li key={link.href + link.label}>
-                                      <Link
+                                      <PrefetchLink
                                         to={link.href}
                                         onClick={onClose}
                                         className="block py-1 text-body-sm text-charcoal transition-colors hover:text-ocean"
                                       >
                                         {link.label}
-                                      </Link>
+                                      </PrefetchLink>
                                     </li>
                                   ))}
                                 </ul>
@@ -86,13 +86,13 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                     </AnimatePresence>
                   </>
                 ) : (
-                  <Link
+                  <PrefetchLink
                     to={item.href ?? '/'}
                     onClick={onClose}
                     className="block px-6 py-5 text-[1.0625rem] font-bold text-navy-deep transition-colors hover:text-ocean"
                   >
                     {item.label}
-                  </Link>
+                  </PrefetchLink>
                 )}
               </li>
             );
@@ -100,14 +100,14 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
         </ul>
 
         <div className="mt-auto border-t border-hairline p-6">
-          <Link
+          <PrefetchLink
             to="/emergency"
             onClick={onClose}
             className="flex items-center justify-center gap-2 rounded-btn bg-crimson px-6 py-3.5 text-body-sm font-semibold text-white transition-colors hover:bg-[#7d0925]"
           >
             <PhoneCall className="h-4 w-4" aria-hidden />
             Emergency contacts
-          </Link>
+          </PrefetchLink>
           <p className="mt-4 text-center text-caption text-muted">{site.descriptor}</p>
         </div>
       </nav>

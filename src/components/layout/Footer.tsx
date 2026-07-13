@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { Container } from '@/components/ui/Container';
 import { Icon } from '@/lib/icons';
 import { LogoMark } from './Logo';
@@ -59,12 +59,12 @@ export function Footer({ content }: FooterProps) {
                 <ul className="space-y-3">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
-                      <Link
+                      <PrefetchLink
                         to={link.href}
                         className="text-caption text-white/70 transition-colors hover:text-ember"
                       >
                         {link.label}
-                      </Link>
+                      </PrefetchLink>
                     </li>
                   ))}
                 </ul>
@@ -102,12 +102,12 @@ export function Footer({ content }: FooterProps) {
           <ul className="flex flex-wrap items-center gap-6">
             {content.legal.map((link) => (
               <li key={link.href + link.label}>
-                <Link
+                <PrefetchLink
                   to={link.href}
                   className="text-caption text-white/50 transition-colors hover:text-white"
                 >
                   {link.label}
-                </Link>
+                </PrefetchLink>
               </li>
             ))}
           </ul>

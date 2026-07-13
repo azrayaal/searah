@@ -1,26 +1,24 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { PageSkeleton } from './PageSkeleton';
+import { RouteProgress } from './RouteProgress';
 import { ScrollToTop } from './ScrollToTop';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { navigation } from '@/data/navigation';
 import { footer } from '@/data/footer';
 import { market } from '@/data/homepage';
+import { prefetchAllRoutes } from '@/routes/pages';
 import { EASE } from '@/lib/motion';
-
-function RouteFallback() {
-  return (
-    <div className="flex min-h-[60vh] items-center justify-center" role="status" aria-live="polite">
-      <span className="sr-only">Loading</span>
-      <span className="h-8 w-8 animate-spin rounded-full border-2 border-hairline border-t-ocean" />
-    </div>
-  );
-}
 
 export function Layout() {
   const { pathname } = useLocation();
+
+  // Once the first page is on screen, quietly pull the remaining chunks so every
+  // hub-to-hub jump afterwards is a memory hit rather than a network round trip.
+  useEffect(prefetchAllRoutes, []);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -33,18 +31,21 @@ export function Layout() {
 
       <ScrollToTop />
       <ScrollProgress />
+      <RouteProgress />
       <Navbar items={navigation} commodities={market.commodities} />
 
       <main id="main" className="flex-1">
+        {/* The exit is deliberately much shorter than the entrance: a long fade-out is
+            dead time where the user stares at an empty viewport waiting for the swap. */}
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
+            exit={{ opacity: 0, transition: { duration: 0.12, ease: 'linear' } }}
+            transition={{ duration: 0.3, ease: EASE }}
           >
-            <Suspense fallback={<RouteFallback />}>
+            <Suspense fallback={<PageSkeleton />}>
               <Outlet />
             </Suspense>
           </motion.div>

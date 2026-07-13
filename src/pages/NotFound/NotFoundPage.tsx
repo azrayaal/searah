@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { ArrowRight, Home } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Section, SectionHeader } from '@/components/ui/Section';
@@ -73,7 +73,7 @@ export default function NotFoundPage() {
         >
           {quickLinks.map((link) => (
             <RevealItem as="li" key={link.id} className="bg-white">
-              <Link
+              <PrefetchLink
                 to={link.href}
                 className="group flex h-full min-h-[44px] flex-col p-6 transition-colors duration-500 hover:bg-sky-faint lg:p-8"
               >
@@ -91,7 +91,7 @@ export default function NotFoundPage() {
                   {link.label}
                 </span>
                 <span className="mt-2 block text-caption text-muted">{link.description}</span>
-              </Link>
+              </PrefetchLink>
             </RevealItem>
           ))}
         </RevealGroup>
@@ -108,12 +108,12 @@ export default function NotFoundPage() {
               <ul className="mt-4 space-y-1">
                 {column.links.map((link) => (
                   <li key={`${column.title}-${link.href}-${link.label}`}>
-                    <Link
+                    <PrefetchLink
                       to={link.href}
                       className="flex min-h-[44px] items-center text-body-sm text-navy-deep transition-colors hover:text-ocean"
                     >
                       {link.label}
-                    </Link>
+                    </PrefetchLink>
                   </li>
                 ))}
               </ul>

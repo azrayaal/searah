@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Menu, PhoneCall, Search } from 'lucide-react';
 import { Logo } from './Logo';
@@ -63,19 +64,19 @@ export function Navbar({ items }: NavbarProps) {
             <MarketTicker commodities={commodities} />
 
             <div className="flex shrink-0 items-center gap-5">
-              <Link
+              <PrefetchLink
                 to="/emergency"
                 className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white/70 transition-colors hover:text-ember"
               >
                 <PhoneCall className="h-3 w-3" aria-hidden />
                 Emergency
-              </Link>
-              <Link
+              </PrefetchLink>
+              <PrefetchLink
                 to="/directory"
                 className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white/70 transition-colors hover:text-white"
               >
                 Directory
-              </Link>
+              </PrefetchLink>
             </div>
           </Container>
         </div> */}
@@ -105,7 +106,7 @@ export function Navbar({ items }: NavbarProps) {
                     }}
                   >
                     {item.href ? (
-                      <Link
+                      <PrefetchLink
                         to={item.href}
                         aria-expanded={item.columns ? open : undefined}
                         className={cn(
@@ -123,7 +124,7 @@ export function Navbar({ items }: NavbarProps) {
                             aria-hidden
                           />
                         ) : null}
-                      </Link>
+                      </PrefetchLink>
                     ) : (
                       <button
                         type="button"
@@ -150,21 +151,21 @@ export function Navbar({ items }: NavbarProps) {
             </nav>
 
             <div className="flex items-center gap-1">
-              <Link
+              <PrefetchLink
                 to="/directory"
                 aria-label="Search the directory"
                 className="flex h-11 w-11 items-center justify-center rounded-full text-navy-deep transition-colors hover:bg-navy-deep/5 hover:text-ocean"
               >
                 <Search className="h-[18px] w-[18px]" />
-              </Link>
+              </PrefetchLink>
 
-              <Link
+              <PrefetchLink
                 to="/emergency"
                 aria-label="Emergency contacts"
                 className="flex h-11 w-11 items-center justify-center rounded-full text-crimson transition-colors hover:bg-crimson/10 lg:hidden"
               >
                 <PhoneCall className="h-[18px] w-[18px]" />
-              </Link>
+              </PrefetchLink>
 
               <button
                 type="button"

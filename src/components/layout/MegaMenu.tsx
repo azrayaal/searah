@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Image } from '@/components/ui/Image';
@@ -37,7 +37,7 @@ export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
                 <ul className="space-y-1">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
-                      <Link
+                      <PrefetchLink
                         to={link.href}
                         onClick={onNavigate}
                         className="group -mx-2 flex items-center justify-between gap-3 rounded-btn px-2 py-2 text-body-sm text-navy-deep transition-colors hover:bg-sky-faint hover:text-ocean"
@@ -47,7 +47,7 @@ export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
                           className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-ocean opacity-0 transition-all duration-300 ease-premium group-hover:translate-x-0 group-hover:opacity-100"
                           aria-hidden
                         />
-                      </Link>
+                      </PrefetchLink>
                     </li>
                   ))}
                 </ul>
@@ -56,7 +56,7 @@ export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
           </div>
 
           {item.feature ? (
-            <Link
+            <PrefetchLink
               to={item.feature.href}
               onClick={onNavigate}
               className="group flex w-full max-w-[320px] flex-col overflow-hidden rounded-card bg-navy text-white shadow-lifted transition-shadow hover:shadow-floating"
@@ -71,7 +71,7 @@ export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:translate-x-1" />
                 </span>
               </div>
-            </Link>
+            </PrefetchLink>
           ) : null}
         </div>
       </Container>

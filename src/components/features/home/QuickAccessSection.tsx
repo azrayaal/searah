@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { ArrowRight } from 'lucide-react';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
@@ -21,7 +21,7 @@ export function QuickAccessSection({ intro, links }: QuickAccessSectionProps) {
       >
         {links.map((link) => (
           <RevealItem key={link.id} className="bg-white">
-            <Link
+            <PrefetchLink
               to={link.href}
               className="group flex h-[200px] items-start gap-4 p-6 transition-colors duration-300 hover:bg-navy-deep lg:p-7"
             >
@@ -38,7 +38,7 @@ export function QuickAccessSection({ intro, links }: QuickAccessSectionProps) {
                   {link.description}
                 </span>
               </span>
-            </Link>
+            </PrefetchLink>
           </RevealItem>
         ))}
       </RevealGroup>

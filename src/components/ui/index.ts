@@ -20,3 +20,4 @@ export { TextReveal } from './TextReveal';
 export { FlowLines } from './FlowLines';
 export { Carousel } from './Carousel';
 export { ScrollProgress } from './ScrollProgress';
+export { PrefetchLink } from './PrefetchLink';
