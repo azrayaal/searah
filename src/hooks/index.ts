@@ -6,3 +6,4 @@ export { useCollection } from './useCollection';
 export { usePagination } from './usePagination';
 export { useSeo } from './useSeo';
 export { useMouseParallax } from './useMouseParallax';
+export { useInViewport } from './useInViewport';

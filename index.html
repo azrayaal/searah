@@ -12,8 +12,17 @@
       content="Searah is an upstream oil and gas joint venture between Eni and PETRONAS, operating 19 assets across Indonesia and Malaysia."
     />
 
-    <!-- The hero image is the LCP element; fetch it in parallel with the JS bundle. -->
-    <link rel="preload" as="image" href="/media/offshore-platform.jpg" fetchpriority="high" />
+    <!-- The hero image is the LCP element; fetch it in parallel with the JS bundle. The
+         srcset mirrors <Image>, so the preload matches the variant the browser picks
+         (~13 KB on a phone) instead of racing it with a second, larger download. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      imagesrcset="/media/offshore-platform-480.webp 480w, /media/offshore-platform-960.webp 960w, /media/offshore-platform-1600.webp 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

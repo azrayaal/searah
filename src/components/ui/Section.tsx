@@ -5,7 +5,8 @@ import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { Container } from './Container';
 import { TextReveal } from './TextReveal';
-import { fadeUp, viewportOnce } from '@/lib/motion';
+import { fadeUp } from '@/lib/motion';
+import { useInViewport } from '@/hooks/useInViewport';
 import type { NavLink } from '@/types';
 
 interface SectionProps {
@@ -67,13 +68,14 @@ export function SectionHeader({
   className,
 }: SectionHeaderProps) {
   const dark = tone === 'dark';
+  const { ref, visible } = useInViewport();
 
   return (
     <motion.div
+      ref={ref}
       variants={fadeUp}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
+      animate={visible ? 'visible' : 'hidden'}
       className={cn(
         'flex flex-col gap-6 md:flex-row md:items-end md:justify-between',
         align === 'center' && 'md:flex-col md:items-center md:text-center',

@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run optimize:media && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "generate:map": "node scripts/generate-map.mjs"
+    "generate:map": "node scripts/generate-map.mjs",
+    "optimize:media": "node scripts/optimize-media.mjs",
+    "predev": "npm run optimize:media"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -28,6 +30,7 @@
     "d3-geo": "^3.1.1",
     "oxlint": "^1.71.0",
     "postcss": "^8.5.18",
+    "sharp": "^0.35.3",
     "tailwindcss": "^3.4.19",
     "topojson-client": "^3.1.0",
     "typescript": "~6.0.2",

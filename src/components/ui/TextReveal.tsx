@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { EASE } from '@/lib/motion';
+import { useInViewport } from '@/hooks/useInViewport';
 import { cn } from '@/lib/cn';
 
 interface TextRevealProps {
@@ -23,21 +24,20 @@ export function TextReveal({
   trigger = 'scroll',
 }: TextRevealProps) {
   const words = text.split(' ');
-  const viewportProps =
-    trigger === 'scroll'
-      ? ({ whileInView: 'visible', viewport: { once: true, amount: 0.4 } } as const)
-      : ({ animate: 'visible' } as const);
+  const { ref, visible } = useInViewport();
+  const revealed = trigger === 'mount' || visible;
 
   return (
     <Tag className={className}>
       <motion.span
+        ref={ref}
         className="inline"
         initial="hidden"
+        animate={revealed ? 'visible' : 'hidden'}
         variants={{
           hidden: {},
           visible: { transition: { delayChildren: delay, staggerChildren: 0.045 } },
         }}
-        {...viewportProps}
       >
         {words.map((word, index) => (
           <span

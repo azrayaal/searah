@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { presets, stagger, viewportOnce, type MotionPreset } from '@/lib/motion';
+import { presets, stagger, type MotionPreset } from '@/lib/motion';
+import { useInViewport } from '@/hooks/useInViewport';
 import { cn } from '@/lib/cn';
 
 /**
@@ -41,14 +42,15 @@ export function Reveal({
   as = 'div',
 }: RevealProps) {
   const Tag = TAGS[as];
+  const { ref, visible } = useInViewport();
 
   return (
     <Tag
+      ref={ref}
       className={className}
       variants={presets[preset]}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
+      animate={visible ? 'visible' : 'hidden'}
       transition={{ delay }}
     >
       {children}
@@ -73,14 +75,15 @@ export function RevealGroup({
   as = 'div',
 }: RevealGroupProps) {
   const Tag = TAGS[as];
+  const { ref, visible } = useInViewport();
 
   return (
     <Tag
+      ref={ref}
       className={className}
       variants={stagger(delay, gap)}
       initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnce}
+      animate={visible ? 'visible' : 'hidden'}
     >
       {children}
     </Tag>
