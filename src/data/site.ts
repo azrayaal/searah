@@ -5,7 +5,7 @@ export const site: SiteConfig = {
   name: 'Searah',
   legalName: 'Searah Energy Holdings',
   tagline: 'Energy that moves two nations forward',
-  descriptor: 'An Eni and PETRONAS Company',
+  descriptor: '',
   description:
     'Searah is an upstream oil and gas joint venture between Eni and PETRONAS, operating 19 producing, development and exploration assets across Indonesia and Malaysia.',
   url: 'https://searah.com',

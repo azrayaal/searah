@@ -62,7 +62,7 @@ export const homepage: HomepageContent = {
     slides: [
       {
         id: 'hero-1',
-        eyebrow: 'An Eni and PETRONAS Company',
+        eyebrow: 'PETRONAS Company',
         title: 'Energy that moves two nations forward',
         subtitle:
           'Searah operates 19 upstream assets across Indonesia and Malaysia — combining Eni’s deepwater engineering with PETRONAS’ regional depth to deliver more than 300,000 barrels of oil equivalent every day.',
