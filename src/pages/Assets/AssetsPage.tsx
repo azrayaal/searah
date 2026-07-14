@@ -37,6 +37,8 @@ const types = unique('type');
 /** Query-string keys shared with the mega menu (`/assets?country=Indonesia`). */
 const FACET_KEYS = ['country', 'status', 'type'] as const;
 const QUERY_KEY = 'q';
+/** Deep link straight to one asset's detail — what global search hands out. */
+const ASSET_KEY = 'asset';
 
 /** Select-driven facets; `status` gets its own pill rail below. */
 const SELECT_FACETS = [
@@ -193,6 +195,29 @@ export default function AssetsPage() {
     FACET_KEYS.forEach((key) => setFacet(key, searchParams.get(key) ?? ''));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  // `/assets?asset=jangkrik` opens that asset's detail on arrival.
+  const assetParam = searchParams.get(ASSET_KEY);
+  useEffect(() => {
+    if (!assetParam) return;
+    const match = assets.find((asset) => asset.id === assetParam);
+    if (match) setSelected(match);
+  }, [assetParam]);
+
+  const closeDetail = useCallback(() => {
+    setSelected(null);
+    // Drop the param, or a back-navigation would pop the same asset open again.
+    if (assetParam) {
+      setSearchParams(
+        (previous) => {
+          const next = new URLSearchParams(previous);
+          next.delete(ASSET_KEY);
+          return next;
+        },
+        { replace: true },
+      );
+    }
+  }, [assetParam, setSearchParams]);
 
   const updateParam = useCallback(
     (key: string, value: string) => {
@@ -383,7 +408,7 @@ export default function AssetsPage() {
         </div>
       </Section>
 
-      <AssetDetail asset={selected} onClose={() => setSelected(null)} />
+      <AssetDetail asset={selected} onClose={closeDetail} />
     </>
   );
 }

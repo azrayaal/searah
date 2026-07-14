@@ -19,6 +19,7 @@ export const pages = {
   resources: () => import('@/pages/Resources/ResourcesPage'),
   directory: () => import('@/pages/Directory/DirectoryPage'),
   services: () => import('@/pages/Services/ServicesPage'),
+  serviceCategory: () => import('@/pages/Services/ServiceCategoryPage'),
   emergency: () => import('@/pages/Emergency/EmergencyPage'),
   legal: () => import('@/pages/Legal/LegalPage'),
   faq: () => import('@/pages/Faq/FaqPage'),
@@ -49,7 +50,7 @@ function loaderFor(href: string): PageLoader | null {
     case 'directory':
       return pages.directory;
     case 'services':
-      return pages.services;
+      return child ? pages.serviceCategory : pages.services;
     case 'emergency':
       return pages.emergency;
     case 'legal':

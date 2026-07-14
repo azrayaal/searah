@@ -133,6 +133,8 @@ export interface QuickLink {
 
 export interface HomepageContent {
   hero: HeroContent;
+  connect: SectionIntro;
+  emergency: { label: string; phone: string; caption: string };
   performance: {
     eyebrow: string;
     title: string;
@@ -219,6 +221,30 @@ export interface Entity {
   operations: { title: string; description: string; icon: IconName }[];
   productionMix: { label: string; value: number; unit: string }[];
   productionHistory: { period: string; oil: number; gas: number }[];
+  /** Headline rate the operations centre publishes, with the date it was read. */
+  dailyProduction: {
+    asOf: string;
+    total: string;
+    streams: { label: string; value: string }[];
+    note?: string;
+  };
+  /** Who holds the licence, and who operates it. */
+  workingInterest: { partner: string; share: string; operator?: boolean }[];
+  /** Corporate history — the spine of any company profile. */
+  milestones: { year: string; title: string; description: string }[];
+  hse: {
+    metrics: { label: string; value: string; caption?: string }[];
+    certifications: string[];
+  };
+  contact: {
+    registeredOffice: string[];
+    operatingBase?: string[];
+    phone: string;
+    email: string;
+    /** The comms team a journalist or a colleague is meant to reach first. */
+    comms: { name: string; role: string; email: string; phone: string };
+    emergency: string;
+  };
   gallery: Media[];
   downloads: ID[];
 }
@@ -255,6 +281,8 @@ export interface NewsArticle {
   thumbnail: Media;
   cover: Media;
   featured?: boolean;
+  /** Editorial opt-out: keeps an article in the newsroom but off the homepage feed. */
+  showOnHome?: boolean;
   /** Simple block model — trivially mapped from any headless CMS rich-text field. */
   content: ContentBlock[];
   attachments: NewsAttachment[];
@@ -355,6 +383,30 @@ export interface Service {
   icon: IconName;
   requestHref: string;
   quickLinks: NavLink[];
+  /** Entities the service is available to. Absent means every entity in the group. */
+  entityIds?: ID[];
+}
+
+/** A tool staff open directly — claims, bookings, timesheets — rather than a request queue. */
+export interface InternalApp {
+  id: ID;
+  name: string;
+  description: string;
+  owner: string;
+  category: ServiceCategory;
+  icon: IconName;
+  href: string;
+  /** Marks apps that only work on the corporate network or behind SSO. */
+  access?: 'SSO' | 'Corporate network';
+}
+
+/** Who answers for a service line inside one entity. */
+export interface ServiceDesk {
+  entityId: ID;
+  lead: string;
+  email: string;
+  phone: string;
+  hours: string;
 }
 
 export interface ServiceCategoryMeta {

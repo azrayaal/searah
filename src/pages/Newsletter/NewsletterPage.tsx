@@ -8,7 +8,7 @@ import { Pagination } from '@/components/ui/Pagination';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { RevealGroup, RevealItem, Reveal } from '@/components/ui/Reveal';
 import { NewsCard } from '@/components/features/newsletter/NewsCard';
-import { news, newsCategories, featuredArticle } from '@/data/newsletter';
+import { newsByDate, newsCategories, featuredArticle } from '@/data/newsletter';
 import { entities } from '@/data/entities';
 import { useCollection, usePagination, useSeo } from '@/hooks';
 import type { NewsArticle } from '@/types';
@@ -26,7 +26,7 @@ export default function NewsletterPage() {
   });
 
   const { query, setQuery, selected, setFacet, reset, results, activeCount } =
-    useCollection<NewsArticle>(news, {
+    useCollection<NewsArticle>(newsByDate, {
       searchFields: (article) => [
         article.title,
         article.excerpt,

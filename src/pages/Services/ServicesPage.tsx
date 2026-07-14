@@ -1,15 +1,19 @@
 import { useCallback, useLayoutEffect, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { ServiceCard, StatusBadge } from '@/components/features/services/ServiceCard';
-import { Section } from '@/components/ui/Section';
+import { InternalAppGrid } from '@/components/features/services/InternalAppGrid';
+import { Section, SectionHeader } from '@/components/ui/Section';
+import { FilterPills } from '@/components/ui/Filter';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { Tabs, type TabItem } from '@/components/ui/Tabs';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Counter } from '@/components/ui/Counter';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { useCollection, useSeo } from '@/hooks';
-import { services, serviceCategories, serviceStatuses } from '@/data/services';
+import { services, serviceCategories, serviceStatuses, internalApps } from '@/data/services';
+import { entities } from '@/data/entities';
 import { Icon } from '@/lib/icons';
 import type { Service, ServiceCategory, ServiceCategoryMeta } from '@/types';
 
@@ -19,6 +23,8 @@ const searchFields = (service: Service) => [service.name, service.description, s
 
 const facets = {
   category: (service: Service) => service.category,
+  // A service with no `entityIds` is offered group-wide, so it matches every entity.
+  entity: (service: Service) => service.entityIds ?? entities.map((entity) => entity.id),
 };
 
 function isCategory(value: string): value is ServiceCategory {
@@ -38,6 +44,10 @@ export default function ServicesPage() {
   const categoryParam = searchParams.get('category') ?? '';
   const category = isCategory(categoryParam) ? categoryParam : '';
 
+  /** `?entity=SKT` narrows the catalogue to what one operating company actually gets. */
+  const entityParam = searchParams.get('entity') ?? '';
+  const entity = entities.some((item) => item.id === entityParam) ? entityParam : '';
+
   const { query, setQuery, setFacet, reset, results } = useCollection(services, {
     searchFields,
     facets,
@@ -48,6 +58,21 @@ export default function ServicesPage() {
     setFacet('category', category);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
+
+  useLayoutEffect(() => {
+    setFacet('entity', entity);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entity]);
+
+  const setEntity = useCallback(
+    (value: string) => {
+      const next = new URLSearchParams(searchParams);
+      if (value && value !== ALL) next.set('entity', value);
+      else next.delete('entity');
+      setSearchParams(next, { replace: true });
+    },
+    [searchParams, setSearchParams],
+  );
 
   const setCategory = useCallback(
     (value: string) => {
@@ -142,8 +167,29 @@ export default function ServicesPage() {
               onChange={setCategory}
               layoutKey="services-category"
             />
+
+            {/* Pills speak entity names; the URL and the facet speak entity codes. */}
+            <FilterPills
+              label="Entity"
+              allLabel="All entities"
+              options={entities.map((item) => item.name)}
+              value={entities.find((item) => item.id === entity)?.name ?? ''}
+              onChange={(name) =>
+                setEntity(entities.find((item) => item.name === name)?.id ?? ALL)
+              }
+            />
           </div>
         </Reveal>
+      </Section>
+
+      {/* Applications — tools staff open themselves, not requests that join a queue */}
+      <Section id="applications" tone="white" spacing="tight">
+        <SectionHeader
+          eyebrow="Internal applications"
+          title="Open these yourself"
+          description="Claims, bookings, permits and timesheets. No ticket, no queue — just the tool."
+        />
+        <InternalAppGrid apps={internalApps} className="mt-10" />
       </Section>
 
       <Section tone="white" spacing="tight">
@@ -167,11 +213,17 @@ export default function ServicesPage() {
                       <Icon name={meta.icon} className="h-[18px] w-[18px]" />
                     </span>
                     <div>
-                      <h2
-                        id={`category-${meta.id}`}
-                        className="text-[1.5rem] font-bold leading-tight text-navy-deep md:text-h2"
-                      >
-                        {meta.label}
+                      <h2 id={`category-${meta.id}`}>
+                        <Link
+                          to={`/services/${meta.id}`}
+                          className="group inline-flex items-center gap-2 text-[1.5rem] font-bold leading-tight text-navy-deep transition-colors hover:text-ocean md:text-h2"
+                        >
+                          {meta.label}
+                          <ArrowRight
+                            className="h-4 w-4 shrink-0 -translate-x-1 opacity-0 transition-all duration-300 ease-premium group-hover:translate-x-0 group-hover:opacity-100"
+                            aria-hidden
+                          />
+                        </Link>
                       </h2>
                       <p className="mt-2 text-body-sm text-charcoal">{meta.description}</p>
                     </div>

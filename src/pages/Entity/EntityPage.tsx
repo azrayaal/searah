@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, FileText, Lock } from 'lucide-react';
+import { ArrowRight, Download, FileText, Lock, Mail, Phone, PhoneCall } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { NAVBAR_HEIGHT, useNavbarHidden } from '@/components/layout/navbarVisibility';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { Tabs } from '@/components/ui/Tabs';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
@@ -19,6 +20,7 @@ import { getArticlesByEntity } from '@/data/newsletter';
 import { getResourcesByIds } from '@/data/resources';
 import { Icon } from '@/lib/icons';
 import { useSeo } from '@/hooks';
+import { useInViewport } from '@/hooks/useInViewport';
 import { EASE } from '@/lib/motion';
 import { cn } from '@/lib/cn';
 import type { Asset, Entity } from '@/types';
@@ -29,18 +31,24 @@ const SECTIONS = [
   { id: 'operations', label: 'Operations' },
   { id: 'assets', label: 'Assets' },
   { id: 'production', label: 'Production' },
+  { id: 'hse', label: 'HSE' },
+  { id: 'milestones', label: 'Milestones' },
   { id: 'news', label: 'Latest News' },
   { id: 'gallery', label: 'Gallery' },
   { id: 'downloads', label: 'Downloads' },
+  { id: 'contact', label: 'Contact' },
 ];
 
 /** Grouped bar chart of the entity's quarterly output, drawn from data. */
 function ProductionChart({ entity }: { entity: Entity }) {
   const history = entity.productionHistory;
   const peak = Math.max(...history.flatMap((point) => [point.oil, point.gas]));
+  // Not `whileInView`: a bar whose animation never gets its first frame stays at height
+  // zero, and the chart reads as empty rather than as loading.
+  const { ref, visible } = useInViewport();
 
   return (
-    <div className="rounded-card border border-hairline bg-white p-6 lg:p-8">
+    <div ref={ref} className="rounded-card border border-hairline bg-white p-6 lg:p-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <p className="text-h3 text-navy-deep">Quarterly production</p>
         <ul className="flex gap-5">
@@ -69,8 +77,7 @@ function ProductionChart({ entity }: { entity: Entity }) {
                   key={barIndex}
                   className={cn('w-full max-w-[18px] rounded-t-[3px]', bar.colour)}
                   initial={{ height: 0 }}
-                  whileInView={{ height: `${(bar.value / peak) * 100}%` }}
-                  viewport={{ once: true }}
+                  animate={{ height: visible ? `${(bar.value / peak) * 100}%` : 0 }}
                   transition={{ duration: 0.8, ease: EASE, delay: index * 0.06 + barIndex * 0.04 }}
                   title={`${point.period}: ${bar.value}`}
                 />
@@ -90,12 +97,36 @@ export default function EntityPage() {
   const [active, setActive] = useState('overview');
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
   const navHidden = useNavbarHidden();
+  const { ref: mixRef, visible: mixVisible } = useInViewport();
 
   // Switching entity reuses this component, so the section rail and any open asset
   // would otherwise carry over from the entity the user just left.
   useEffect(() => {
     setActive('overview');
     setSelectedAsset(null);
+  }, [code]);
+
+  // Scroll spy. With eleven sections the rail is only useful if it says where you are,
+  // not just where you last clicked. The top band is discounted so the section under the
+  // sticky rail — not the one merely peeking in at the bottom — is the one marked active.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const onScreen = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (onScreen[0]) setActive(onScreen[0].target.id);
+      },
+      { rootMargin: `-${NAVBAR_HEIGHT + 60}px 0px -55% 0px` },
+    );
+
+    for (const section of SECTIONS) {
+      const element = document.getElementById(section.id);
+      if (element) observer.observe(element);
+    }
+
+    return () => observer.disconnect();
   }, [code]);
 
   const entityAssets = useMemo(() => (entity ? getEntityAssets(entity.id) : []), [entity]);
@@ -197,7 +228,7 @@ export default function EntityPage() {
               ))}
             </dl>
 
-            <div className="mt-6 rounded-card border border-hairline p-6 lg:p-8">
+            <div ref={mixRef} className="mt-6 rounded-card border border-hairline p-6 lg:p-8">
               <p className="text-caption font-bold uppercase tracking-[0.1em] text-ocean">
                 Production mix
               </p>
@@ -215,11 +246,38 @@ export default function EntityPage() {
                       <motion.div
                         className="h-full rounded-full bg-ocean"
                         initial={{ width: 0 }}
-                        whileInView={{ width: `${slice.value}%` }}
-                        viewport={{ once: true }}
+                        animate={{ width: mixVisible ? `${slice.value}%` : 0 }}
                         transition={{ duration: 1, ease: EASE }}
                       />
                     </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Who holds the licence — the first thing a partner, regulator or journalist
+                looks for, and the one fact a company profile cannot leave implicit. */}
+            <div className="mt-6 rounded-card border border-hairline p-6 lg:p-8">
+              <p className="text-caption font-bold uppercase tracking-[0.1em] text-ocean">
+                Working interest
+              </p>
+              <ul className="mt-5 divide-y divide-hairline">
+                {entity.workingInterest.map((holder) => (
+                  <li
+                    key={holder.partner}
+                    className="flex items-baseline justify-between gap-4 py-3 first:pt-0 last:pb-0"
+                  >
+                    <span className="min-w-0 text-body-sm text-charcoal">
+                      {holder.partner}
+                      {holder.operator ? (
+                        <span className="ml-2 rounded-full bg-ocean/10 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-ocean">
+                          Operator
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="shrink-0 font-bold tabular-nums text-navy-deep">
+                      {holder.share}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -320,10 +378,125 @@ export default function EntityPage() {
 
       {/* Production */}
       <Section id="production" tone="white">
-        <SectionHeader eyebrow="Production" title="Output and trajectory" />
+        <SectionHeader
+          eyebrow="Production"
+          title="Output and trajectory"
+          description={`Daily rate as read on ${entity.dailyProduction.asOf}; the chart below tracks the quarterly trend.`}
+        />
+
         <Reveal preset="fadeUp" className="mt-12">
+          <div className="grid gap-px overflow-hidden rounded-card border border-hairline bg-hairline md:grid-cols-[1.1fr_1.4fr]">
+            <div className="bg-navy-deep p-7 lg:p-9">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/45">
+                Daily production
+              </p>
+              <p className="mt-3 text-[2.25rem] font-bold leading-none text-white lg:text-[2.75rem]">
+                {entity.dailyProduction.total}
+              </p>
+              <p className="mt-3 text-caption text-white/50">
+                As of {entity.dailyProduction.asOf}
+              </p>
+            </div>
+
+            <div className="bg-white p-7 lg:p-9">
+              <dl className="grid gap-6 sm:grid-cols-3">
+                {entity.dailyProduction.streams.map((stream) => (
+                  <div key={stream.label}>
+                    <dt className="text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-muted">
+                      {stream.label}
+                    </dt>
+                    <dd className="mt-1.5 text-body font-bold tabular-nums text-navy-deep">
+                      {stream.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              {entity.dailyProduction.note ? (
+                <p className="mt-7 border-t border-hairline pt-5 text-caption text-muted">
+                  {entity.dailyProduction.note}
+                </p>
+              ) : null}
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal preset="fadeUp" className="mt-8">
           <ProductionChart entity={entity} />
         </Reveal>
+      </Section>
+
+      {/* HSE and sustainability */}
+      <Section id="hse" tone="faint">
+        <SectionHeader
+          eyebrow="HSE & Sustainability"
+          title="Safety and environmental performance"
+          description="Rolling twelve-month figures, reported on the same basis across every entity in the group."
+          cta={{ label: 'Emergency contacts', href: '/emergency' }}
+        />
+
+        <RevealGroup
+          className="mt-12 grid gap-px overflow-hidden rounded-card border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-4"
+          gap={0.06}
+        >
+          {entity.hse.metrics.map((metric) => (
+            <RevealItem key={metric.label} className="bg-white p-6 lg:p-7">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-muted">
+                {metric.label}
+              </p>
+              <p className="mt-3 text-[1.75rem] font-bold leading-none text-navy-deep">
+                {metric.value}
+              </p>
+              {metric.caption ? (
+                <p className="mt-2.5 text-caption text-muted">{metric.caption}</p>
+              ) : null}
+            </RevealItem>
+          ))}
+        </RevealGroup>
+
+        <Reveal preset="fadeUp" className="mt-8 flex flex-wrap items-center gap-3">
+          <span className="text-caption font-semibold uppercase tracking-[0.1em] text-muted">
+            Certified to
+          </span>
+          {entity.hse.certifications.map((certification) => (
+            <Badge key={certification} tone="ocean">
+              {certification}
+            </Badge>
+          ))}
+        </Reveal>
+      </Section>
+
+      {/* Milestones */}
+      <Section id="milestones" tone="white">
+        <SectionHeader eyebrow="Milestones" title={`How ${entity.name} got here`} />
+
+        <RevealGroup className="mt-12" gap={0.08} as="ol">
+          {entity.milestones.map((milestone, index) => (
+            <RevealItem
+              key={`${milestone.year}-${milestone.title}`}
+              as="li"
+              className="relative grid gap-2 border-l border-hairline pb-10 pl-8 last:border-transparent last:pb-0 md:grid-cols-[120px_1fr] md:gap-8"
+            >
+              {/* Node on the spine */}
+              <span
+                aria-hidden
+                className="absolute -left-[5px] top-1.5 h-[9px] w-[9px] rounded-full border-2 border-white bg-ocean shadow-[0_0_0_1px_theme(colors.hairline)]"
+              />
+              <p
+                className={cn(
+                  'text-body-sm font-bold tabular-nums',
+                  index === entity.milestones.length - 1 ? 'text-ember' : 'text-ocean',
+                )}
+              >
+                {milestone.year}
+              </p>
+              <div className="max-w-prose">
+                <p className="text-h3 text-navy-deep">{milestone.title}</p>
+                <p className="mt-2 text-body-sm text-charcoal">{milestone.description}</p>
+              </div>
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </Section>
 
       {/* News tagged to this entity */}
@@ -393,6 +566,137 @@ export default function EntityPage() {
             </RevealItem>
           ))}
         </RevealGroup>
+      </Section>
+
+      {/* Contact */}
+      <Section id="contact" tone="white">
+        <SectionHeader
+          eyebrow="Contact"
+          title={`Reach ${entity.name}`}
+          description="Media and internal enquiries go to the entity communications lead. Anything time-critical goes to the emergency line, not to an inbox."
+          cta={{ label: 'Employee directory', href: '/directory' }}
+        />
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1fr_0.9fr]">
+          <Reveal preset="fadeUp" className="rounded-card border border-hairline p-7 lg:p-8">
+            <p className="text-caption font-bold uppercase tracking-[0.1em] text-ocean">
+              Registered office
+            </p>
+            <address className="mt-5 not-italic">
+              {entity.contact.registeredOffice.map((line) => (
+                <p key={line} className="text-body-sm text-charcoal">
+                  {line}
+                </p>
+              ))}
+            </address>
+
+            <dl className="mt-6 space-y-2 border-t border-hairline pt-5">
+              <div className="flex items-baseline gap-3">
+                <dt className="w-14 shrink-0 text-caption text-muted">Phone</dt>
+                <dd>
+                  <a
+                    href={`tel:${entity.contact.phone.replace(/[^\d+]/g, '')}`}
+                    className="text-body-sm font-semibold text-navy-deep transition-colors hover:text-ocean"
+                  >
+                    {entity.contact.phone}
+                  </a>
+                </dd>
+              </div>
+              <div className="flex items-baseline gap-3">
+                <dt className="w-14 shrink-0 text-caption text-muted">Email</dt>
+                <dd>
+                  <a
+                    href={`mailto:${entity.contact.email}`}
+                    className="text-body-sm font-semibold text-navy-deep transition-colors hover:text-ocean"
+                  >
+                    {entity.contact.email}
+                  </a>
+                </dd>
+              </div>
+            </dl>
+          </Reveal>
+
+          <Reveal preset="fadeUp" className="rounded-card border border-hairline p-7 lg:p-8">
+            <p className="text-caption font-bold uppercase tracking-[0.1em] text-ocean">
+              Communications team
+            </p>
+            <p className="mt-5 text-h3 text-navy-deep">{entity.contact.comms.name}</p>
+            <p className="mt-1 text-caption text-muted">{entity.contact.comms.role}</p>
+
+            <div className="mt-6 space-y-3 border-t border-hairline pt-5">
+              <a
+                href={`mailto:${entity.contact.comms.email}`}
+                className="flex items-center gap-3 text-body-sm font-semibold text-navy-deep transition-colors hover:text-ocean"
+              >
+                <Mail className="h-[18px] w-[18px] shrink-0 text-muted" aria-hidden />
+                {entity.contact.comms.email}
+              </a>
+              <a
+                href={`tel:${entity.contact.comms.phone.replace(/[^\d+]/g, '')}`}
+                className="flex items-center gap-3 text-body-sm font-semibold text-navy-deep transition-colors hover:text-ocean"
+              >
+                <Phone className="h-[18px] w-[18px] shrink-0 text-muted" aria-hidden />
+                {entity.contact.comms.phone}
+              </a>
+            </div>
+
+            {entity.contact.operatingBase ? (
+              <div className="mt-6 border-t border-hairline pt-5">
+                <p className="text-caption text-muted">Operating base</p>
+                <address className="mt-2 not-italic">
+                  {entity.contact.operatingBase.map((line) => (
+                    <p key={line} className="text-body-sm text-charcoal">
+                      {line}
+                    </p>
+                  ))}
+                </address>
+              </div>
+            ) : null}
+          </Reveal>
+
+          <Reveal
+            preset="fadeUp"
+            className="flex flex-col rounded-card border border-crimson/20 bg-crimson/[0.03] p-7 lg:p-8"
+          >
+            <p className="text-caption font-bold uppercase tracking-[0.1em] text-crimson">
+              Emergency line
+            </p>
+            <p className="mt-5 text-body-sm text-charcoal">
+              Staffed around the clock by the {entity.name} control room. Report incidents here
+              first — reporting to a manager or an inbox costs minutes you do not have.
+            </p>
+
+            <a
+              href={`tel:${entity.contact.emergency.replace(/[^\d+]/g, '')}`}
+              className="mt-auto flex items-center justify-center gap-2 rounded-btn bg-crimson px-5 py-3.5 text-body-sm font-semibold text-white transition-colors hover:bg-[#7d0925]"
+            >
+              <PhoneCall className="h-[18px] w-[18px]" aria-hidden />
+              {entity.contact.emergency}
+            </a>
+          </Reveal>
+        </div>
+
+        {/* Requests, as opposed to enquiries — the catalogue narrowed to this entity. */}
+        <Reveal preset="fadeUp" className="mt-8">
+          <PrefetchLink
+            to={`/services?entity=${entity.id}`}
+            className="group flex flex-col gap-4 rounded-card border border-hairline bg-sky-faint p-7 transition-colors hover:border-ocean/40 sm:flex-row sm:items-center sm:justify-between lg:p-8"
+          >
+            <span>
+              <span className="block text-h3 text-navy-deep transition-colors group-hover:text-ocean">
+                Service portal for {entity.name}
+              </span>
+              <span className="mt-1.5 block text-body-sm text-charcoal">
+                Raise an HR, IT, procurement or HSE request against the desks that answer for this
+                entity.
+              </span>
+            </span>
+            <ArrowRight
+              className="h-5 w-5 shrink-0 text-ocean transition-transform duration-300 ease-premium group-hover:translate-x-1"
+              aria-hidden
+            />
+          </PrefetchLink>
+        </Reveal>
       </Section>
 
       {/* Sibling entities */}

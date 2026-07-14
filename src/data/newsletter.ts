@@ -1347,8 +1347,54 @@ export const newsCategories = [
   'Safety',
 ] as const satisfies readonly NewsCategory[];
 
+/** ISO dates sort lexically, so this is both correct and cheap. */
+const byDateDesc = (a: NewsArticle, b: NewsArticle) => b.date.localeCompare(a.date);
+
+/** Every article, newest first — the order the newsroom and every feed reads from. */
+export const newsByDate: NewsArticle[] = [...news].sort(byDateDesc);
+
 /** The single article flagged for the homepage and newsroom hero. */
 export const featuredArticle: NewsArticle | undefined = news.find((a) => a.featured);
+
+/* --------------------------------------------------------------- Homepage feed */
+
+/** How many articles one entity may hold in the homepage feed at a time. */
+const HOME_QUOTA_PER_ENTITY = 2;
+/** Cards shown beside the headline. */
+const HOME_FEED_SIZE = 4;
+
+/**
+ * The homepage feed is curated *and* automatic. The headline is an editorial choice
+ * (`featured: true`); the cards beside it fill themselves from the newest articles.
+ *
+ * The quota is the point: without it, whichever OpCo publishes most would crowd the
+ * other two off the homepage, and the group's front page would stop reflecting the
+ * group. `showOnHome: false` lets an editor keep a piece in the newsroom without
+ * promoting it — the newsroom stays complete, the homepage stays deliberate.
+ */
+export function getHomeFeed(): { lead: NewsArticle; rest: NewsArticle[] } {
+  const eligible = newsByDate.filter((article) => article.showOnHome !== false);
+  const lead = eligible.find((article) => article.featured) ?? eligible[0] ?? news[0];
+
+  const used = new Map<string, number>();
+  const key = (article: NewsArticle) => article.entityId ?? 'GROUP';
+  used.set(key(lead), 1);
+
+  const rest: NewsArticle[] = [];
+
+  for (const article of eligible) {
+    if (rest.length >= HOME_FEED_SIZE) break;
+    if (article.id === lead.id) continue;
+
+    const taken = used.get(key(article)) ?? 0;
+    if (taken >= HOME_QUOTA_PER_ENTITY) continue;
+
+    used.set(key(article), taken + 1);
+    rest.push(article);
+  }
+
+  return { lead, rest };
+}
 
 /** Look up a single article by its URL slug. */
 export function getArticleBySlug(slug: string): NewsArticle | undefined {
@@ -1357,5 +1403,5 @@ export function getArticleBySlug(slug: string): NewsArticle | undefined {
 
 /** All articles tagged to an entity code, newest first. Group news is excluded. */
 export function getArticlesByEntity(entityId: string): NewsArticle[] {
-  return news.filter((article) => article.entityId === entityId);
+  return newsByDate.filter((article) => article.entityId === entityId);
 }

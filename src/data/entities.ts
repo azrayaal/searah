@@ -85,6 +85,78 @@ export const entities: Entity[] = [
       { period: 'Q1 26', oil: 49, gas: 131 },
       { period: 'Q2 26', oil: 51, gas: 134 },
     ],
+    dailyProduction: {
+      asOf: '12 July 2026',
+      total: '182,400 BOE/D',
+      streams: [
+        { label: 'Gas', value: '834 MMSCF/D' },
+        { label: 'Oil & condensate', value: '41,200 BBL/D' },
+        { label: 'LPG', value: '1,900 T/D' },
+      ],
+      note: 'Read each morning by the Balikpapan Integrated Operations Centre. Operational figures, unaudited, and superseded by the quarterly statement.',
+    },
+    workingInterest: [
+      { partner: 'Searah Ketapang', share: '55%', operator: true },
+      { partner: 'Pertamina Hulu Energi', share: '30%' },
+      { partner: 'Ketapang Upstream Partners', share: '15%' },
+    ],
+    milestones: [
+      {
+        year: '2024',
+        title: 'Entity incorporated',
+        description:
+          'PT Searah Ketapang Energi is formed to hold the group’s producing delta and shelf assets, with 940 staff transferring from the legacy operators.',
+      },
+      {
+        year: '2025',
+        title: 'Full electrification of the processing complex',
+        description:
+          'Gas turbines are replaced by grid power and waste-heat recovery, cutting operational emissions intensity by 31 per cent in a single year.',
+      },
+      {
+        year: '2025',
+        title: 'Bekapai goes normally unmanned',
+        description:
+          'The platform is supervised from shore, removing 22 per cent of routine helicopter trips from the schedule — a safety gain before a cost one.',
+      },
+      {
+        year: '2026',
+        title: 'Low-pressure compression online',
+        description:
+          'Infill drilling and compression extend plateau life by six years without a single new surface facility.',
+      },
+    ],
+    hse: {
+      metrics: [
+        { label: 'TRIR', value: '0.21', caption: 'Per million hours worked, rolling 12 months' },
+        { label: 'LTI-free days', value: '412', caption: 'Group-leading safety record' },
+        { label: 'Tier-1 process safety events', value: '0', caption: 'Twelve months to June 2026' },
+        { label: 'Emissions intensity', value: '12.4', caption: 'kgCO₂e per BOE, down from 18.1' },
+      ],
+      certifications: ['ISO 45001', 'ISO 14001', 'ISO 9001', 'ISO 50001', 'SMK3 (Indonesia)'],
+    },
+    contact: {
+      registeredOffice: [
+        'PT Searah Ketapang Energi',
+        'Menara Searah, Level 21',
+        'Jl. Jend. Sudirman Kav. 52-53',
+        'Jakarta 12190, Indonesia',
+      ],
+      operatingBase: [
+        'Balikpapan Operating Base',
+        'Jl. Yos Sudarso No. 1',
+        'Balikpapan 76111, East Kalimantan',
+      ],
+      phone: '+62 21 5299 4100',
+      email: 'ketapang@searah.com',
+      comms: {
+        name: 'Dwi Larasati',
+        role: 'Communications Lead, Searah Ketapang',
+        email: 'comms.skt@searah.com',
+        phone: '+62 542 800 118',
+      },
+      emergency: '+62 542 800 911',
+    },
     gallery: [
       { src: '/media/offshore-platform.jpg', alt: 'North Mahakam platform complex' },
       { src: '/media/mangrove.jpg', alt: 'Mangrove rehabilitation in the Mahakam delta' },
@@ -163,6 +235,77 @@ export const entities: Entity[] = [
       { period: 'Q1 26', oil: 11, gas: 58 },
       { period: 'Q2 26', oil: 12, gas: 61 },
     ],
+    dailyProduction: {
+      asOf: '12 July 2026',
+      total: '63,100 BOE/D',
+      streams: [
+        { label: 'Gas', value: '318 MMSCF/D' },
+        { label: 'Condensate', value: '9,800 BBL/D' },
+      ],
+      note: 'Rising to roughly 240,000 BOE/D once Geng North reaches plateau. Operational figures, unaudited.',
+    },
+    workingInterest: [
+      { partner: 'Searah Muara Bakau', share: '70%', operator: true },
+      { partner: 'Pertamina Hulu Energi', share: '20%' },
+      { partner: 'Makassar Straits Ventures', share: '10%' },
+    ],
+    milestones: [
+      {
+        year: '2024',
+        title: 'Entity incorporated',
+        description:
+          'The deepwater portfolio is separated into its own operating company so subsea projects are governed and funded on their own terms.',
+      },
+      {
+        year: '2025',
+        title: 'Merakes East delivered as a tieback',
+        description:
+          'Reusing the existing risers and umbilicals holds capital intensity below USD 6 per barrel of oil equivalent.',
+      },
+      {
+        year: '2026',
+        title: 'Final investment decision on Geng North',
+        description:
+          'USD 4.6bn committed to the largest discovery in the Kutai Basin in twenty years, designed as an open-access hub for third-party tiebacks.',
+      },
+      {
+        year: '2029',
+        title: 'First gas from Geng North (planned)',
+        description:
+          'The development is expected to lift group output past 500,000 BOE/D and anchor the North Kutai hub.',
+      },
+    ],
+    hse: {
+      metrics: [
+        { label: 'TRIR', value: '0.14', caption: 'Per million hours worked, rolling 12 months' },
+        { label: 'LTI-free days', value: '690', caption: 'Since the entity was formed' },
+        { label: 'Tier-1 process safety events', value: '0', caption: 'Twelve months to June 2026' },
+        { label: 'Emissions intensity', value: '8.9', caption: 'kgCO₂e per BOE — lowest in the group' },
+      ],
+      certifications: ['ISO 45001', 'ISO 14001', 'ISO 9001', 'IOGP Life-Saving Rules', 'SMK3 (Indonesia)'],
+    },
+    contact: {
+      registeredOffice: [
+        'PT Searah Muara Bakau Deepwater',
+        'Menara Searah, Level 23',
+        'Jl. Jend. Sudirman Kav. 52-53',
+        'Jakarta 12190, Indonesia',
+      ],
+      operatingBase: [
+        'Deepwater Support Base',
+        'Jl. Minyak Raya No. 12',
+        'Balikpapan 76112, East Kalimantan',
+      ],
+      phone: '+62 21 5299 4200',
+      email: 'muarabakau@searah.com',
+      comms: {
+        name: 'Rangga Mahendra',
+        role: 'Communications Lead, Searah Muara Bakau',
+        email: 'comms.smb@searah.com',
+        phone: '+62 542 800 214',
+      },
+      emergency: '+62 542 800 922',
+    },
     gallery: [
       { src: '/media/fpso.jpg', alt: 'Jangkrik floating production unit' },
       { src: '/media/subsea.jpg', alt: 'Subsea infrastructure being deployed' },
@@ -242,6 +385,73 @@ export const entities: Entity[] = [
       { period: 'Q1 26', oil: 29, gas: 65 },
       { period: 'Q2 26', oil: 29, gas: 67 },
     ],
+    dailyProduction: {
+      asOf: '12 July 2026',
+      total: '86,300 BOE/D',
+      streams: [
+        { label: 'Gas', value: '412 MMSCF/D' },
+        { label: 'Oil', value: '17,400 BBL/D' },
+      ],
+      note: 'Gas is delivered into the Bintulu LNG complex and the Sarawak grid. Operational figures, unaudited.',
+    },
+    workingInterest: [
+      { partner: 'Searah Malaysia', share: '51%', operator: true },
+      { partner: 'PETRONAS Carigali', share: '39%' },
+      { partner: 'Sarawak Energy Ventures', share: '10%' },
+    ],
+    milestones: [
+      {
+        year: '2024',
+        title: 'Entity incorporated',
+        description:
+          'Searah Malaysia Sdn Bhd takes over the Sarawak and Sabah portfolio, with 610 staff across Kuala Lumpur, Bintulu and Kota Kinabalu.',
+      },
+      {
+        year: '2025',
+        title: 'Kasawari carbon capture starts up',
+        description:
+          'Three point three million tonnes of CO₂ a year are stripped and reinjected into a depleted reservoir nearby — among the largest offshore CCS schemes anywhere.',
+      },
+      {
+        year: '2026',
+        title: 'Third Kikeh satellite tieback online',
+        description:
+          'Malaysia’s first deepwater development keeps producing through host capacity that was built two decades ago.',
+      },
+      {
+        year: '2028',
+        title: 'Rotan floating LNG (planned)',
+        description:
+          'Production through a floating liquefaction vessel, with no export trunkline required.',
+      },
+    ],
+    hse: {
+      metrics: [
+        { label: 'TRIR', value: '0.18', caption: 'Per million hours worked, rolling 12 months' },
+        { label: 'LTI-free days', value: '540', caption: 'Across all five assets' },
+        { label: 'CO₂ captured', value: '3.3 Mtpa', caption: 'Reinjected at Kasawari' },
+        { label: 'Emissions intensity', value: '10.6', caption: 'kgCO₂e per BOE, net of capture' },
+      ],
+      certifications: ['ISO 45001', 'ISO 14001', 'ISO 9001', 'MS 1722 (Malaysia)'],
+    },
+    contact: {
+      registeredOffice: [
+        'Searah Malaysia Sdn Bhd',
+        'Level 34, Menara Searah KL',
+        'Jalan Tun Razak',
+        '50400 Kuala Lumpur, Malaysia',
+      ],
+      operatingBase: ['Bintulu Operations Centre', 'Kidurong Industrial Area', '97000 Bintulu, Sarawak'],
+      phone: '+60 3 2788 6000',
+      email: 'malaysia@searah.com',
+      comms: {
+        name: 'Nurul Farhana binti Idris',
+        role: 'Communications Lead, Searah Malaysia',
+        email: 'comms.smy@searah.com',
+        phone: '+60 3 2788 6142',
+      },
+      emergency: '+60 86 255 911',
+    },
     gallery: [
       { src: '/media/gas-plant.jpg', alt: 'Kasawari gas processing platform' },
       { src: '/media/lng-carrier.jpg', alt: 'LNG carrier loading at Bintulu' },

@@ -3,6 +3,13 @@ import type { NavItem, NavLink } from '@/types';
 /**
  * Primary navigation. Items with `columns` render as a mega-menu panel;
  * items with only `href` navigate directly.
+ *
+ * One rule holds the menu together: **every link goes somewhere of its own.** The panel
+ * used to carry five labels ("Exploration", "Field Development", "Production"…) that all
+ * landed on the same `#portfolio` anchor, and three report names that all opened the same
+ * document list — a menu that promises eleven destinations and delivers three teaches
+ * people to stop trusting it. Where a real page does not exist, there is now one honest
+ * link rather than several decorative ones.
  */
 export const navigation: NavItem[] = [
   {
@@ -21,17 +28,7 @@ export const navigation: NavItem[] = [
         ],
       },
       {
-        title: 'Our Businesses',
-        links: [
-          { label: 'Exploration', href: '/about#portfolio' },
-          { label: 'Field Development', href: '/about#portfolio' },
-          { label: 'Production', href: '/about#portfolio' },
-          { label: 'Upstream Asset Management', href: '/about#portfolio' },
-          { label: 'Asset Portfolio', href: '/assets' },
-        ],
-      },
-      {
-        title: 'Entities',
+        title: 'Operating Companies',
         links: [
           { label: 'Searah Ketapang (SKT)', href: '/entity/SKT' },
           { label: 'Searah Muara Bakau (SMB)', href: '/entity/SMB' },
@@ -42,7 +39,6 @@ export const navigation: NavItem[] = [
         title: 'Our People',
         links: [
           { label: 'Organisation Chart', href: '/organisation' },
-          { label: 'Employee Directory', href: '/directory' },
           { label: 'Leadership Team', href: '/about#leadership' },
         ],
       },
@@ -67,14 +63,7 @@ export const navigation: NavItem[] = [
           { label: 'Announcements', href: '/newsletter?category=Corporate' },
           { label: 'Operations Updates', href: '/newsletter?category=Operations' },
           { label: 'People & Culture', href: '/newsletter?category=People' },
-        ],
-      },
-      {
-        title: 'Reports',
-        links: [
-          { label: 'Integrated Report', href: '/resources?category=Documents' },
-          { label: 'Production Results', href: '/resources?category=Documents' },
-          { label: 'Sustainability Report', href: '/resources?category=Documents' },
+          { label: 'Reports & Publications', href: '/resources?category=Documents' },
         ],
       },
       {
@@ -102,11 +91,13 @@ export const navigation: NavItem[] = [
         ],
       },
       {
-        title: 'Performance',
+        // Production now lives on each entity page, where the daily rate is published
+        // with the date it was read — a homepage anchor cannot say that per OpCo.
+        title: 'Production',
         links: [
-          { label: 'Daily Production', href: '/#performance' },
-          { label: 'Market & Oil Price', href: '/#market' },
-          { label: 'Safety Performance', href: '/#performance' },
+          { label: 'Searah Ketapang', href: '/entity/SKT#production' },
+          { label: 'Searah Muara Bakau', href: '/entity/SMB#production' },
+          { label: 'Searah Malaysia', href: '/entity/SMY#production' },
         ],
       },
     ],
@@ -118,18 +109,17 @@ export const navigation: NavItem[] = [
         title: 'Services',
         links: [
           { label: 'Service Portal', href: '/services' },
-          { label: 'HR & General Affairs', href: '/services?category=HRGA' },
-          { label: 'Information Technology', href: '/services?category=IT' },
-          { label: 'Procurement', href: '/services?category=Procurement' },
-          { label: 'Health, Safety & Environment', href: '/services?category=HSE' },
+          { label: 'HR & General Affairs', href: '/services/HRGA' },
+          { label: 'Information Technology', href: '/services/IT' },
+          { label: 'Procurement', href: '/services/Procurement' },
+          { label: 'Health, Safety & Environment', href: '/services/HSE' },
         ],
       },
       {
-        title: 'People',
+        title: 'People & Tools',
         links: [
           { label: 'Employee Directory', href: '/directory' },
-          { label: 'Organisation Chart', href: '/organisation' },
-          { label: 'Job Vacancies', href: '/services?category=HRGA' },
+          { label: 'Internal Applications', href: '/services#applications' },
         ],
       },
       {
@@ -157,8 +147,8 @@ export const navigation: NavItem[] = [
         title: 'Help',
         links: [
           { label: 'FAQ', href: '/faq' },
-          { label: 'Service Portal', href: '/services' },
           { label: 'Emergency Contacts', href: '/emergency' },
+          { label: 'Contact Us', href: '/#connect' },
         ],
       },
       {

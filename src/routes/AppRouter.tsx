@@ -26,6 +26,7 @@ export const router = createBrowserRouter([
       { path: 'resources', lazy: page(pages.resources) },
       { path: 'directory', lazy: page(pages.directory) },
       { path: 'services', lazy: page(pages.services) },
+      { path: 'services/:category', lazy: page(pages.serviceCategory) },
       { path: 'emergency', lazy: page(pages.emergency) },
       { path: 'legal/:slug', lazy: page(pages.legal) },
       { path: 'faq', lazy: page(pages.faq) },

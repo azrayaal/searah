@@ -6,6 +6,7 @@ import { ChevronDown, Menu, PhoneCall, Search } from 'lucide-react';
 // import { Logo } from './Logo';
 import { MegaMenu } from './MegaMenu';
 import { MobileNav } from './MobileNav';
+import { SearchPalette } from './SearchPalette';
 import { Container } from '@/components/ui/Container';
 import { useScrollDirection } from '@/hooks';
 import { cn } from '@/lib/cn';
@@ -23,6 +24,7 @@ interface NavbarProps {
 export function Navbar({ items, onHiddenChange }: NavbarProps) {
   const [openLabel, setOpenLabel] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { direction, scrolled } = useScrollDirection();
   const { pathname } = useLocation();
   const closeTimer = useRef<number | undefined>(undefined);
@@ -36,6 +38,12 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setOpenLabel(null);
+
+      // ⌘K / Ctrl-K — the shortcut people already try before they look for the icon.
+      if (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -161,13 +169,17 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
             </nav>
 
             <div className="flex items-center gap-1">
-              <PrefetchLink
-                to="/directory"
-                aria-label="Search the directory"
-                className="flex h-11 w-11 items-center justify-center rounded-full text-navy-deep transition-colors hover:bg-navy-deep/5 hover:text-ocean"
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                aria-label="Search Searah"
+                className="flex h-11 items-center gap-2 rounded-full px-3 text-navy-deep transition-colors hover:bg-navy-deep/5 hover:text-ocean"
               >
                 <Search className="h-[18px] w-[18px]" />
-              </PrefetchLink>
+                <span className="hidden rounded border border-hairline px-1.5 py-0.5 text-[0.65rem] font-semibold text-muted lg:inline">
+                  ⌘K
+                </span>
+              </button>
 
               <PrefetchLink
                 to="/emergency"
@@ -213,6 +225,7 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
       </AnimatePresence>
 
       <MobileNav items={items} open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <SearchPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

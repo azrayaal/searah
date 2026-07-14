@@ -102,6 +102,20 @@ export const homepage: HomepageContent = {
     ],
   },
 
+  connect: {
+    eyebrow: 'Connect',
+    title: 'Where to find us, and who to call',
+    description:
+      'Each operating company answers for its own sites. Start with the entity you need — the group switchboard cannot dispatch a permit query or a journalist.',
+  },
+  emergency: {
+    // Same number the emergency page publishes — a second "emergency number" on the
+    // homepage is how people end up dialling the wrong one under pressure.
+    label: 'Group Emergency Control Centre — 24/7',
+    phone: '+62 21 5000 911',
+    caption:
+      'The Group Emergency Control Centre is staffed around the clock and answers in under 30 seconds. Report an incident here first, before you report it to anyone else.',
+  },
   performance: {
     eyebrow: 'Daily performance',
     title: 'Group operations at a glance',

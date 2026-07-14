@@ -1,4 +1,11 @@
-import type { Service, ServiceCategoryMeta, ServiceStatus } from '@/types';
+import type {
+  InternalApp,
+  Service,
+  ServiceCategory,
+  ServiceCategoryMeta,
+  ServiceDesk,
+  ServiceStatus,
+} from '@/types';
 
 /** The four internal service lines shown as tabs on the services portal. */
 export const serviceCategories: ServiceCategoryMeta[] = [
@@ -153,6 +160,7 @@ export const services: Service[] = [
   },
   {
     id: 'svc-vpn-remote-access',
+    entityIds: ['SMY'],
     name: 'VPN & Remote Access',
     description:
       'Secure connectivity for staff working away from a Searah office, including satellite-backed links from offshore facilities.',
@@ -255,6 +263,7 @@ export const services: Service[] = [
   },
   {
     id: 'svc-permit-to-work',
+    entityIds: ['SKT', 'SMB'],
     name: 'Permit to Work',
     description:
       'Raise and authorise permits for hot work, confined space entry, working at height and energy isolation. No permit, no work — without exception.',
@@ -287,6 +296,7 @@ export const services: Service[] = [
   },
   {
     id: 'svc-environmental-reporting',
+    entityIds: ['SKT', 'SMB', 'SMY'],
     name: 'Environmental Reporting',
     description:
       'Log flaring volumes, produced water discharge and emissions data for regulatory submission and the group sustainability report.',
@@ -306,3 +316,207 @@ export const services: Service[] = [
 
 /** Status values in severity order; drives the legend and the status filter. */
 export const serviceStatuses: ServiceStatus[] = ['Operational', 'Degraded', 'Maintenance'];
+
+/**
+ * Who answers for a service line inside each entity. The group runs one catalogue, but a
+ * permit query in Balikpapan is not answered from Kuala Lumpur — the desk is local, and a
+ * portal that hides that just sends people to the wrong inbox.
+ */
+export const serviceDesks: Record<ServiceCategory, ServiceDesk[]> = {
+  HRGA: [
+    {
+      entityId: 'SKT',
+      lead: 'HR Operations, Balikpapan',
+      email: 'hr.skt@searah.com',
+      phone: '+62 542 800 140',
+      hours: 'Mon–Fri, 07:30–17:00 WITA',
+    },
+    {
+      entityId: 'SMB',
+      lead: 'HR Operations, Deepwater',
+      email: 'hr.smb@searah.com',
+      phone: '+62 542 800 240',
+      hours: 'Mon–Fri, 07:30–17:00 WITA',
+    },
+    {
+      entityId: 'SMY',
+      lead: 'Human Capital, Kuala Lumpur',
+      email: 'hr.smy@searah.com',
+      phone: '+60 3 2788 6040',
+      hours: 'Mon–Fri, 08:30–17:30 MYT',
+    },
+  ],
+  IT: [
+    {
+      entityId: 'SKT',
+      lead: 'IT Service Desk, Balikpapan',
+      email: 'it.skt@searah.com',
+      phone: '+62 542 800 150',
+      hours: '24/7 for P1 incidents',
+    },
+    {
+      entityId: 'SMB',
+      lead: 'IT Service Desk, Deepwater',
+      email: 'it.smb@searah.com',
+      phone: '+62 542 800 250',
+      hours: '24/7 for P1 incidents',
+    },
+    {
+      entityId: 'SMY',
+      lead: 'IT Service Desk, Kuala Lumpur',
+      email: 'it.smy@searah.com',
+      phone: '+60 3 2788 6050',
+      hours: '24/7 for P1 incidents',
+    },
+  ],
+  Procurement: [
+    {
+      entityId: 'SKT',
+      lead: 'Supply Chain, Balikpapan',
+      email: 'procurement.skt@searah.com',
+      phone: '+62 542 800 160',
+      hours: 'Mon–Fri, 08:00–17:00 WITA',
+    },
+    {
+      entityId: 'SMB',
+      lead: 'Supply Chain, Deepwater Projects',
+      email: 'procurement.smb@searah.com',
+      phone: '+62 542 800 260',
+      hours: 'Mon–Fri, 08:00–17:00 WITA',
+    },
+    {
+      entityId: 'SMY',
+      lead: 'Supply Chain, Bintulu',
+      email: 'procurement.smy@searah.com',
+      phone: '+60 86 255 060',
+      hours: 'Mon–Fri, 08:30–17:30 MYT',
+    },
+  ],
+  HSE: [
+    {
+      entityId: 'SKT',
+      lead: 'HSE Duty Officer, Balikpapan',
+      email: 'hse.skt@searah.com',
+      phone: '+62 542 800 170',
+      hours: '24/7 — incidents take priority over office hours',
+    },
+    {
+      entityId: 'SMB',
+      lead: 'HSE Duty Officer, Deepwater',
+      email: 'hse.smb@searah.com',
+      phone: '+62 542 800 270',
+      hours: '24/7 — incidents take priority over office hours',
+    },
+    {
+      entityId: 'SMY',
+      lead: 'HSE Duty Officer, Sarawak',
+      email: 'hse.smy@searah.com',
+      phone: '+60 86 255 070',
+      hours: '24/7 — incidents take priority over office hours',
+    },
+  ],
+};
+
+/**
+ * Tools staff open and use themselves, as opposed to a request that joins a queue. They
+ * sit apart from the service catalogue on purpose: the question "where do I book a room?"
+ * should never require reading an SLA.
+ */
+export const internalApps: InternalApp[] = [
+  {
+    id: 'app-claims',
+    name: 'Claim Registration',
+    description:
+      'File medical, travel and operational expense claims, and track reimbursement through to payroll.',
+    owner: 'HR Operations',
+    category: 'HRGA',
+    icon: 'ReceiptText',
+    href: '#',
+    access: 'SSO',
+  },
+  {
+    id: 'app-meeting-rooms',
+    name: 'Meeting Room Booking',
+    description:
+      'Reserve rooms and hybrid suites across Jakarta, Balikpapan, Kuala Lumpur and Bintulu, with catering and AV.',
+    owner: 'General Affairs',
+    category: 'HRGA',
+    icon: 'CalendarDays',
+    href: '#',
+    access: 'SSO',
+  },
+  {
+    id: 'app-vehicle-booking',
+    name: 'Operational Car Reservation',
+    description:
+      'Book pool vehicles and drivers for site visits, including journey management approval for road travel.',
+    owner: 'General Affairs',
+    category: 'HRGA',
+    icon: 'Car',
+    href: '#',
+    access: 'SSO',
+  },
+  {
+    id: 'app-timesheet',
+    name: 'Timesheet & Rotation',
+    description:
+      'Record hours, confirm offshore rotation cycles and submit crew-change availability.',
+    owner: 'HR Operations',
+    category: 'HRGA',
+    icon: 'Clock',
+    href: '#',
+    access: 'SSO',
+  },
+  {
+    id: 'app-requisition',
+    name: 'Purchase Requisition',
+    description:
+      'Raise a requisition, check budget availability and follow an order from approval to delivery.',
+    owner: 'Supply Chain',
+    category: 'Procurement',
+    icon: 'ShoppingCart',
+    href: '#',
+    access: 'SSO',
+  },
+  {
+    id: 'app-incident',
+    name: 'Incident & Near-Miss Reporting',
+    description:
+      'Report an incident, hazard or near miss from any device. Anyone may file; nobody needs approval to.',
+    owner: 'HSE Assurance',
+    category: 'HSE',
+    icon: 'TriangleAlert',
+    href: '#',
+  },
+  {
+    id: 'app-permit',
+    name: 'Electronic Permit to Work',
+    description:
+      'Raise, approve and close permits, with isolation certificates and gas tests attached to the job.',
+    owner: 'Control of Work',
+    category: 'HSE',
+    icon: 'ClipboardCheck',
+    href: '#',
+    access: 'Corporate network',
+  },
+  {
+    id: 'app-servicedesk',
+    name: 'IT Self-Service',
+    description:
+      'Reset a password, request software, or track an open IT ticket without picking up the phone.',
+    owner: 'IT Service Desk',
+    category: 'IT',
+    icon: 'MonitorCog',
+    href: '#',
+    access: 'SSO',
+  },
+];
+
+/** Services available to one entity — a service with no `entityIds` serves the whole group. */
+export function getServicesByEntity(entityId: string): Service[] {
+  return services.filter((service) => !service.entityIds || service.entityIds.includes(entityId));
+}
+
+export function getCategory(id: string): ServiceCategoryMeta | undefined {
+  return serviceCategories.find((meta) => meta.id === id);
+}

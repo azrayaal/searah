@@ -12,4 +12,4 @@ export function useNavbarHidden() {
 }
 
 /** Height of the primary bar; the offset a sticky element sits at while the nav is out. */
-export const NAVBAR_HEIGHT = 68;
+export const NAVBAR_HEIGHT = 74;
