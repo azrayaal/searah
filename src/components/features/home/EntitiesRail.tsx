@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { Section, SectionHeader } from '@/components/ui/Section';
-import { Carousel } from '@/components/ui/Carousel';
+import { Container } from '@/components/ui/Container';
 import { Image } from '@/components/ui/Image';
-import { Reveal } from '@/components/ui/Reveal';
+import { PrefetchLink } from '@/components/ui/PrefetchLink';
+import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import type { Entity, SectionIntro } from '@/types';
 
 interface EntitiesRailProps {
@@ -11,80 +10,101 @@ interface EntitiesRailProps {
   entities: Entity[];
 }
 
-/** Tall, image-led cards on a snap rail — the group's three operating entities. */
+/** Every entity is "Searah <place>" — the group name becomes the eyebrow, the place the title. */
+function splitName(name: string) {
+  const [prefix, ...rest] = name.split(' ');
+  return rest.length ? { prefix, place: rest.join(' ') } : { prefix: '', place: name };
+}
+
+/**
+ * The three operating companies, on a blue field with a plant photograph bleeding in from
+ * the right. A static three-up rather than the old snap carousel: with exactly three cards,
+ * a rail hid a third of the group behind a swipe for no reason.
+ */
 export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
   return (
-    <Section tone="navy" spacing="default">
-      <SectionHeader
-        eyebrow={intro.eyebrow}
-        title={intro.title}
-        description={intro.description}
-        cta={intro.cta}
-        tone="dark"
-      />
+    <section
+      className="on-dark relative isolate overflow-hidden py-16 text-white md:py-20 lg:py-[80px]"
+      style={{
+        background: 'linear-gradient(135deg, #1A4FB5 0%, #14459F 35%, #0E3C8C 70%, #0B3785 100%)',
+      }}
+    >
+      {/* Photograph bleeding in from the right, masked so it dissolves into the field */}
+      <div
+        className="absolute inset-y-0 right-0 -z-10 hidden w-[58%] lg:block"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent 0%, black 45%)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 45%)',
+        }}
+        aria-hidden
+      >
+        <Image
+          media={{ src: '/media/gas-plant.jpg', alt: '' }}
+          ratio="auto"
+          sizes="60vw"
+          className="h-full opacity-60 mix-blend-luminosity"
+          imgClassName="h-full w-full"
+        />
+      </div>
 
-      <Reveal preset="fadeUp" className="mt-12">
-        <Carousel label="Operating entities" tone="dark">
-          {entities.map((entity) => (
-            <Link
-              key={entity.id}
-              to={`/entity/${entity.id}`}
-              className="group relative isolate flex w-[78vw] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-card sm:w-[420px] lg:w-[460px]"
-              style={{ aspectRatio: '3 / 4' }}
-            >
-              <Image
-                media={entity.hero}
-                ratio="auto"
-                zoom
-                className="absolute inset-0 -z-10 h-full"
-                imgClassName="h-full w-full"
-              />
-              <div
-                className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep via-navy-deep/55 to-transparent transition-opacity duration-500 group-hover:opacity-90"
-                aria-hidden
-              />
+      <Container className="relative">
+        <Reveal>
+          <h2 className="max-w-3xl text-[2rem] font-bold leading-[1.12] text-white md:text-[2.5rem] lg:text-[3rem]">
+            {intro.title}
+          </h2>
+          {intro.description ? (
+            <p className="mt-6 max-w-2xl text-body-sm text-white/75 md:text-body">
+              {intro.description}
+            </p>
+          ) : null}
+        </Reveal>
 
-              {/* Accent rule that draws itself on hover */}
-              <span
-                className="absolute left-8 top-8 h-px w-10 origin-left scale-x-100 bg-ember transition-transform duration-500 ease-premium group-hover:scale-x-[2.6]"
-                aria-hidden
-              />
+        <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" gap={0.08}>
+          {entities.map((entity) => {
+            const { prefix, place } = splitName(entity.name);
 
-              <div className="p-8">
-                <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-ember">
-                  {entity.code}
-                </p>
+            return (
+              <RevealItem key={entity.id}>
+                <PrefetchLink
+                  to={`/entity/${entity.id}`}
+                  className="group relative isolate flex aspect-square flex-col justify-end overflow-hidden rounded-xl2 ring-1 ring-white/25"
+                >
+                  <Image
+                    media={entity.hero}
+                    ratio="auto"
+                    zoom
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+                    className="absolute inset-0 -z-10 h-full"
+                    imgClassName="h-full w-full"
+                  />
+                  <div
+                    className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep/85 via-navy-deep/20 to-transparent"
+                    aria-hidden
+                  />
 
-                <p className="mt-3 text-[1.75rem] font-bold leading-tight text-white">
-                  {entity.name}
-                </p>
-                <p className="mt-2 text-body-sm text-white/65">{entity.tagline}</p>
+                  <div className="flex items-end justify-between gap-4 p-6 lg:p-7">
+                    <span className="min-w-0">
+                      {prefix ? (
+                        <span className="block text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ember">
+                          {prefix}
+                        </span>
+                      ) : null}
+                      <span className="mt-1 block truncate text-[1.5rem] font-normal leading-tight text-white lg:text-[1.75rem]">
+                        {place}
+                      </span>
+                    </span>
 
-                {/* Revealed on hover — keeps the resting state calm */}
-                <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-premium group-hover:grid-rows-[1fr]">
-                  <div className="overflow-hidden">
-                    <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3 border-t border-white/15 pt-5">
-                      {entity.stats.slice(0, 2).map((stat) => (
-                        <div key={stat.label}>
-                          <dt className="text-[0.65rem] uppercase tracking-[0.1em] text-white/45">
-                            {stat.label}
-                          </dt>
-                          <dd className="mt-0.5 text-body-sm font-bold text-white">{stat.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
+                    <span className="flex shrink-0 items-center gap-2 rounded-full bg-white px-4 py-2.5 text-caption font-semibold text-navy-deep transition-colors duration-300 group-hover:bg-ember">
+                      Explore more
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-premium group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
                   </div>
-                </div>
-
-                <span className="mt-6 inline-flex items-center gap-2 text-nav text-white transition-colors group-hover:text-ember">
-                  Explore entity
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-premium group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
-              </div>
-            </Link>
-          ))}
-        </Carousel>
-      </Reveal>
-    </Section>
+                </PrefetchLink>
+              </RevealItem>
+            );
+          })}
+        </RevealGroup>
+      </Container>
+    </section>
   );
 }

@@ -9,9 +9,13 @@ interface FooterProps {
   content: FooterContent;
 }
 
+/** Brand gradient for the footer field, running light to dark across the diagonal. */
+const FOOTER_GRADIENT =
+  'linear-gradient(135deg, #134297 0%, #0F3C8E 20%, #0B3785 40%, #07317C 60%, #032B74 80%, #00266B 100%)';
+
 export function Footer({ content }: FooterProps) {
   return (
-    <footer className="on-dark bg-navy text-white">
+    <footer className="on-dark text-white" style={{ background: FOOTER_GRADIENT }}>
       <Container className="py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-20">
           <div>

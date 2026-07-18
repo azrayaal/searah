@@ -12,12 +12,24 @@ interface ContainerProps {
 const sizes = {
   narrow: 'max-w-[900px]',
   default: 'max-w-container',
-  wide: 'max-w-[1680px]',
+  wide: 'max-w-[2400px]',
 };
 
+/**
+ * The gutter is viewport-relative from `xl` up, so the layout keeps filling the monitor
+ * instead of parking a 1440px column in the middle of it — at 2560px that used to leave
+ * 560px of empty page on either side. Long-form text is still capped by the prose widths
+ * the sections apply themselves, so only the grids and rails grow.
+ */
 export function Container({ children, className, size = 'default', as: Tag = 'div' }: ContainerProps) {
   return (
-    <Tag className={cn('mx-auto w-full px-4 md:px-6 lg:px-8 3xl:px-16', sizes[size], className)}>
+    <Tag
+      className={cn(
+        'mx-auto w-full px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-[3.5vw] 3xl:px-[4vw]',
+        sizes[size],
+        className,
+      )}
+    >
       {children}
     </Tag>
   );

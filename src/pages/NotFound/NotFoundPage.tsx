@@ -20,7 +20,7 @@ export default function NotFoundPage() {
 
   return (
     <>
-      <header className="relative isolate overflow-hidden bg-navy pt-[68px] lg:pt-[104px]">
+      <header className="relative isolate overflow-hidden bg-navy pt-[74px]">
         <div
           className="absolute inset-0 -z-10 bg-gradient-to-br from-navy-deep via-navy to-[#0d3d5c]"
           aria-hidden

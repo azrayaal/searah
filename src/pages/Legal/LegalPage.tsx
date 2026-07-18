@@ -31,7 +31,7 @@ function useScrollSpy(ids: string[]) {
         }
       },
       // Top band only: a heading becomes "active" once it reaches the header line.
-      { rootMargin: '-104px 0px -62% 0px', threshold: 0 },
+      { rootMargin: '-110px 0px -62% 0px', threshold: 0 },
     );
 
     const elements = ids
@@ -114,7 +114,7 @@ export default function LegalPage() {
           {/* In-page table of contents */}
           <nav
             aria-label="On this page"
-            className="lg:sticky lg:top-[104px] lg:max-h-[calc(100vh-140px)] lg:self-start lg:overflow-y-auto"
+            className="lg:sticky lg:top-[110px] lg:max-h-[calc(100vh-150px)] lg:self-start lg:overflow-y-auto"
           >
             <p className="eyebrow mb-4 text-ocean">
               <span className="h-px w-8 bg-ocean/40" aria-hidden />
@@ -180,7 +180,7 @@ export default function LegalPage() {
             <div className="mt-12 space-y-12">
               {doc.sections.map((section) => (
                 <Reveal key={section.id}>
-                  <section id={section.id} className="scroll-mt-[104px]">
+                  <section id={section.id} className="scroll-mt-[110px]">
                     <h2 className="text-h3 text-navy-deep md:text-[1.5rem]">{section.heading}</h2>
 
                     <div className="mt-4 max-w-prose space-y-4">

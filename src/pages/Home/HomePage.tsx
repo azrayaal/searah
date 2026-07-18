@@ -1,4 +1,5 @@
 import { HeroBanner } from '@/components/features/home/HeroBanner';
+import { GlanceSection } from '@/components/features/home/GlanceSection';
 import { ConnectSection } from '@/components/features/home/ConnectSection';
 // Market and Performance sections still exist as components; the homepage no longer runs
 // them. Production and safety figures now belong to each entity page, published with the
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <>
       <HeroBanner content={homepage.hero} />
+      <GlanceSection content={homepage.glance} />
       <QuickAccessSection
         intro={homepage.quickAccess.intro}
         links={homepage.quickAccess.links}

@@ -7,7 +7,7 @@ import { Container } from '@/components/ui/Container';
  */
 export function PageSkeleton() {
   return (
-    <div className="pt-[68px]" role="status" aria-live="polite">
+    <div className="pt-[74px]" role="status" aria-live="polite">
       <span className="sr-only">Loading page</span>
 
       <Container className="py-16 lg:py-20">

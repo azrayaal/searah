@@ -1,5 +1,5 @@
-import { Section, SectionHeader } from '@/components/ui/Section';
-import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
+import { Section } from '@/components/ui/Section';
+import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { NewsCard } from '@/components/features/newsletter/NewsCard';
 import type { NewsArticle, SectionIntro } from '@/types';
 
@@ -9,23 +9,31 @@ interface NewsSectionProps {
   articles: NewsArticle[];
 }
 
+/**
+ * One lead story beside a two-by-two of followers. Every tile is the same dark image card,
+ * so the grid reads as one newsroom rather than a feature plus a list of links.
+ */
 export function NewsSection({ intro, featured, articles }: NewsSectionProps) {
   return (
-    <Section id="news" tone="white">
-      <SectionHeader
-        eyebrow={intro.eyebrow}
-        title={intro.title}
-        description={intro.description}
-        cta={intro.cta}
-      />
+    <Section id="news" tone="faint">
+      <Reveal>
+        <h2 className="max-w-2xl text-[2rem] font-bold leading-[1.12] text-navy-deep md:text-[2.5rem] lg:text-[3rem]">
+          {intro.title}
+        </h2>
+        {intro.description ? (
+          <p className="mt-6 max-w-2xl text-body-sm text-charcoal md:text-body">
+            {intro.description}
+          </p>
+        ) : null}
+      </Reveal>
 
-      <RevealGroup className="mt-12 grid gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-10" gap={0.1}>
+      <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_1fr]" gap={0.1}>
         <RevealItem preset="scaleIn">
           <NewsCard article={featured} variant="feature" className="h-full" />
         </RevealItem>
 
-        <RevealItem preset="fadeLeft" className="flex flex-col divide-y divide-hairline">
-          {articles.map((article) => (
+        <RevealItem preset="fadeLeft" className="grid gap-6 sm:grid-cols-2">
+          {articles.slice(0, 4).map((article) => (
             <NewsCard key={article.id} article={article} variant="compact" />
           ))}
         </RevealItem>

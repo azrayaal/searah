@@ -35,7 +35,7 @@ export function PageHero({
   return (
     <header
       className={cn(
-        'relative isolate overflow-hidden bg-navy pt-[68px] lg:pt-[104px]',
+        'relative isolate overflow-hidden bg-navy pt-[74px]',
         feature ? 'min-h-[540px]' : '',
       )}
     >

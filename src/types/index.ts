@@ -109,18 +109,14 @@ export interface MarketSummary {
 
 export interface HeroSlide {
   id: ID;
-  eyebrow: string;
   title: string;
   subtitle: string;
   image: Media;
-  primaryCta: NavLink;
-  secondaryCta?: NavLink;
+  cta: NavLink;
 }
 
 export interface HeroContent {
   slides: HeroSlide[];
-  /** Compact facts rendered in the hero's bottom rail. */
-  highlights: { label: string; value: string }[];
 }
 
 export interface QuickLink {
@@ -131,8 +127,16 @@ export interface QuickLink {
   icon: IconName;
 }
 
+/** The "company at a glance" band: one photograph, one capital figure, three numbers. */
+export interface GlanceContent {
+  image: Media;
+  investment: { label: string; value: string; unit?: string };
+  stats: { value: string; unit?: string; label: string }[];
+}
+
 export interface HomepageContent {
   hero: HeroContent;
+  glance: GlanceContent;
   connect: SectionIntro;
   emergency: { label: string; phone: string; caption: string };
   performance: {

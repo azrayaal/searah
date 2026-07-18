@@ -38,25 +38,41 @@ function Meta({ article, tone = 'light' }: { article: NewsArticle; tone?: 'light
 }
 
 export function NewsCard({ article, variant = 'default', className }: NewsCardProps) {
+  // A dark image tile — the same shape as the feature card, scaled down, so a mixed grid
+  // of one lead and four followers reads as one family rather than two designs.
   if (variant === 'compact') {
     return (
       <Link
         to={`/newsletter/${article.slug}`}
-        className={cn('group flex gap-4 py-4', className)}
+        className={cn(
+          'group relative isolate flex min-h-[248px] flex-col justify-end overflow-hidden rounded-card bg-navy-deep p-6',
+          className,
+        )}
       >
         <Image
           media={article.thumbnail}
-          ratio="1/1"
+          ratio="auto"
           zoom
-          className="w-20 shrink-0 rounded-field"
+          overlay
+          sizes="(max-width: 1024px) 100vw, 25vw"
+          className="absolute inset-0 -z-10 h-full"
+          imgClassName="h-full w-full"
         />
-        <div className="min-w-0 flex-1">
-          <p className="line-clamp-2 text-body-sm font-semibold leading-snug text-navy-deep transition-colors group-hover:text-ocean">
-            {article.title}
-          </p>
-          <div className="mt-2">
-            <Meta article={article} />
-          </div>
+
+        <Badge tone="onDark" className="absolute left-6 top-6">
+          {article.category}
+        </Badge>
+
+        <h3 className="line-clamp-3 text-body-sm font-bold leading-snug text-white">
+          {article.title}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-caption text-white/70">{article.excerpt}</p>
+
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <Meta article={article} tone="dark" />
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 ease-premium group-hover:border-ember group-hover:bg-ember group-hover:text-navy-deep">
+            <ArrowUpRight className="h-4 w-4" aria-hidden />
+          </span>
         </div>
       </Link>
     );

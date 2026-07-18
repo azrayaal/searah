@@ -17,15 +17,13 @@ interface NavbarProps {
   items: NavItem[];
   /** Still supplied by the layout — re-enable the utility rail below to consume it. */
   commodities: Commodity[];
-  /** Lets sticky page furniture below the bar track the retraction. */
-  onHiddenChange?: (hidden: boolean) => void;
 }
 
-export function Navbar({ items, onHiddenChange }: NavbarProps) {
+export function Navbar({ items }: NavbarProps) {
   const [openLabel, setOpenLabel] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const { direction, scrolled } = useScrollDirection();
+  const { scrolled } = useScrollDirection();
   const { pathname } = useLocation();
   const closeTimer = useRef<number | undefined>(undefined);
 
@@ -58,15 +56,12 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
   const cancelClose = () => window.clearTimeout(closeTimer.current);
 
   const activeItem = items.find((item) => item.label === openLabel);
-  const hidden = direction === 'down' && !openLabel;
-
-  useEffect(() => onHiddenChange?.(hidden), [hidden, onHiddenChange]);
 
   return (
     <>
-      <motion.header
-        animate={{ y: hidden ? 'calc(-100% + 0px)' : 0 }}
-        transition={{ duration: 0.45, ease: EASE }}
+      {/* The bar never retracts. Hiding it on scroll-down saved 74px of viewport and cost
+          the reader the one control that is supposed to be reachable at any moment. */}
+      <header
         className="fixed inset-x-0 top-0 z-50"
         onMouseLeave={scheduleClose}
       >
@@ -93,31 +88,60 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
           </Container>
         </div> */}
 
-        {/* Primary bar */}
-        <div
-          className={cn(
-            'border-b bg-white/95 backdrop-blur-md transition-shadow duration-300',
-            scrolled ? 'border-hairline shadow-raised' : 'border-transparent',
-          )}
-        >
-          <Container className="flex h-[74px] items-center justify-between gap-6">
-            {/* <Logo /> */}
-              <a href="/">
-            <div className="flex items-center">
-                <img src="/favicon.png" alt="Searah Logo" className="h-16 shrink-0" />
-                <img src="/text_searah.png" alt="Searah Logo" className="h-14 shrink-0" />
-            </div>
-              </a>
+        {/* The bar is always transparent: the frosted pill is the only chrome, so the
+            navigation keeps one form the whole way down the page. */}
+        <div>
+          <Container className="relative flex h-[74px] items-center justify-between gap-6">
+            {/* `iconsearah.png` is pure white artwork, so it reads only against the dark
+                hero behind an unscrolled bar. Scrolled, the mark steps aside entirely and
+                the menu takes the centre — so there is no white-on-white logo to solve. */}
+            <PrefetchLink
+              to="/"
+              aria-label="Searah — home"
+              className={cn(
+                'flex shrink-0 items-center transition-opacity duration-500',
+                scrolled && 'pointer-events-none opacity-0',
+              )}
+            >
+              <img src="/iconsearah.png" alt="" aria-hidden className="h-14 w-auto shrink-0" />
+            </PrefetchLink>
 
-            <nav aria-label="Primary" className="hidden h-full items-center gap-1 lg:flex">
+            {/* The links ride in their own pill so they stay legible over photography. At
+                the top it sits against the search button; scrolled, it centres in the bar. */}
+            <motion.nav
+              aria-label="Primary"
+              layout
+              transition={{ layout: { duration: 0.55, ease: EASE } }}
+              className={cn(
+                'hidden items-center gap-0.5 rounded-full px-2 py-1.5 ring-1 backdrop-blur-xl transition-colors duration-500 lg:flex',
+                // Both branches set a position, which is what anchors the panel below.
+                // `relative` must NOT be applied unconditionally: Tailwind emits it after
+                // `.absolute`, so it would win the cascade and the pill would never centre.
+                // Centred with auto margins, not translate: framer's `layout` writes its
+                // own inline transform, which would silently override a Tailwind translate
+                // and leave the pill hanging off the centre line by half its width.
+                scrolled
+                  ? 'absolute inset-0 m-auto h-fit w-fit bg-white/70 shadow-lifted ring-white/70'
+                  // `ml-auto` pulls the pill off the logo and up against the search button
+                  : 'relative ml-auto bg-white/10 ring-white/20',
+              )}
+            >
               {items.map((item) => {
                 const open = openLabel === item.label;
                 const isActive = item.href ? pathname.startsWith(item.href) : false;
+                const highlighted = open || isActive;
+
+                const tone = scrolled
+                  ? highlighted
+                    ? 'bg-white text-ocean shadow-raised'
+                    : 'text-navy-deep hover:bg-white/70 hover:text-ocean'
+                  : highlighted
+                    ? 'bg-white/20 text-white'
+                    : 'text-white/85 hover:bg-white/10 hover:text-white';
 
                 return (
                   <div
                     key={item.label}
-                    className="h-full"
                     onMouseEnter={() => {
                       cancelClose();
                       setOpenLabel(item.columns ? item.label : null);
@@ -128,8 +152,8 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
                         to={item.href}
                         aria-expanded={item.columns ? open : undefined}
                         className={cn(
-                          'flex h-full items-center gap-1 px-3 text-nav transition-colors',
-                          open || isActive ? 'text-ocean' : 'text-navy-deep hover:text-ocean',
+                          'flex items-center gap-1 rounded-full px-4 py-2 text-nav transition-colors duration-300',
+                          tone,
                         )}
                       >
                         {item.label}
@@ -149,8 +173,8 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
                         aria-expanded={open}
                         onClick={() => setOpenLabel(open ? null : item.label)}
                         className={cn(
-                          'flex h-full items-center gap-1 px-3 text-nav transition-colors',
-                          open ? 'text-ocean' : 'text-navy-deep hover:text-ocean',
+                          'flex items-center gap-1 rounded-full px-4 py-2 text-nav transition-colors duration-300',
+                          tone,
                         )}
                       >
                         {item.label}
@@ -166,25 +190,43 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
                   </div>
                 );
               })}
-            </nav>
 
-            <div className="flex items-center gap-1">
+              {/* The panel hangs off the pill, so it inherits the pill's width and can
+                  never spill wider than the bar that opened it. */}
+              <AnimatePresence>
+                {activeItem ? (
+                  <div onMouseEnter={cancelClose}>
+                    <MegaMenu item={activeItem} onNavigate={() => setOpenLabel(null)} />
+                  </div>
+                ) : null}
+              </AnimatePresence>
+            </motion.nav>
+
+            <div className="flex shrink-0 items-center gap-2">
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
                 aria-label="Search Searah"
-                className="flex h-11 items-center gap-2 rounded-full px-3 text-navy-deep transition-colors hover:bg-navy-deep/5 hover:text-ocean"
+                title="Search — ⌘K"
+                className={cn(
+                  'flex h-12 w-12 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-colors duration-500',
+                  scrolled
+                    ? 'bg-white/70 text-navy-deep shadow-lifted ring-white/70 hover:bg-white hover:text-ocean'
+                    : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',
+                )}
               >
                 <Search className="h-[18px] w-[18px]" />
-                <span className="hidden rounded border border-hairline px-1.5 py-0.5 text-[0.65rem] font-semibold text-muted lg:inline">
-                  ⌘K
-                </span>
               </button>
 
               <PrefetchLink
                 to="/emergency"
                 aria-label="Emergency contacts"
-                className="flex h-11 w-11 items-center justify-center rounded-full text-crimson transition-colors hover:bg-crimson/10 lg:hidden"
+                className={cn(
+                  'flex h-12 w-12 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-colors duration-500 lg:hidden',
+                  scrolled
+                    ? 'bg-white/70 text-crimson shadow-lifted ring-white/70 hover:bg-white'
+                    : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',
+                )}
               >
                 <PhoneCall className="h-[18px] w-[18px]" />
               </PrefetchLink>
@@ -193,22 +235,19 @@ export function Navbar({ items, onHiddenChange }: NavbarProps) {
                 type="button"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
-                className="flex h-11 w-11 items-center justify-center rounded-full text-navy-deep transition-colors hover:bg-navy-deep/5 lg:hidden"
+                className={cn(
+                  'flex h-12 w-12 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-colors duration-500 lg:hidden',
+                  scrolled
+                    ? 'bg-white/70 text-navy-deep shadow-lifted ring-white/70 hover:bg-white'
+                    : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',
+                )}
               >
                 <Menu className="h-5 w-5" />
               </button>
             </div>
           </Container>
-
-          <AnimatePresence>
-            {activeItem ? (
-              <div onMouseEnter={cancelClose}>
-                <MegaMenu item={activeItem} onNavigate={() => setOpenLabel(null)} />
-              </div>
-            ) : null}
-          </AnimatePresence>
         </div>
-      </motion.header>
+      </header>
 
       {/* Scrim behind the open mega menu */}
       <AnimatePresence>

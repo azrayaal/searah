@@ -1,5 +1,4 @@
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
-import { ArrowRight } from 'lucide-react';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { Icon } from '@/lib/icons';
@@ -10,31 +9,36 @@ interface QuickAccessSectionProps {
   links: QuickLink[];
 }
 
+/**
+ * Six doors into the intranet, presented as one card rather than six.
+ *
+ * The dividers are the parent's background showing through a 1px grid gap — cheaper than
+ * per-cell borders, and it never doubles a line up between two neighbours.
+ */
 export function QuickAccessSection({ intro, links }: QuickAccessSectionProps) {
   return (
     <Section tone="faint" spacing="tight">
       <SectionHeader eyebrow={intro.eyebrow} title={intro.title} />
 
       <RevealGroup
-        className="mt-10 grid gap-px overflow-hidden rounded-card border border-hairline bg-hairline sm:grid-cols-2 lg:grid-cols-3 shadow-2xl"
+        className="mt-12 grid gap-px overflow-hidden rounded-card bg-hairline shadow-[0_24px_64px_-28px_rgba(10,29,72,0.28)] sm:grid-cols-2 lg:grid-cols-3"
         gap={0.05}
       >
         {links.map((link) => (
           <RevealItem key={link.id} className="bg-white">
             <PrefetchLink
               to={link.href}
-              className="group flex h-[200px] items-start gap-4 p-6 transition-colors duration-300 hover:bg-navy-deep lg:p-7"
+              className="group flex h-full min-h-[240px] items-start gap-5 p-8 transition-colors duration-300 hover:bg-sky-faint lg:p-10"
             >
-              <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-soft/60 text-ocean transition-colors duration-300 group-hover:bg-white/10 group-hover:text-ember">
-                <Icon name={link.icon} className="h-[18px] w-[18px]" />
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-soft/60 text-ocean transition-colors duration-300 group-hover:bg-ocean group-hover:text-white">
+                <Icon name={link.icon} className="h-5 w-5" />
               </span>
 
               <span className="min-w-0 flex-1">
-                <span className="flex items-center gap-2 text-body-sm font-bold text-navy-deep transition-colors duration-300 group-hover:text-white">
+                <span className="block text-body-sm font-bold text-navy-deep transition-colors duration-300 group-hover:text-ocean">
                   {link.label}
-                  <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-300 ease-premium group-hover:translate-x-0 group-hover:opacity-100" />
                 </span>
-                <span className="mt-1.5 block text-caption text-muted transition-colors duration-300 group-hover:text-white/60">
+                <span className="mt-2 block text-caption leading-relaxed text-muted">
                   {link.description}
                 </span>
               </span>

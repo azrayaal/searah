@@ -59,7 +59,7 @@ export default {
         caption: ['0.875rem', { lineHeight: '1.5' }],
       },
       spacing: { 18: '4.5rem', 22: '5.5rem', 26: '6.5rem', 30: '7.5rem' },
-      maxWidth: { container: '1440px', prose: '68ch' },
+      maxWidth: { container: '2400px', prose: '68ch' },
       borderRadius: { btn: '6px', field: '8px', card: '24px', xl2: '32px' },
       boxShadow: {
         raised: '0px 1px 3px rgba(0, 0, 0, 0.05)',

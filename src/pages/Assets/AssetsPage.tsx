@@ -55,10 +55,12 @@ const statusAccent: Record<Asset['status'], string> = {
 /* -------------------------------------------------------------- stats rail */
 
 function StatsRail({ counts }: { counts: Record<string, number> }) {
-  const [assetsFact, productionFact] = homepage.hero.highlights;
-
   const items = [
-    { key: 'total', value: formatNumber(companyFacts.assets.total), label: assetsFact.label },
+    {
+      key: 'total',
+      value: formatNumber(companyFacts.assets.total),
+      label: 'Assets under management',
+    },
     ...countries.map((country) => ({
       key: country,
       value: formatNumber(counts[country] ?? 0),
@@ -67,7 +69,7 @@ function StatsRail({ counts }: { counts: Record<string, number> }) {
     {
       key: 'production',
       value: `${companyFacts.production.current} ${companyFacts.production.unit}`,
-      label: productionFact.label,
+      label: 'Current production',
     },
   ];
 

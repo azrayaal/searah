@@ -3,7 +3,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, FileText, Lock, Mail, Phone, PhoneCall } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
-import { NAVBAR_HEIGHT, useNavbarHidden } from '@/components/layout/navbarVisibility';
+import { NAVBAR_HEIGHT } from '@/components/layout/navbarVisibility';
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { Tabs } from '@/components/ui/Tabs';
@@ -96,7 +96,6 @@ export default function EntityPage() {
   const entity = code ? getEntity(code) : undefined;
   const [active, setActive] = useState('overview');
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
-  const navHidden = useNavbarHidden();
   const { ref: mixRef, visible: mixVisible } = useInViewport();
 
   // Switching entity reuses this component, so the section rail and any open asset
@@ -174,13 +173,12 @@ export default function EntityPage() {
         </dl>
       </PageHero>
 
-      {/* Sticky in-page navigation. It rides up with the navbar when the navbar retracts,
-          otherwise it would hold its 68px offset and leave a strip of bare page above it. */}
+      {/* Sticky in-page navigation, parked directly under the fixed bar. */}
       <div
-        style={{ top: navHidden ? 0 : NAVBAR_HEIGHT }}
-        className="sticky z-30 border-b border-hairline bg-white/95 backdrop-blur-md transition-[top] duration-[450ms] ease-premium"
+        style={{ top: NAVBAR_HEIGHT }}
+        className="sticky z-30 border-b border-hairline bg-white/95 backdrop-blur-md"
       >
-        <div className="mx-auto w-full max-w-container px-4 md:px-6 lg:px-8 3xl:px-16">
+        <div className="mx-auto w-full max-w-container px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-[3.5vw] 3xl:px-[4vw]">
           <Tabs
             items={SECTIONS}
             value={active}

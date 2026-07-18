@@ -62,7 +62,6 @@ export const homepage: HomepageContent = {
     slides: [
       {
         id: 'hero-1',
-        eyebrow: 'PETRONAS Company',
         title: 'Energy that moves two nations forward',
         subtitle:
           'Searah operates 19 upstream assets across Indonesia and Malaysia — combining Eni’s deepwater engineering with PETRONAS’ regional depth to deliver more than 300,000 barrels of oil equivalent every day.',
@@ -70,35 +69,37 @@ export const homepage: HomepageContent = {
           src: '/media/offshore-platform.jpg',
           alt: 'Searah offshore production platform at sea',
         },
-        primaryCta: { label: 'Explore our assets', href: '/assets' },
-        secondaryCta: { label: 'About the joint venture', href: '/about' },
+        cta: { label: 'See more', href: '/about' },
       },
       {
         id: 'hero-2',
-        eyebrow: 'Deepwater capability',
         title: 'Built for the basins others walk away from',
         subtitle:
           'From the Kutai Basin to offshore Sarawak, our development teams take complex, high-pressure reservoirs from discovery to first oil in under 40 months.',
         image: { src: '/media/offshore-night.jpg', alt: 'Offshore facility illuminated at night' },
-        primaryCta: { label: 'How we develop fields', href: '/about#portfolio' },
-        secondaryCta: { label: 'Read the latest', href: '/newsletter' },
+        cta: { label: 'See more', href: '/about#portfolio' },
       },
       {
         id: 'hero-3',
-        eyebrow: 'USD 20 billion investment',
         title: 'A five-year plan to reach 500,000 BOE/D',
         subtitle:
           'Twenty billion dollars of committed capital, six development projects sanctioned, and a pathway to halve operational emissions intensity by 2032.',
         image: { src: '/media/lng-carrier.jpg', alt: 'LNG carrier departing an export terminal' },
-        primaryCta: { label: 'Our growth plan', href: '/about#timeline' },
-        secondaryCta: { label: 'Investor materials', href: '/resources' },
+        cta: { label: 'See more', href: '/about#timeline' },
       },
     ],
-    highlights: [
-      { label: 'Assets under management', value: '19' },
-      { label: 'Current production', value: '300k+ BOE/D' },
-      { label: 'Committed investment', value: 'USD 20bn' },
-      { label: 'Countries of operation', value: '2' },
+  },
+
+  glance: {
+    image: {
+      src: '/media/fpso.jpg',
+      alt: 'Searah production facility seen from the air',
+    },
+    investment: { label: 'Committed investment', value: 'USD 20', unit: 'bn' },
+    stats: [
+      { value: '19', label: 'Assets under management' },
+      { value: '300k', unit: 'BOE/D', label: 'Current production' },
+      { value: '2', unit: 'Indonesia · Malaysia', label: 'Countries of operation' },
     ],
   },
 
@@ -194,7 +195,7 @@ export const homepage: HomepageContent = {
 
   entitiesSection: {
     eyebrow: 'Operating entities',
-    title: 'Three entities, one operating standard',
+    title: 'Three operating entities, one shared standard',
     description:
       'Every asset in the portfolio is run by one of three entities — each with its own basin, its own engineering culture, and the same safety and emissions standard.',
     cta: { label: 'About the group', href: '/about' },
@@ -210,7 +211,7 @@ export const homepage: HomepageContent = {
 
   newsSection: {
     eyebrow: 'Newsroom',
-    title: 'Latest from across the group',
+    title: 'Explore more the latest from all group',
     description: 'Announcements, operational updates and stories from our people.',
     cta: { label: 'All articles', href: '/newsletter' },
   },
