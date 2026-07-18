@@ -91,7 +91,7 @@ export function Navbar({ items }: NavbarProps) {
         {/* The bar is always transparent: the frosted pill is the only chrome, so the
             navigation keeps one form the whole way down the page. */}
         <div>
-          <Container className="relative flex h-[74px] items-center justify-between gap-6">
+          <Container className="relative flex h-[83.77px] pt-6 items-center justify-between gap-6">
             {/* `iconsearah.png` is pure white artwork, so it reads only against the dark
                 hero behind an unscrolled bar. Scrolled, the mark steps aside entirely and
                 the menu takes the centre — so there is no white-on-white logo to solve. */}
@@ -99,11 +99,11 @@ export function Navbar({ items }: NavbarProps) {
               to="/"
               aria-label="Searah — home"
               className={cn(
-                'flex shrink-0 items-center transition-opacity duration-500',
+                'flex shrink-0 items-center transition-opacity duration-500 pt-6',
                 scrolled && 'pointer-events-none opacity-0',
               )}
             >
-              <img src="/iconsearah.png" alt="" aria-hidden className="h-14 w-auto shrink-0" />
+              <img src="/iconsearah.png" alt="" aria-hidden className="h-20 w-auto shrink-0" />
             </PrefetchLink>
 
             {/* The links ride in their own pill so they stay legible over photography. At
@@ -113,7 +113,7 @@ export function Navbar({ items }: NavbarProps) {
               layout
               transition={{ layout: { duration: 0.55, ease: EASE } }}
               className={cn(
-                'hidden items-center gap-0.5 rounded-full px-2 py-1.5 ring-1 backdrop-blur-xl transition-colors duration-500 lg:flex',
+                'hidden items-center gap-0.5 rounded-xl px-2 py-1.5 ring-1 backdrop-blur-xl transition-colors duration-500 lg:flex',
                 // Both branches set a position, which is what anchors the panel below.
                 // `relative` must NOT be applied unconditionally: Tailwind emits it after
                 // `.absolute`, so it would win the cascade and the pill would never centre.
@@ -152,7 +152,7 @@ export function Navbar({ items }: NavbarProps) {
                         to={item.href}
                         aria-expanded={item.columns ? open : undefined}
                         className={cn(
-                          'flex items-center gap-1 rounded-full px-4 py-2 text-nav transition-colors duration-300',
+                          'flex items-center gap-1 rounded-xl px-4 py-2 text-nav transition-colors duration-300',
                           tone,
                         )}
                       >
@@ -173,7 +173,7 @@ export function Navbar({ items }: NavbarProps) {
                         aria-expanded={open}
                         onClick={() => setOpenLabel(open ? null : item.label)}
                         className={cn(
-                          'flex items-center gap-1 rounded-full px-4 py-2 text-nav transition-colors duration-300',
+                          'flex items-center gap-1 rounded-xl px-4 py-2 text-nav transition-colors duration-300',
                           tone,
                         )}
                       >
@@ -209,7 +209,7 @@ export function Navbar({ items }: NavbarProps) {
                 aria-label="Search Searah"
                 title="Search — ⌘K"
                 className={cn(
-                  'flex h-12 w-12 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-colors duration-500',
+                  'flex h-12 w-12 items-center justify-center rounded-xl ring-1 backdrop-blur-xl transition-colors duration-500',
                   scrolled
                     ? 'bg-white/70 text-navy-deep shadow-lifted ring-white/70 hover:bg-white hover:text-ocean'
                     : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',
@@ -222,7 +222,7 @@ export function Navbar({ items }: NavbarProps) {
                 to="/emergency"
                 aria-label="Emergency contacts"
                 className={cn(
-                  'flex h-12 w-12 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-colors duration-500 lg:hidden',
+                  'flex h-12 w-12 items-center justify-center rounded-xl ring-1 backdrop-blur-xl transition-colors duration-500 lg:hidden',
                   scrolled
                     ? 'bg-white/70 text-crimson shadow-lifted ring-white/70 hover:bg-white'
                     : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',
@@ -236,7 +236,7 @@ export function Navbar({ items }: NavbarProps) {
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
                 className={cn(
-                  'flex h-12 w-12 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-colors duration-500 lg:hidden',
+                  'flex h-12 w-12 items-center justify-center rounded-xl ring-1 backdrop-blur-xl transition-colors duration-500 lg:hidden',
                   scrolled
                     ? 'bg-white/70 text-navy-deep shadow-lifted ring-white/70 hover:bg-white'
                     : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',

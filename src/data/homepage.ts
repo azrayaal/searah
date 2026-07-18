@@ -62,28 +62,28 @@ export const homepage: HomepageContent = {
     slides: [
       {
         id: 'hero-1',
-        title: 'Energy that moves two nations forward',
+        title: 'Searah Begin With Us',
         subtitle:
-          'Searah operates 19 upstream assets across Indonesia and Malaysia — combining Eni’s deepwater engineering with PETRONAS’ regional depth to deliver more than 300,000 barrels of oil equivalent every day.',
+          'A shared direction built on collaboration, trust, and the people who move us forward.',
         image: {
-          src: '/media/offshore-platform.jpg',
+          src: '/assets/header3.png',
           alt: 'Searah offshore production platform at sea',
         },
         cta: { label: 'See more', href: '/about' },
       },
       {
         id: 'hero-2',
-        title: 'Built for the basins others walk away from',
+        title: 'From discovery to first oil in under 40 months',
         subtitle:
           'From the Kutai Basin to offshore Sarawak, our development teams take complex, high-pressure reservoirs from discovery to first oil in under 40 months.',
-        image: { src: '/media/offshore-night.jpg', alt: 'Offshore facility illuminated at night' },
+        image: { src: '/assets/header2.jpeg', alt: 'Offshore facility illuminated at night' },
         cta: { label: 'See more', href: '/about#portfolio' },
       },
       {
         id: 'hero-3',
-        title: 'A five-year plan to reach 500,000 BOE/D',
+        title: 'Delivering energy to the world, responsibly',
         subtitle:
-          'Twenty billion dollars of committed capital, six development projects sanctioned, and a pathway to halve operational emissions intensity by 2032.',
+          'We are committed to delivering energy in a way that is safe, sustainable, and responsible.',
         image: { src: '/media/lng-carrier.jpg', alt: 'LNG carrier departing an export terminal' },
         cta: { label: 'See more', href: '/about#timeline' },
       },
@@ -92,9 +92,11 @@ export const homepage: HomepageContent = {
 
   glance: {
     image: {
-      src: '/media/fpso.jpg',
+      src: '/assets/about.png',
       alt: 'Searah production facility seen from the air',
     },
+    title: 'Powering Sustainable Energy Through Stategic Operation',
+    subtitle: 'Delivering reliabel energy solution strategic operations commited investment countries of operation between Indonesia and Malaysia',
     investment: { label: 'Committed investment', value: 'USD 20', unit: 'bn' },
     stats: [
       { value: '19', label: 'Assets under management' },
@@ -211,8 +213,8 @@ export const homepage: HomepageContent = {
 
   newsSection: {
     eyebrow: 'Newsroom',
-    title: 'Explore more the latest from all group',
-    description: 'Announcements, operational updates and stories from our people.',
+    title: 'What\'s New at Searah',
+    description: 'Discover the latest company news, leadership updates, operational milestones, and employee stories.',
     cta: { label: 'All articles', href: '/newsletter' },
   },
 

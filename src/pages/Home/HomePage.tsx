@@ -29,20 +29,20 @@ export default function HomePage() {
     <>
       <HeroBanner content={homepage.hero} />
       <GlanceSection content={homepage.glance} />
+      {/* <MarketSection content={homepage.market} /> */}
+      <EntitiesRail intro={homepage.entitiesSection} entities={entities} />
       <QuickAccessSection
         intro={homepage.quickAccess.intro}
         links={homepage.quickAccess.links}
       />
-      {/* <MarketSection content={homepage.market} /> */}
-      <EntitiesRail intro={homepage.entitiesSection} entities={entities} />
       <AssetsSection intro={homepage.assetsSection} assets={assets} />
       <NewsSection intro={homepage.newsSection} featured={lead} articles={rest} />
-      <SpotlightSection content={homepage.spotlight} />
-      <ConnectSection
+      {/* <SpotlightSection content={homepage.spotlight} /> */}
+      {/* <ConnectSection
         intro={homepage.connect}
         entities={entities}
         emergency={homepage.emergency}
-      />
+      /> */}
     </>
   );
 }

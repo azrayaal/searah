@@ -132,6 +132,8 @@ export interface GlanceContent {
   image: Media;
   investment: { label: string; value: string; unit?: string };
   stats: { value: string; unit?: string; label: string }[];
+  title: string;
+  subtitle: string;
 }
 
 export interface HomepageContent {

@@ -62,16 +62,16 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
 
       {/* Wash from the left so the copy holds against any frame behind it */}
       <div
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-navy-deep via-navy-deep/70 to-transparent"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0A1D48] from-0% via-[#0A1D48] via-10% to-transparent to-100%"
         aria-hidden
       />
-      <div
+      {/* <div
         className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-navy-deep/80 to-transparent"
         aria-hidden
-      />
+      /> */}
 
-      <Container className="on-dark relative flex flex-1 flex-col justify-center pb-32 pt-32 lg:pb-40">
-        <div className="max-w-3xl">
+      <Container className="on-dark relative flex flex-1 flex-col justify-center py-52 lg:pb-40">
+        <div className="max-w-xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
@@ -84,7 +84,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
                 {slide.title}
               </h1>
 
-              <p className="mt-6 max-w-2xl text-body-sm text-white/75 md:text-body">
+              <p className="my-6 max-w-2xl text-body-sm text-white/75 md:text-body">
                 {slide.subtitle}
               </p>
 
