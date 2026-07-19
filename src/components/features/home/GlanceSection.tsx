@@ -1,7 +1,6 @@
 import { Container } from '@/components/ui/Container';
 import { Image } from '@/components/ui/Image';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
-import { ContourWaves } from './ContourWaves';
 import type { GlanceContent } from '@/types';
 
 interface GlanceSectionProps {

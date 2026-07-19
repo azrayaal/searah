@@ -1,15 +1,8 @@
 import { HeroBanner } from '@/components/features/home/HeroBanner';
 import { GlanceSection } from '@/components/features/home/GlanceSection';
-import { ConnectSection } from '@/components/features/home/ConnectSection';
-// Market and Performance sections still exist as components; the homepage no longer runs
-// them. Production and safety figures now belong to each entity page, published with the
-// date they were read, which is something a single group rail could never say per OpCo.
-// import { MarketSection } from '@/components/features/home/MarketSection';
-// import { PerformanceSection } from '@/components/features/home/PerformanceSection';
 import { AssetsSection } from '@/components/features/home/AssetsSection';
 import { NewsSection } from '@/components/features/home/NewsSection';
 import { QuickAccessSection } from '@/components/features/home/QuickAccessSection';
-import { SpotlightSection } from '@/components/features/home/SpotlightSection';
 import { EntitiesRail } from '@/components/features/home/EntitiesRail';
 import { entities } from '@/data/entities';
 import { useSeo } from '@/hooks';
