@@ -123,7 +123,7 @@ export function Navbar({ items }: NavbarProps) {
                 scrolled
                   ? 'absolute inset-0 m-auto h-fit w-fit bg-white/70 shadow-lifted ring-white/70'
                   // `ml-auto` pulls the pill off the logo and up against the search button
-                  : 'relative ml-auto bg-white/10 ring-white/20',
+                  : 'relative ml-auto bg-white/30 backdrop-blur-2xl ring-white/40 shadow-xl',
               )}
             >
               {items.map((item) => {
@@ -136,8 +136,8 @@ export function Navbar({ items }: NavbarProps) {
                     ? 'bg-white text-ocean shadow-raised'
                     : 'text-navy-deep hover:bg-white/70 hover:text-ocean'
                   : highlighted
-                    ? 'bg-white/20 text-white'
-                    : 'text-white/85 hover:bg-white/10 hover:text-white';
+                    ? 'bg-white/20 text-navy-deep'
+                    : 'text-navy-deep/85 hover:bg-white/10 hover:text-navy-deep';
 
                 return (
                   <div
@@ -212,7 +212,7 @@ export function Navbar({ items }: NavbarProps) {
                   'flex h-12 w-12 items-center justify-center rounded-xl ring-1 backdrop-blur-xl transition-colors duration-500',
                   scrolled
                     ? 'bg-white/70 text-navy-deep shadow-lifted ring-white/70 hover:bg-white hover:text-ocean'
-                    : 'bg-white/10 text-white ring-white/20 hover:bg-white/20',
+                    : 'bg-white/10 text-navy-deep ring-white/20 hover:bg-white/20',
                 )}
               >
                 <Search className="h-[18px] w-[18px]" />
