@@ -5,6 +5,7 @@ import { Footer } from './Footer';
 import { PageSkeleton } from './PageSkeleton';
 import { RouteProgress } from './RouteProgress';
 import { ScrollToTop } from './ScrollToTop';
+import { WelcomeOverlay } from './WelcomeOverlay';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { navigation } from '@/data/navigation';
 import { footer } from '@/data/footer';
@@ -27,6 +28,7 @@ export function Layout() {
         Skip to content
       </a>
 
+      <WelcomeOverlay />
       <ScrollToTop />
       <ScrollProgress />
       <RouteProgress />

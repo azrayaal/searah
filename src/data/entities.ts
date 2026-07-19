@@ -33,7 +33,7 @@ export const entities: Entity[] = [
       'The asset base is mature, and that is precisely where the entity’s engineering culture shows. Low-pressure compression, infill drilling and full field electrification have kept fields discovered in the 1970s on plateau, at a cost per barrel that competes with far younger developments.',
       'The next chapter is Peciko Deep — a high-pressure deepwater gas development tied back 62 kilometres to the existing North Mahakam complex, and the clearest expression of the entity’s reuse-first philosophy.',
     ],
-    hero: { src: '/media/offshore-platform.jpg', alt: 'North Mahakam production complex at sea' },
+    hero: { src: '/assets/entity1.png', alt: 'North Mahakam production complex at sea' },
     stats: [
       { label: 'Assets operated', value: '7', caption: 'Across the Kutai Basin and delta' },
       { label: 'Daily production', value: '182k BOE/D', caption: 'Group’s largest contributor' },
@@ -184,7 +184,7 @@ export const entities: Entity[] = [
       'Its operating model is deliberately asset-light. Merakes was delivered as a subsea tieback to an existing floating unit with no new surface facilities, and Merakes East reuses the same risers and umbilicals again. Capital intensity below USD 6 per barrel of oil equivalent is the result.',
       'Geng North, the largest discovery in the Kutai Basin in twenty years, is being designed as an open-access hub that can host third-party tiebacks — an unusual commitment for an operator, and a deliberate one.',
     ],
-    hero: { src: '/media/fpso.jpg', alt: 'Floating production unit in the Makassar Strait' },
+    hero: { src: '/assets/entity2.png', alt: 'Floating production unit in the Makassar Strait' },
     stats: [
       { label: 'Assets operated', value: '7', caption: 'Deepwater and frontier' },
       { label: 'Daily production', value: '63k BOE/D', caption: 'Rising to 240k by 2029' },
@@ -333,7 +333,7 @@ export const entities: Entity[] = [
       'Its defining asset is Kasawari: a high-CO₂ gas field paired with a carbon capture facility that strips and reinjects 3.3 million tonnes of CO₂ each year into a depleted reservoir nearby. It is one of the largest offshore CCS schemes anywhere in the world, and it turns a reservoir others would have left behind into a commercial, lower-carbon barrel.',
       'Alongside it, Kikeh remains Malaysia’s first deepwater development and now hosts three satellite tiebacks, while Rotan will produce through a floating liquefaction vessel from 2028 — no export trunkline required.',
     ],
-    hero: { src: '/media/gas-plant.jpg', alt: 'Kasawari gas processing platform offshore Sarawak' },
+    hero: { src: '/assets/entity3.png', alt: 'Kasawari gas processing platform offshore Sarawak' },
     stats: [
       { label: 'Assets operated', value: '5', caption: 'Offshore Sarawak and Sabah' },
       { label: 'Daily production', value: '86k BOE/D', caption: 'Feeding Bintulu LNG' },

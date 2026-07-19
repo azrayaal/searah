@@ -30,22 +30,21 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
       }}
     >
       {/* Photograph bleeding in from the right, masked so it dissolves into the field */}
-      <div
-        className="absolute inset-y-0 right-0 -z-10 hidden w-[58%] lg:block"
-        style={{
-          maskImage: 'linear-gradient(to right, transparent 0%, black 45%)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 45%)',
-        }}
-        aria-hidden
-      >
-        <Image
-          media={{ src: '/media/gas-plant.jpg', alt: '' }}
-          ratio="auto"
-          sizes="60vw"
-          className="h-full opacity-60 mix-blend-luminosity"
-          imgClassName="h-full w-full"
-        />
-      </div>
+          <div
+          className="absolute inset-y-0 right-0 -z-10 hidden w-[58%] overflow-hidden lg:block"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,.2) 20%, rgba(0,0,0,.4) 40%, rgba(0,0,0,.6) 60%, rgba(0,0,0,.8) 80%, black 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,.2) 20%, rgba(0,0,0,.4) 40%, rgba(0,0,0,.6) 60%, rgba(0,0,0,.8) 80%, black 100%)",
+          }}
+        >
+          <img
+            src="/assets/bg-entity.jpeg"
+            className="absolute inset-0 h-full w-full object-cover object-center scale-110"
+            alt=""
+          />
+        </div>
 
       <Container className="relative">
         <Reveal>
@@ -67,7 +66,7 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
               <RevealItem key={entity.id}>
                 <PrefetchLink
                   to={`/entity/${entity.id}`}
-                  className="group relative isolate flex aspect-square flex-col justify-end overflow-hidden rounded-xl2 ring-1 ring-white/25"
+                  className="group relative isolate flex aspect-square flex-col justify-end overflow-hidden border-2 border-white rounded-xl2 ring-1 ring-white/25"
                 >
                   <Image
                     media={entity.hero}
