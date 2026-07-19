@@ -8,30 +8,32 @@ interface AnimatedSectionProps {
 
 export function AnimatedSection({
   children,
-  className,
 }: AnimatedSectionProps) {
   return (
-    <motion.section
-      className={className}
-      initial={{
-        opacity: 0,
-        y: 80,
-        scale: 0.98,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-      }}
-      viewport={{
-        once: true,
-        amount: 0.2,
-      }}
-      transition={{
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
+   <motion.section
+    initial={{
+        opacity:0,
+        y:24,
+        scale:.985,
+        filter:"blur(8px)"
+    }}
+    whileInView={{
+        opacity:1,
+        y:0,
+        scale:1,
+        filter:"blur(0px)"
+    }}
+    viewport={{
+        once:true,
+        amount:.2
+    }}
+    transition={{
+        type:"spring",
+        stiffness:65,
+        damping:20,
+        mass:1
+    }}
+>
       {children}
     </motion.section>
   );

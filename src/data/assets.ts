@@ -24,7 +24,7 @@ export const assets: Asset[] = [
     description:
       'The group’s largest producing hub. Eight wellhead platforms feed a central processing complex that exports sales gas to the Bontang liquefaction plant and liquids to the Senipah terminal.',
     image: { src: '/media/offshore-platform.jpg', alt: 'North Mahakam production complex' },
-    coordinates: { lat: -0.62, lng: 117.42 },
+    coordinates: { lat: -0.75, lng: 117.6 },
     highlights: [
       'Central processing capacity of 900 MMSCF/D',
       'Full field electrification completed in 2025',
@@ -49,7 +49,7 @@ export const assets: Asset[] = [
     description:
       'A mature gas-condensate field kept on plateau by an infill drilling campaign and low-pressure compression installed on the existing jacket.',
     image: { src: '/media/gas-plant.jpg', alt: 'South Mahakam gas facility' },
-    coordinates: { lat: -1.18, lng: 117.28 },
+    coordinates: { lat: -1.85, lng: 117.2 },
     highlights: [
       'Low-pressure compression added 6 years of plateau',
       '14 infill wells delivered since 2023',
@@ -73,7 +73,7 @@ export const assets: Asset[] = [
     description:
       'A high-pressure deepwater gas development, tied back subsea to the North Mahakam complex — the longest tieback in the Indonesian portfolio at 62 kilometres.',
     image: { src: '/media/subsea.jpg', alt: 'Peciko Deep subsea development' },
-    coordinates: { lat: -1.05, lng: 118.35 },
+    coordinates: { lat: -1.35, lng: 118.6 },
     highlights: [
       '62 km subsea tieback to existing infrastructure',
       'FID taken in Q1 2026; USD 3.1bn sanctioned',
@@ -98,7 +98,7 @@ export const assets: Asset[] = [
     description:
       'One of the oldest producing fields in the basin, now operated as a satellite of North Mahakam with a fully unmanned, remotely supervised platform.',
     image: { src: '/media/offshore-night.jpg', alt: 'Bekapai unmanned platform' },
-    coordinates: { lat: -0.95, lng: 117.65 },
+    coordinates: { lat: -1.3, lng: 117.75 },
     highlights: ['Normally unmanned installation', 'Remote operations from Balikpapan IOC'],
   },
   {
@@ -119,7 +119,7 @@ export const assets: Asset[] = [
     description:
       'A shallow-water gas field whose output is routed through the North Mahakam trunkline, supplying both domestic power generation and LNG feedstock.',
     image: { src: '/media/pipelines.jpg', alt: 'Sisi–Nubi export pipelines' },
-    coordinates: { lat: -0.35, lng: 117.75 },
+    coordinates: { lat: -0.25, lng: 117.55 },
     highlights: ['Supplies 11% of Bontang LNG feedgas', 'Methane intensity below 0.15%'],
   },
   {
@@ -140,7 +140,7 @@ export const assets: Asset[] = [
     description:
       'A vast delta gas field developed from clustered swamp pads, with a mangrove rehabilitation programme running alongside operations since 2021.',
     image: { src: '/media/mangrove.jpg', alt: 'Tunu delta operations amid mangrove' },
-    coordinates: { lat: -0.42, lng: 117.35 },
+    coordinates: { lat: -0.6, lng: 116.85 },
     highlights: ['1,900 hectares of mangrove rehabilitated', 'Clustered pads minimise land take'],
   },
   {
@@ -161,7 +161,7 @@ export const assets: Asset[] = [
     description:
       'A mature oil field under active water and gas injection, and the group’s pilot site for produced-water reinjection at scale.',
     image: { src: '/media/flare-stack.jpg', alt: 'Handil field facilities' },
-    coordinates: { lat: -0.75, lng: 117.18 },
+    coordinates: { lat: -1.2, lng: 116.95 },
     highlights: ['98% of produced water reinjected', 'Routine flaring eliminated in 2024'],
   },
 
@@ -184,7 +184,7 @@ export const assets: Asset[] = [
     description:
       'A deepwater gas development produced through a floating production unit, with gas exported onshore via a 79-kilometre pipeline to the East Kalimantan grid.',
     image: { src: '/media/fpso.jpg', alt: 'Jangkrik floating production unit' },
-    coordinates: { lat: -1.32, lng: 117.95 },
+    coordinates: { lat: -2.0, lng: 118.1 },
     highlights: [
       'Floating production unit with 450 MMSCF/D capacity',
       'Delivered eight months ahead of schedule',
@@ -208,7 +208,7 @@ export const assets: Asset[] = [
     description:
       'A subsea-to-host development tied back to the Jangkrik floating unit — a template the group now applies across the deepwater portfolio.',
     image: { src: '/media/subsea.jpg', alt: 'Merakes subsea infrastructure' },
-    coordinates: { lat: -1.72, lng: 118.05 },
+    coordinates: { lat: -2.15, lng: 119.0 },
     highlights: ['Zero new surface facilities', 'Payback achieved inside 30 months'],
   },
   {
@@ -229,7 +229,7 @@ export const assets: Asset[] = [
     description:
       'A two-well subsea development extending the Merakes hub, reusing spare capacity in the existing riser and umbilical system.',
     image: { src: '/media/seismic-vessel.jpg', alt: 'Survey vessel over Merakes East' },
-    coordinates: { lat: -1.88, lng: 118.42 },
+    coordinates: { lat: -2.65, lng: 118.45 },
     highlights: ['Reuses existing risers and umbilicals', 'Capex intensity below USD 6 / BOE'],
   },
   {
@@ -250,7 +250,7 @@ export const assets: Asset[] = [
     description:
       'The largest discovery in the portfolio and the anchor of the North Kutai hub — designed as a shared facility that will host third-party tiebacks.',
     image: { src: '/media/drilling.jpg', alt: 'Deepwater drilling at Geng North' },
-    coordinates: { lat: -0.18, lng: 118.72 },
+    coordinates: { lat: -0.15, lng: 119.1 },
     highlights: [
       'Largest discovery in the Kutai Basin in 20 years',
       'Designed as an open-access regional hub',
@@ -275,7 +275,7 @@ export const assets: Asset[] = [
     description:
       'An appraisal campaign testing the same play that delivered Geng North, with two wells scheduled through 2027.',
     image: { src: '/media/seismic-vessel.jpg', alt: 'Seismic vessel at Gendalo' },
-    coordinates: { lat: -0.85, lng: 119.05 },
+    coordinates: { lat: -0.75, lng: 119.65 },
     highlights: ['Two appraisal wells planned', 'Ocean-bottom node survey completed 2026'],
   },
   {
@@ -296,7 +296,7 @@ export const assets: Asset[] = [
     description:
       'A frontier block awarded in the 2025 licensing round, currently under 3D seismic acquisition ahead of a first exploration well.',
     image: { src: '/media/coastline.jpg', alt: 'North Kalimantan coastline' },
-    coordinates: { lat: 3.32, lng: 117.72 },
+    coordinates: { lat: 3.3, lng: 118.2 },
     highlights: ['3,400 km² of 3D seismic acquired', 'First well spudding 2027'],
   },
   {
@@ -340,7 +340,7 @@ export const assets: Asset[] = [
     description:
       'A high-CO₂ gas field paired with the region’s flagship carbon capture facility, which strips and reinjects CO₂ into a depleted reservoir nearby.',
     image: { src: '/media/gas-plant.jpg', alt: 'Kasawari gas processing platform' },
-    coordinates: { lat: 5.42, lng: 112.65 },
+    coordinates: { lat: 6.2, lng: 112.4 },
     highlights: [
       '3.3 million tonnes of CO₂ captured annually',
       'Feeds the Bintulu LNG complex',
@@ -365,7 +365,7 @@ export const assets: Asset[] = [
     description:
       'Malaysia’s first deepwater development, produced through a dry-tree unit and FPSO, now the hub for three satellite tiebacks.',
     image: { src: '/media/fpso.jpg', alt: 'Kikeh FPSO offshore Sabah' },
-    coordinates: { lat: 5.92, lng: 114.32 },
+    coordinates: { lat: 6.3, lng: 114.8 },
     highlights: ['Hub for three satellite fields', 'FPSO uptime of 98.4% in 2025'],
   },
   {
@@ -386,7 +386,7 @@ export const assets: Asset[] = [
     description:
       'A deepwater gas development feeding a floating liquefaction vessel moored offshore Sabah, removing the need for a long export pipeline.',
     image: { src: '/media/lng-carrier.jpg', alt: 'Floating LNG vessel offshore Sabah' },
-    coordinates: { lat: 6.35, lng: 115.28 },
+    coordinates: { lat: 7.2, lng: 116.1 },
     highlights: ['Floating LNG — no export trunkline required', '1.5 MTPA liquefaction capacity'],
   },
   {
@@ -407,7 +407,7 @@ export const assets: Asset[] = [
     description:
       'A mature oil hub in late life, extended by an enhanced oil recovery scheme and the region’s first solar-hybrid powered platform.',
     image: { src: '/media/offshore-platform.jpg', alt: 'Baram Delta platform complex' },
-    coordinates: { lat: 4.58, lng: 113.88 },
+    coordinates: { lat: 5.1, lng: 113.6 },
     highlights: ['EOR added 34 MMBOE of recoverable volume', 'First solar-hybrid platform in-region'],
   },
   {
@@ -428,7 +428,7 @@ export const assets: Asset[] = [
     description:
       'A carbonate play in the Luconia province, targeting the same reservoir trend that underpins Sarawak’s gas supply to Bintulu.',
     image: { src: '/media/drilling.jpg', alt: 'Jack-up rig at Luconia' },
-    coordinates: { lat: 5.05, lng: 111.42 },
+    coordinates: { lat: 6.8, lng: 110.6 },
     highlights: ['Carbonate build-up play', 'Two prospects matured to drill-ready'],
   },
 ];
