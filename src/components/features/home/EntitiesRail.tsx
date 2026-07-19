@@ -41,7 +41,7 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
         >
           <img
             src="/assets/bg-entity.jpeg"
-            className="absolute inset-0 h-full w-full object-cover object-center scale-110"
+            className="absolute inset-0 h-full w-full object-cover object-center scale-110" 
             alt=""
           />
         </div>
@@ -64,41 +64,162 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
 
             return (
               <RevealItem key={entity.id}>
-                <PrefetchLink
-                  to={`/entity/${entity.id}`}
-                  className="group relative isolate flex aspect-square flex-col justify-end overflow-hidden border-2 border-white rounded-xl2 ring-1 ring-white/25"
+               <PrefetchLink
+                to={`/entity/${entity.id}`}
+                className="
+                  group relative isolate flex aspect-square overflow-hidden
+                  rounded-xl2 border border-white/20
+                  transition-all duration-500 ease-out
+                  hover:scale-[1.04]
+                  hover:border-white/50
+                  hover:shadow-[0_24px_60px_rgba(0,0,0,.45)]
+              "
+              >
+                {/* Background */}
+                <Image
+                  media={entity.hero}
+                  ratio="auto"
+                  zoom={false}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+                  className="absolute inset-0 -z-20 h-full"
+                  imgClassName="
+                    h-full w-full object-cover
+                    transition-transform duration-700 ease-out
+                    group-hover:scale-110
+                  "
+                />
+
+                {/* Overlay */}
+                <div
+                  className="
+                    absolute inset-0 -z-10
+                    bg-gradient-to-t
+                    from-navy-deep/90
+                    via-navy-deep/20
+                    to-transparent
+                    transition-all duration-500
+                    group-hover:from-navy-deep
+                    group-hover:via-navy-deep/70
+                  "
+                />
+
+                {/* Content */}
+                <div
+                  className="
+                    absolute inset-0
+                    flex flex-col
+                    items-center
+                    justify-center
+                    px-8
+                    text-center
+                  "
                 >
-                  <Image
-                    media={entity.hero}
-                    ratio="auto"
-                    zoom
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
-                    className="absolute inset-0 -z-10 h-full"
-                    imgClassName="h-full w-full"
-                  />
-                  <div
-                    className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-deep/85 via-navy-deep/20 to-transparent"
-                    aria-hidden
-                  />
-
-                  <div className="flex items-end justify-between gap-4 p-6 lg:p-7">
-                    <span className="min-w-0">
-                      {prefix ? (
-                        <span className="block text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ember">
-                          {prefix}
-                        </span>
-                      ) : null}
-                      <span className="mt-1 block truncate text-[1.5rem] font-normal leading-tight text-white lg:text-[1.75rem]">
-                        {place}
-                      </span>
+                  {prefix && (
+                    <span
+                      className="
+                        mb-3
+                        text-[0.7rem]
+                        uppercase
+                        tracking-[0.2em]
+                        text-ember
+                        opacity-0
+                        translate-y-8
+                        transition-all
+                        duration-500
+                        group-hover:opacity-100
+                        group-hover:translate-y-0
+                      "
+                    >
+                      {prefix}
                     </span>
+                  )}
 
-                    <span className="flex shrink-0 items-center gap-2 rounded-full bg-white px-4 py-2.5 text-caption font-semibold text-navy-deep transition-colors duration-300 group-hover:bg-ember">
-                      Explore more
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 ease-premium group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
+                  <h3
+                    className="
+                      text-[2rem]
+                      font-semibold
+                      text-white
+                      opacity-0
+                      translate-y-10
+                      transition-all
+                      duration-500
+                      delay-75
+                      group-hover:opacity-100
+                      group-hover:translate-y-0
+                    "
+                  >
+                    {place}
+                  </h3>
+
+                  {entity.summary && (
+                    <p
+                      className="
+                        mt-4
+                        max-w-xs
+                        text-sm
+                        leading-7
+                        text-white/80
+                        opacity-0
+                        translate-y-10
+                        transition-all
+                        duration-500
+                        delay-150
+                        group-hover:opacity-100
+                        group-hover:translate-y-0
+                      "
+                    >
+                      {entity.summary}
+                    </p>
+                  )}
+
+                  <span
+                    className="
+                      mt-8
+                      inline-flex
+                      items-center
+                      gap-2
+                      rounded-md
+                      shadow-md
+                      bg-white
+                      px-5
+                      py-3
+                      text-sm
+                      font-semibold
+                      text-navy-deep
+                      opacity-0
+                      translate-y-10
+                      transition-all
+                      duration-500
+                      delay-200
+                      group-hover:opacity-100
+                      group-hover:translate-y-0
+                    "
+                  >
+                    Explore More
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </span>
+                </div>
+
+                {/* Default Title */}
+                <div
+                  className="
+                    absolute bottom-7 left-7 right-7
+                    transition-all duration-500
+                    group-hover:opacity-0
+                    group-hover:translate-y-8
+                  "
+                >
+                  {prefix && (
+                    <div className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ember">
+                      {prefix}
+                    </div>
+                  )}
+
+                  <div className="mt-2 text-[1.6rem] text-white">
+                    {place}
                   </div>
-                </PrefetchLink>
+                </div>
+              </PrefetchLink>
               </RevealItem>
             );
           })}
