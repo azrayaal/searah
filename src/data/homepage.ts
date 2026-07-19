@@ -62,9 +62,9 @@ export const homepage: HomepageContent = {
     slides: [
       {
         id: 'hero-1',
-        title: 'Searah Begin With Us',
+        title: 'A Strong Regional Workforce',
         subtitle:
-          'A shared direction built on collaboration, trust, and the people who move us forward.',
+          'Supporting collaboration across Malaysia and Indonesia through one connected workplace that brings every team closer together.',
         image: {
           src: '/assets/header3.png',
           alt: 'Searah offshore production platform at sea',
@@ -73,17 +73,17 @@ export const homepage: HomepageContent = {
       },
       {
         id: 'hero-2',
-        title: 'From discovery to first oil in under 40 months',
+        title: 'Safe, Reliable, and Efficient Operations',
         subtitle:
-          'From the Kutai Basin to offshore Sarawak, our development teams take complex, high-pressure reservoirs from discovery to first oil in under 40 months.',
+          'Providing seamless access to workplace services, business applications, and operational resources that support excellence every day.',
         image: { src: '/assets/header2.jpeg', alt: 'Offshore facility illuminated at night' },
         cta: { label: 'See more', href: '/about#portfolio' },
       },
       {
         id: 'hero-3',
-        title: 'Delivering energy to the world, responsibly',
+        title: 'Creating Value Through Our People',
         subtitle:
-          'We are committed to delivering energy in a way that is safe, sustainable, and responsible.',
+          'Strengthening collaboration, continuous learning, and employee engagement to support our business and the communities we serve.',
         image: { src: '/media/lng-carrier.jpg', alt: 'LNG carrier departing an export terminal' },
         cta: { label: 'See more', href: '/about#timeline' },
       },
@@ -231,6 +231,8 @@ export const homepage: HomepageContent = {
         'Submit requests for IT, HR, Finance, Procurement, Facilities, and HSE services.',
       href: '/services',
       icon: 'BriefcaseBusiness',
+      image: { src: '/assets/service.png', alt: '' },
+      tone: 'slate',
     },
     {
       id: 'qa-directory',
@@ -239,6 +241,8 @@ export const homepage: HomepageContent = {
         'Find employees, teams, office locations, and contact information across Searah.',
       href: '/directory',
       icon: 'Users',
+      image: { src: '/assets/people.png', alt: '' },
+      tone: 'sky',
     },
     {
       id: 'qa-resources',
@@ -247,6 +251,8 @@ export const homepage: HomepageContent = {
         'Access company policies, procedures, templates, forms, and shared documents.',
       href: '/resources',
       icon: 'LibraryBig',
+      image: { src: '/assets/knowledge.png', alt: '' },
+      tone: 'ocean',
     },
     {
       id: 'qa-org',
@@ -255,6 +261,8 @@ export const homepage: HomepageContent = {
         'Explore business units, reporting lines, leadership, and departmental hierarchy.',
       href: '/organisation',
       icon: 'Network',
+      image: { src: '/assets/organisasi.png', alt: '' },
+      tone: 'ink',
     },
     {
       id: 'qa-emergency',
@@ -263,6 +271,8 @@ export const homepage: HomepageContent = {
         'Quick access to emergency contacts, medical support, and HSE response procedures.',
       href: '/emergency',
       icon: 'ShieldAlert',
+      image: { src: '/assets/emergency.png', alt: '' },
+      tone: 'rose',
     },
     {
       id: 'qa-faq',
@@ -271,6 +281,8 @@ export const homepage: HomepageContent = {
         'Browse frequently asked questions, user guides, and employee support resources.',
       href: '/faq',
       icon: 'MessagesSquare',
+      image: { src: '/assets/support.png', alt: '' },
+      tone: 'teal',
     },
   ]
   },

@@ -119,12 +119,18 @@ export interface HeroContent {
   slides: HeroSlide[];
 }
 
+/** Card surface for a quick-access tile — each door gets its own colour so the six read apart. */
+export type QuickLinkTone = 'slate' | 'sky' | 'ocean' | 'ink' | 'rose' | 'teal';
+
 export interface QuickLink {
   id: ID;
   label: string;
   description: string;
   href: string;
   icon: IconName;
+  /** The 3D illustration that sits in the lower half of the card. */
+  image: Media;
+  tone: QuickLinkTone;
 }
 
 /** The "company at a glance" band: one photograph, one capital figure, three numbers. */
