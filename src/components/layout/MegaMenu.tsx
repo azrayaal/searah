@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { ArrowRight } from 'lucide-react';
 import { Image } from '@/components/ui/Image';
+import { useTranslation } from '@/lib/i18n';
 import { EASE } from '@/lib/motion';
 import type { NavItem } from '@/types';
 
@@ -16,6 +17,10 @@ interface MegaMenuProps {
  * means the promoted card has to lie down as a row rather than stand as a 320px column.
  */
 export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
+  // Called before the early return: hooks must run in the same order on every render,
+  // and an item without columns would otherwise skip it.
+  const t = useTranslation();
+
   if (!item.columns) return null;
 
   const columns = item.columns.length;
@@ -35,8 +40,8 @@ export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
         style={{ gridTemplateColumns: `repeat(${Math.min(columns, 3)}, minmax(0, 1fr))` }}
       >
         {item.columns.map((column) => (
-          <div key={column.title}>
-            <p className="eyebrow mb-3 text-ocean">{column.title}</p>
+          <div key={t(column.title)}>
+            <p className="eyebrow mb-3 text-ocean">{t(column.title)}</p>
             <ul className="space-y-0.5">
               {column.links.map((link) => (
                 <li key={link.href + link.label}>
@@ -47,7 +52,7 @@ export function MegaMenu({ item, onNavigate }: MegaMenuProps) {
                   >
                     {/* Wraps rather than truncates — the panel is narrow by design, and a
                         clipped label is a link the reader can no longer identify. */}
-                    <span className="leading-snug">{link.label}</span>
+                    <span className="leading-snug">{t(link.label)}</span>
                     <ArrowRight
                       className="mt-1 h-3.5 w-3.5 shrink-0 -translate-x-1 text-ocean opacity-0 transition-all duration-300 ease-premium group-hover:translate-x-0 group-hover:opacity-100"
                       aria-hidden

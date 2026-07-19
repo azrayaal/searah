@@ -4,6 +4,7 @@ import { Image } from '@/components/ui/Image';
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import type { Entity, SectionIntro } from '@/types';
+import { useTranslation } from '@/lib/i18n';
 
 interface EntitiesRailProps {
   intro: SectionIntro;
@@ -22,6 +23,7 @@ function splitName(name: string) {
  * a rail hid a third of the group behind a swipe for no reason.
  */
 export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
+  const t = useTranslation();
   return (
     <section
       className="on-dark relative isolate overflow-hidden py-16 text-white md:py-20 lg:py-[80px]"
@@ -49,11 +51,11 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
       <Container className="relative">
         <Reveal>
           <h2 className="max-w-3xl text-[2rem] font-bold leading-[1.12] text-white md:text-[2.5rem] lg:text-[3rem]">
-            {intro.title}
+            {t(intro.title)}
           </h2>
           {intro.description ? (
             <p className="mt-6 max-w-2xl text-body-sm text-white/75 md:text-body">
-              {intro.description}
+              {t(intro.description)}
             </p>
           ) : null}
         </Reveal>
@@ -168,7 +170,7 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
                         group-hover:translate-y-0
                       "
                     >
-                      {entity.summary}
+                      {t(entity.summary)}
                     </p>
                   )}
 

@@ -1,16 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight, Pause, Play } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { ButtonLink } from '@/components/ui/Button';
 import { Image } from '@/components/ui/Image';
 import { EASE } from '@/lib/motion';
-import type { HeroContent } from '@/types';
+import type { HeroContent, Media } from '@/types';
+import { useTranslation } from '@/lib/i18n';
 
 interface HeroBannerProps {
   content: HeroContent;
   /** Milliseconds each slide holds before advancing. */
   interval?: number;
+}
+
+/**
+ * Slides carry their frame in `image.src`, which may now be a video file.
+ *
+ * Detecting by extension rather than adding a `kind` field to the data keeps the
+ * content shape unchanged — the CMS stores one media reference per slide either way,
+ * and a slide's frame is a frame whether it moves or not.
+ */
+const VIDEO_PATTERN = /\.(mp4|webm|ogv)(\?.*)?$/i;
+
+const isVideo = (src: string) => VIDEO_PATTERN.test(src);
+
+/**
+ * The moving equivalent of the still hero frame.
+ *
+ * `muted` and `playsInline` are not stylistic: every browser blocks autoplay of a
+ * video that can make noise, and iOS additionally takes an un-hinted video fullscreen.
+ * Without both attributes the hero would show a frozen first frame on mobile.
+ *
+ * Playback follows the slideshow's own pause control, so one button governs the whole
+ * hero rather than leaving a video running under a paused rail. Reduced-motion holds
+ * the first frame instead — the copy is still legible, nothing moves.
+ */
+function HeroVideo({ media, playing }: { media: Media; playing: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    if (playing) {
+      // Autoplay can still be refused (low-power mode, user setting). The rejection is
+      // caught so it does not surface as an unhandled promise; the poster frame stands
+      // in, which is the correct degradation.
+      void node.play().catch(() => undefined);
+    } else {
+      node.pause();
+    }
+  }, [playing]);
+
+  return (
+    <video
+      ref={ref}
+      src={media.src}
+      aria-label={media.alt}
+      autoPlay={playing}
+      muted
+      loop
+      playsInline
+      preload="auto"
+      className="h-full w-full object-cover"
+    />
+  );
 }
 
 /**
@@ -22,6 +77,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const reduceMotion = useReducedMotion();
+  const t = useTranslation();
   const slides = content.slides;
   const slide = slides[index];
 
@@ -49,14 +105,19 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
           }}
           className="absolute inset-0 -z-10"
         >
-          <Image
-            media={slide.image}
-            ratio="auto"
-            priority
-            sizes="100vw"
-            className="h-full"
-            imgClassName="h-full w-full"
-          />
+          {isVideo(slide.image.src) ? (
+            // Reduced motion holds the first frame rather than looping footage.
+            <HeroVideo media={slide.image} playing={playing && !reduceMotion} />
+          ) : (
+            <Image
+              media={slide.image}
+              ratio="auto"
+              priority
+              sizes="100vw"
+              className="h-full"
+              imgClassName="h-full w-full"
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 
@@ -81,11 +142,11 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
               transition={{ duration: 0.7, ease: EASE }}
             >
               <h1 className="text-[2.25rem] font-normal leading-[1.1] text-white sm:text-[2.75rem] md:text-[3rem] lg:text-[4rem] lg:leading-[1.08]">
-                {slide.title}
+                {t(slide.title)}
               </h1>
 
               <p className="my-6 max-w-2xl text-body-sm text-white/75 md:text-body">
-                {slide.subtitle}
+                {t(slide.subtitle)}
               </p>
 
               <div className="mt-10">
@@ -95,7 +156,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
                   size="lg"
                   icon={<ArrowRight className="h-4 w-4" />}
                 >
-                  {slide.cta.label}
+                  {t(slide.cta.label)}
                 </ButtonLink>
               </div>
             </motion.div>
@@ -113,7 +174,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
                 type="button"
                 role="tab"
                 aria-selected={position === index}
-                aria-label={item.title}
+                aria-label={t(item.title)}
                 onClick={() => setIndex(position)}
                 /* 44px tap target with a 4px visual rail inside it */
                 className="group relative flex h-11 w-11 items-center justify-center"

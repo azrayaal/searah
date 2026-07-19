@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/cn';
+import { useTranslation } from '@/lib/i18n';
 import { Container } from './Container';
 import { TextReveal } from './TextReveal';
 import { fadeUp } from '@/lib/motion';
@@ -70,6 +71,14 @@ export function SectionHeader({
   const dark = tone === 'dark';
   const { ref, visible } = useInViewport();
 
+  // Translating here rather than at every call site: `eyebrow` and `title` are section
+  // furniture, and there are dozens of them across the site. `description` is left alone
+  // — it is body copy, which is outside the translated scope.
+  //
+  // Strings already resolved by a caller (an interpolated title, say) simply miss the
+  // dictionary and come back unchanged, so passing them through twice is harmless.
+  const t = useTranslation();
+
   return (
     <motion.div
       ref={ref}
@@ -89,13 +98,13 @@ export function SectionHeader({
               className={cn('h-px w-8', dark ? 'bg-ember/60' : 'bg-ocean/40')}
               aria-hidden
             />
-            {eyebrow}
+            {t(eyebrow)}
           </p>
         ) : null}
 
         <TextReveal
           as="h2"
-          text={title}
+          text={t(title)}
           className={cn(
             'text-[1.75rem] font-bold leading-[1.15] md:text-[2.25rem]',
             dark ? 'text-white' : 'text-navy-deep',

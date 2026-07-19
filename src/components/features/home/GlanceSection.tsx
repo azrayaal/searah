@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/Container';
 import { Image } from '@/components/ui/Image';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import type { GlanceContent } from '@/types';
+import { useTranslation } from '@/lib/i18n';
 
 interface GlanceSectionProps {
   content: GlanceContent;
@@ -13,6 +14,7 @@ interface GlanceSectionProps {
  * the figures, so the contour swell behind them carries the section instead.
  */
 export function GlanceSection({ content }: GlanceSectionProps) {
+  const t = useTranslation();
   return (
     <section className="relative isolate overflow-hidden bg-white py-16 md:py-20 lg:py-[80px]">
       {/* <ContourWaves className="-z-10" /> */}
@@ -31,7 +33,7 @@ export function GlanceSection({ content }: GlanceSectionProps) {
             {/* The figure sits on the asset it bought, not in a box beside it */}
          <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.18)] before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/15 before:to-transparent before:pointer-events-none sm:right-auto sm:max-w-[20rem] lg:bottom-8 lg:left-8 overflow-hidden">
         <p className="text-body-sm text-white/70">
-          {content.investment.label}
+          {t(content.investment.label)}
         </p>
 
         <p className="mt-3 text-[2rem] font-bold leading-none text-white lg:text-[2.5rem]">
@@ -49,11 +51,11 @@ export function GlanceSection({ content }: GlanceSectionProps) {
         {/* Top Content */}
         <RevealItem className="max-w-2xl">
           <h1 className="text-4xl text-charcoal">
-            {content.title}
+            {t(content.title)}
           </h1>
 
           <p className="mt-6 text-body-xl text-charcoal/70">
-            {content.subtitle}
+            {t(content.subtitle)}
           </p>
 
           <button className="group border-b border-charcoal pb-2 hover:text-charcoal/50 hover:border-charcoal/50 animation duration-300 mt-8 inline-flex items-center gap-3 text-sm font-medium text-charcoal">
@@ -69,7 +71,7 @@ export function GlanceSection({ content }: GlanceSectionProps) {
           gap={0.08}
         >
           {content.stats.map((stat) => (
-            <RevealItem key={stat.label}>
+            <RevealItem key={t(stat.label)}>
               <dd className="flex items-baseline gap-2">
                 <span className="text-[3.5rem] font-light leading-none tracking-tight text-navy-deep/85 lg:text-[4.5rem]">
                   {stat.value}
@@ -77,13 +79,13 @@ export function GlanceSection({ content }: GlanceSectionProps) {
 
                 {stat.unit && (
                   <span className="max-w-[6rem] text-body-sm font-medium leading-tight text-navy-deep/70">
-                    {stat.unit}
+                    {t(stat.unit)}
                   </span>
                 )}
               </dd>
 
               <dt className="mt-4 text-caption text-charcoal">
-                {stat.label}
+                {t(stat.label)}
               </dt>
             </RevealItem>
           ))}

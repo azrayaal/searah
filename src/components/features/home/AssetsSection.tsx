@@ -11,6 +11,7 @@ import { AssetMap } from '@/components/features/assets/AssetMap';
 import { entityIndex } from '@/data/entities';
 import { cn } from '@/lib/cn';
 import type { Asset, SectionIntro } from '@/types';
+import { useTranslation } from '@/lib/i18n';
 
 interface AssetsSectionProps {
   intro: SectionIntro;
@@ -25,6 +26,7 @@ const statusTone = {
 
 export function AssetsSection({ intro, assets }: AssetsSectionProps) {
   const [selected, setSelected] = useState<Asset | null>(null);
+  const t = useTranslation();
   const [country, setCountry] = useState<string>('');
 
   const countries = [
@@ -46,9 +48,9 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
   return (
     <Section id="assets" tone="faint" className="overflow-hidden border-b-2 border-hairline border-blue-100">
       <SectionHeader
-        eyebrow={intro.eyebrow}
-        title={intro.title}
-        description={intro.description}
+        eyebrow={intro.eyebrow ? t(intro.eyebrow) : undefined}
+        title={t(intro.title)}
+        description={intro.description ? t(intro.description) : undefined}
         cta={intro.cta}
       />
 
@@ -99,7 +101,7 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
 
                   <div className="mt-3 flex flex-wrap items-center gap-1.5">
                     <Badge tone={statusTone[selected.status]} dot className="px-2 py-0.5 text-[0.62rem]">
-                      {selected.status}
+                      {t(selected.status)}
                     </Badge>
                     <Badge tone="neutral" className="px-2 py-0.5 text-[0.62rem]">
                       {selected.type}
@@ -117,7 +119,7 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
                       sizes="(min-width: 1024px) 200px, 40vw"
                     />
                     <div className="flex flex-col justify-center">
-                      <span className="text-caption text-muted">Operated by</span>
+                      <span className="text-caption text-muted">{t('Operated by')}</span>
                       <span className="mt-0.5 text-body-sm font-bold leading-tight text-navy-deep">
                         {entityIndex[selected.entityId]?.name ?? selected.operator}
                       </span>
@@ -150,7 +152,7 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
                   </dl>
 
                   <p className="mt-4 text-caption leading-relaxed text-charcoal">
-                    {selected.description}
+                    {t(selected.description)}
                   </p>
                 </motion.div>
               ) : (
@@ -165,7 +167,7 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
                   <div className="flex gap-2" role="group" aria-label="Filter assets by country">
                     {countries.map((option) => (
                       <button
-                        key={option.label}
+                        key={t(option.label)}
                         type="button"
                         aria-pressed={country === option.value}
                         onClick={() => setCountry(option.value)}
@@ -178,7 +180,7 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
                       >
                         <span className="block text-[1.1rem] font-bold leading-none">{option.count}</span>
                         <span className="mt-1.5 block text-[0.62rem] font-semibold uppercase tracking-[0.06em] opacity-70">
-                          {option.label}
+                          {t(option.label)}
                         </span>
                       </button>
                     ))}
@@ -214,7 +216,7 @@ export function AssetsSection({ intro, assets }: AssetsSectionProps) {
                                     : 'text-muted',
                               )}
                             >
-                              {asset.status}
+                              {t(asset.status)}
                             </span>
                           </span>
                         </button>

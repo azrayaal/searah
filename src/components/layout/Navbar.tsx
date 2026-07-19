@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, Menu, PhoneCall, Search } from 'lucide-react';
+import { ChevronDown, Menu, PhoneCall } from 'lucide-react';
 // import { Logo } from './Logo';
 import { MegaMenu } from './MegaMenu';
 import { MobileNav } from './MobileNav';
-import { SearchPalette } from './SearchPalette';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { SearchInline } from './SearchInline';
 import { Container } from '@/components/ui/Container';
 import { useScrollDirection } from '@/hooks';
+import { useTranslation } from '@/lib/i18n';
 import { cn } from '@/lib/cn';
 import { EASE } from '@/lib/motion';
 import type { Commodity, NavItem } from '@/types';
@@ -26,6 +28,7 @@ export function Navbar({ items }: NavbarProps) {
   const { scrolled } = useScrollDirection();
   const { pathname } = useLocation();
   const closeTimer = useRef<number | undefined>(undefined);
+  const t = useTranslation();
 
   // Close any open panel when the route changes.
   useEffect(() => {
@@ -91,7 +94,11 @@ export function Navbar({ items }: NavbarProps) {
         {/* The bar is always transparent: the frosted pill is the only chrome, so the
             navigation keeps one form the whole way down the page. */}
         <div>
-          <Container className="relative flex h-[83.77px] pt-6 items-center justify-between gap-6">
+          {/* h-[84px] must stay equal to NAVBAR_HEIGHT in ./navbarVisibility — sticky page
+              furniture parks at that offset. Tailwind only accepts a literal here, so the
+              two are kept in step by hand; they were 83.77 and 74 before, and the 10px gap
+              is what let the controls overhang the entity page's sticky tab rail. */}
+          <Container className="relative flex h-[84px] pt-6 items-center justify-between gap-6">
             {/* `iconsearah.png` is pure white artwork, so it reads only against the dark
                 hero behind an unscrolled bar. Scrolled, the mark steps aside entirely and
                 the menu takes the centre — so there is no white-on-white logo to solve. */}
@@ -99,7 +106,7 @@ export function Navbar({ items }: NavbarProps) {
               to="/"
               aria-label="Searah — home"
               className={cn(
-                'flex shrink-0 items-center transition-opacity duration-500 pt-6',
+                'flex shrink-0 items-center transition-opacity duration-50',
                 scrolled && 'pointer-events-none opacity-0',
               )}
             >
@@ -156,7 +163,7 @@ export function Navbar({ items }: NavbarProps) {
                           tone,
                         )}
                       >
-                        {item.label}
+                        {t(item.label)}
                         {item.columns ? (
                           <ChevronDown
                             className={cn(
@@ -177,7 +184,7 @@ export function Navbar({ items }: NavbarProps) {
                           tone,
                         )}
                       >
-                        {item.label}
+                        {t(item.label)}
                         <ChevronDown
                           className={cn(
                             'h-3.5 w-3.5 transition-transform duration-300',
@@ -202,21 +209,21 @@ export function Navbar({ items }: NavbarProps) {
               </AnimatePresence>
             </motion.nav>
 
+            {/* Both controls live in the right-hand group, and that placement is
+                load-bearing. Scrolled, the nav pill centres itself with `absolute inset-0
+                m-auto`, which sweeps across anything sitting mid-bar — a control parked
+                beside the logo ends up half-buried under the pill, reading as a stray
+                white shape rather than a button. The right edge is the one region the
+                pill never travels into. */}
             <div className="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setSearchOpen(true)}
-                aria-label="Search Searah"
-                title="Search — ⌘K"
-                className={cn(
-                  'flex h-12 w-12 items-center justify-center rounded-xl ring-1 backdrop-blur-xl transition-colors duration-500',
-                  scrolled
-                    ? 'bg-white/70 text-navy-deep shadow-lifted ring-white/70 hover:bg-white hover:text-ocean'
-                    : 'bg-white/10 text-navy-deep ring-white/20 hover:bg-white/20',
-                )}
-              >
-                <Search className="h-[18px] w-[18px]" />
-              </button>
+              <LanguageSwitcher scrolled={scrolled} />
+
+              <SearchInline
+                open={searchOpen}
+                onOpen={() => setSearchOpen(true)}
+                onClose={() => setSearchOpen(false)}
+                scrolled={scrolled}
+              />
 
               <PrefetchLink
                 to="/emergency"
@@ -264,7 +271,6 @@ export function Navbar({ items }: NavbarProps) {
       </AnimatePresence>
 
       <MobileNav items={items} open={mobileOpen} onClose={() => setMobileOpen(false)} />
-      <SearchPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

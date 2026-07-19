@@ -5,6 +5,7 @@ import { ChevronDown, PhoneCall } from 'lucide-react';
 import { Drawer } from '@/components/ui/Drawer';
 import { site } from '@/data/site';
 import { cn } from '@/lib/cn';
+import { useTranslation } from '@/lib/i18n';
 import { EASE } from '@/lib/motion';
 import type { NavItem } from '@/types';
 
@@ -17,6 +18,7 @@ interface MobileNavProps {
 /** Accordion navigation for tablet and mobile. Same data as the desktop mega menu. */
 export function MobileNav({ items, open, onClose }: MobileNavProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const t = useTranslation();
 
   return (
     <Drawer open={open} onClose={onClose} title="Menu" side="right">
@@ -26,7 +28,7 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
             const isOpen = expanded === item.label;
 
             return (
-              <li key={item.label}>
+              <li key={t(item.label)}>
                 {item.columns ? (
                   <>
                     <button
@@ -41,7 +43,7 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                           isOpen ? 'text-ocean' : 'text-navy-deep',
                         )}
                       >
-                        {item.label}
+                        {t(item.label)}
                       </span>
                       <ChevronDown
                         className={cn(
@@ -63,8 +65,8 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                         >
                           <div className="space-y-6 px-6 py-6">
                             {item.columns.map((column) => (
-                              <div key={column.title}>
-                                <p className="eyebrow mb-3 text-ocean">{column.title}</p>
+                              <div key={t(column.title)}>
+                                <p className="eyebrow mb-3 text-ocean">{t(column.title)}</p>
                                 <ul className="space-y-3">
                                   {column.links.map((link) => (
                                     <li key={link.href + link.label}>
@@ -73,7 +75,7 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                                         onClick={onClose}
                                         className="block py-1 text-body-sm text-charcoal transition-colors hover:text-ocean"
                                       >
-                                        {link.label}
+                                        {t(link.label)}
                                       </PrefetchLink>
                                     </li>
                                   ))}
@@ -91,7 +93,7 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                     onClick={onClose}
                     className="block px-6 py-5 text-[1.0625rem] font-bold text-navy-deep transition-colors hover:text-ocean"
                   >
-                    {item.label}
+                    {t(item.label)}
                   </PrefetchLink>
                 )}
               </li>

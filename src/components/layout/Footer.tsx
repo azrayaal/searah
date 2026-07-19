@@ -1,6 +1,7 @@
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { Container } from '@/components/ui/Container';
 import { Icon } from '@/lib/icons';
+import { useTranslation } from '@/lib/i18n';
 import { site, companyFacts } from '@/data/site';
 import type { FooterContent } from '@/types';
 
@@ -13,6 +14,8 @@ const FOOTER_GRADIENT =
   'linear-gradient(135deg, #134297 0%, #0F3C8E 20%, #0B3785 40%, #07317C 60%, #032B74 80%, #00266B 100%)';
 
 export function Footer({ content }: FooterProps) {
+  const t = useTranslation();
+
   return (
     <footer className="on-dark text-white" style={{ background: FOOTER_GRADIENT }}>
       <Container className="py-16 lg:py-20">
@@ -36,7 +39,7 @@ export function Footer({ content }: FooterProps) {
               {content.offices.map((office) => (
                 <div key={office.name}>
                   <p className="text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/55">
-                    {office.name}
+                    {t(office.name)}
                   </p>
                   <div className="mt-1">
                     {office.lines.map((line) => (
@@ -69,7 +72,7 @@ export function Footer({ content }: FooterProps) {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:gap-6">
             {content.columns.map((column) => (
               <div key={column.title}>
-                <p className="eyebrow mb-5 text-white/40">{column.title}</p>
+                <p className="eyebrow mb-5 text-white/40">{t(column.title)}</p>
                 <ul className="space-y-3">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
@@ -77,7 +80,7 @@ export function Footer({ content }: FooterProps) {
                         to={link.href}
                         className="text-caption text-white/70 transition-colors hover:text-ember"
                       >
-                        {link.label}
+                        {t(link.label)}
                       </PrefetchLink>
                     </li>
                   ))}
@@ -91,7 +94,7 @@ export function Footer({ content }: FooterProps) {
         <div className="mt-16 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
             <span className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/35">
-              Shareholders
+              {t('Shareholders')}
             </span>
             {/* The wordmarks stand in for the names — `alt` keeps them readable to
                 screen readers and if the file ever 404s. */}
@@ -110,7 +113,7 @@ export function Footer({ content }: FooterProps) {
           </div>
 
           <p className="text-caption text-white/40">
-            {companyFacts.assets.total} assets · {companyFacts.assets.indonesia} Indonesia ·{' '}
+            {companyFacts.assets.total} {t('assets')} · {companyFacts.assets.indonesia} Indonesia ·{' '}
             {companyFacts.assets.malaysia} Malaysia
           </p>
         </div>
@@ -126,7 +129,7 @@ export function Footer({ content }: FooterProps) {
                   to={link.href}
                   className="text-caption text-white/50 transition-colors hover:text-white"
                 >
-                  {link.label}
+                  {t(link.label)}
                 </PrefetchLink>
               </li>
             ))}

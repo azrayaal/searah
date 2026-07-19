@@ -19,7 +19,8 @@ import { entities, getEntity, getEntityAssets } from '@/data/entities';
 import { getArticlesByEntity } from '@/data/newsletter';
 import { getResourcesByIds } from '@/data/resources';
 import { Icon } from '@/lib/icons';
-import { useSeo } from '@/hooks';
+import { useScrollDirection, useSeo } from '@/hooks';
+import { useTranslation } from '@/lib/i18n';
 import { useInViewport } from '@/hooks/useInViewport';
 import { EASE } from '@/lib/motion';
 import { cn } from '@/lib/cn';
@@ -46,11 +47,12 @@ function ProductionChart({ entity }: { entity: Entity }) {
   // Not `whileInView`: a bar whose animation never gets its first frame stays at height
   // zero, and the chart reads as empty rather than as loading.
   const { ref, visible } = useInViewport();
+  const t = useTranslation();
 
   return (
     <div ref={ref} className="rounded-card border border-hairline bg-white p-6 lg:p-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <p className="text-h3 text-navy-deep">Quarterly production</p>
+        <p className="text-h3 text-navy-deep">{t('Quarterly production')}</p>
         <ul className="flex gap-5">
           {[
             { label: 'Oil (kbbl/d)', colour: 'bg-navy-deep' },
@@ -97,6 +99,9 @@ export default function EntityPage() {
   const [active, setActive] = useState('overview');
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
   const { ref: mixRef, visible: mixVisible } = useInViewport();
+  // Same signal the primary bar uses, so the two rails change state on the same frame.
+  const { scrolled } = useScrollDirection();
+  const t = useTranslation();
 
   // Switching entity reuses this component, so the section rail and any open asset
   // would otherwise carry over from the entity the user just left.
@@ -173,20 +178,39 @@ export default function EntityPage() {
         </dl>
       </PageHero>
 
-      {/* Sticky in-page navigation, parked directly under the fixed bar. */}
-      <div
-        style={{ top: NAVBAR_HEIGHT }}
-        className="sticky z-30 border-b border-hairline bg-white/95 backdrop-blur-md"
-      >
-        <div className="mx-auto w-full max-w-container px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-[3.5vw] 3xl:px-[4vw]">
-          <Tabs
-            items={SECTIONS}
-            value={active}
-            onChange={scrollTo}
-            layoutKey="entity-sections"
-            className="border-b-0"
-          />
-        </div>
+      {/* Sticky in-page navigation, parked directly under the fixed bar.
+
+          It mirrors the primary bar's two states: a full-width ruled rail while the hero
+          is still in view, then — once scrolled — a frosted pill that pulls into the
+          centre. The pill is what makes this read as part of the same navigation system
+          rather than a second bar competing with it at the top of the page. */}
+      <div style={{ top: NAVBAR_HEIGHT }} className="sticky z-30">
+        <motion.div
+          layout
+          transition={{ layout: { duration: 0.45, ease: EASE } }}
+          className={cn(
+            'transition-colors duration-500',
+            scrolled
+              ? 'mx-auto mt-2 w-fit max-w-[calc(100vw-2rem)] rounded-xl bg-white/70 p-1.5 shadow-lifted ring-1 ring-white/70 backdrop-blur-xl'
+              : 'border-b border-hairline bg-white/95 backdrop-blur-md',
+          )}
+        >
+          <div
+            className={cn(
+              !scrolled &&
+                'mx-auto w-full max-w-container px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-[3.5vw] 3xl:px-[4vw]',
+            )}
+          >
+            <Tabs
+              items={SECTIONS}
+              value={active}
+              onChange={scrollTo}
+              layoutKey={scrolled ? 'entity-sections-pill' : 'entity-sections-rail'}
+              variant={scrolled ? 'pill' : 'underline'}
+              className={cn(!scrolled && 'border-b-0')}
+            />
+          </div>
+        </motion.div>
       </div>
 
       {/* Overview */}
@@ -288,7 +312,7 @@ export default function EntityPage() {
       <Section id="leadership" tone="faint">
         <SectionHeader
           eyebrow="Leadership"
-          title={`The team running ${entity.name}`}
+          title={t('The team running {name}', { name: entity.name })}
           cta={{ label: 'Full organisation chart', href: '/organisation' }}
         />
 
@@ -332,7 +356,7 @@ export default function EntityPage() {
       <Section id="assets" tone="faint">
         <SectionHeader
           eyebrow="Assets"
-          title={`${entityAssets.length} assets under ${entity.code}`}
+          title={t('{count} assets under {code}', { count: entityAssets.length, code: entity.code })}
           cta={{ label: 'All group assets', href: '/assets' }}
         />
 
@@ -466,7 +490,7 @@ export default function EntityPage() {
 
       {/* Milestones */}
       <Section id="milestones" tone="white">
-        <SectionHeader eyebrow="Milestones" title={`How ${entity.name} got here`} />
+        <SectionHeader eyebrow="Milestones" title={t('How {name} got here', { name: entity.name })} />
 
         <RevealGroup className="mt-12" gap={0.08} as="ol">
           {entity.milestones.map((milestone, index) => (
@@ -501,7 +525,7 @@ export default function EntityPage() {
       <Section id="news" tone="faint">
         <SectionHeader
           eyebrow="Newsroom"
-          title={`Latest from ${entity.name}`}
+          title={t('Latest from {name}', { name: entity.name })}
           description={`Every article tagged to ${entity.code} appears here automatically.`}
           cta={{ label: 'All articles', href: `/newsletter?entity=${entity.id}` }}
         />
@@ -570,7 +594,7 @@ export default function EntityPage() {
       <Section id="contact" tone="white">
         <SectionHeader
           eyebrow="Contact"
-          title={`Reach ${entity.name}`}
+          title={t('Reach {name}', { name: entity.name })}
           description="Media and internal enquiries go to the entity communications lead. Anything time-critical goes to the emergency line, not to an inbox."
           cta={{ label: 'Employee directory', href: '/directory' }}
         />

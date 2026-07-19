@@ -7,6 +7,7 @@ import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { cn } from '@/lib/cn';
 import { EASE } from '@/lib/motion';
 import type { QuickLink, QuickLinkTone, SectionIntro } from '@/types';
+import { useTranslation } from '@/lib/i18n';
 
 interface QuickAccessSectionProps {
   intro: SectionIntro;
@@ -34,6 +35,7 @@ const tones: Record<QuickLinkTone, { title: string; body: string }> = {
 const PLATE_RATIO = '1784 / 2056';
 
 function QuickCard({ link }: { link: QuickLink }) {
+  const t = useTranslation();
   const tone = tones[link.tone];
 
   return (
@@ -65,7 +67,7 @@ function QuickCard({ link }: { link: QuickLink }) {
             tone.title,
           )}
         >
-          {link.label}
+          {t(link.label)}
         </span>
         <span
           className={cn(
@@ -73,7 +75,7 @@ function QuickCard({ link }: { link: QuickLink }) {
             tone.body,
           )}
         >
-          {link.description}
+          {t(link.description)}
         </span>
       </div>
     </PrefetchLink>
@@ -85,6 +87,7 @@ function QuickCard({ link }: { link: QuickLink }) {
  * "See all", so the homepage never spends a full viewport on navigation.
  */
 export function QuickAccessSection({ intro, links }: QuickAccessSectionProps) {
+  const t = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   const visible = links.slice(0, COLLAPSED_COUNT);
@@ -92,7 +95,7 @@ export function QuickAccessSection({ intro, links }: QuickAccessSectionProps) {
 
   return (
     <Section tone="faint">
-      <SectionHeader eyebrow={intro.eyebrow} title={intro.title} />
+      <SectionHeader eyebrow={t(intro.eyebrow)} title={t(intro.title)} />
 
       <RevealGroup className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" gap={0.05}>
         {visible.map((link) => (
@@ -143,7 +146,7 @@ export function QuickAccessSection({ intro, links }: QuickAccessSectionProps) {
             aria-expanded={expanded}
             className="group flex flex-col items-center gap-1 rounded-lg px-6 py-2 text-body-sm font-medium text-muted transition-colors duration-500 ease-premium hover:text-ocean focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
           >
-            {expanded ? 'Close' : 'See all'}
+            {expanded ? t('Close') : t('See all')}
             <ChevronDown
               className={cn(
                 'h-4 w-4 transition-transform duration-500 ease-premium group-hover:translate-y-0.5',

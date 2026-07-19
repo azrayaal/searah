@@ -66,7 +66,7 @@ export const homepage: HomepageContent = {
         subtitle:
           'Supporting collaboration across Malaysia and Indonesia through one connected workplace that brings every team closer together.',
         image: {
-          src: '/assets/header3.png',
+          src: '/assets/header1.mp4',
           alt: 'Searah offshore production platform at sea',
         },
         cta: { label: 'See more', href: '/about' },
@@ -76,7 +76,7 @@ export const homepage: HomepageContent = {
         title: 'Safe, Reliable, and Efficient Operations',
         subtitle:
           'Providing seamless access to workplace services, business applications, and operational resources that support excellence every day.',
-        image: { src: '/assets/header2.jpeg', alt: 'Offshore facility illuminated at night' },
+        image: { src: '/assets/header2-web.mp4', alt: 'Offshore facility illuminated at night' },
         cta: { label: 'See more', href: '/about#portfolio' },
       },
       {
@@ -84,7 +84,7 @@ export const homepage: HomepageContent = {
         title: 'Creating Value Through Our People',
         subtitle:
           'Strengthening collaboration, continuous learning, and employee engagement to support our business and the communities we serve.',
-        image: { src: '/media/lng-carrier.jpg', alt: 'LNG carrier departing an export terminal' },
+        image: { src: '/assets/header3-web.mp4', alt: 'LNG carrier departing an export terminal' },
         cta: { label: 'See more', href: '/about#timeline' },
       },
     ],
