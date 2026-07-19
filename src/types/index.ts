@@ -54,13 +54,20 @@ export interface SocialLink {
   icon: IconName;
 }
 
+/** One registered office: the entity it belongs to, then its street address. */
+export interface FooterOffice {
+  name: string;
+  lines: string[];
+}
+
 export interface FooterContent {
   columns: FooterColumn[];
   social: SocialLink[];
   legal: NavLink[];
-  address: string[];
+  offices: FooterOffice[];
   copyright: string;
-  shareholders: { name: string; share: string }[];
+  /** `logo` is the wordmark shown in place of the name in the shareholder rail. */
+  shareholders: { name: string; share: string; logo: string }[];
 }
 
 /** Names resolved against the lucide-react icon registry in `src/lib/icons.ts`. */

@@ -71,7 +71,7 @@ export function HeroBanner({ content, interval = 7000 }: HeroBannerProps) {
       /> */}
 
       <Container className="on-dark relative flex flex-1 flex-col justify-center py-52 lg:pb-40">
-        <div className="max-w-xl">
+        <div className="max-w-2xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}

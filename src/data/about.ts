@@ -33,7 +33,7 @@ export const about: AboutContent = {
     ],
     figures: [
       {
-        label: 'Assets under management',
+        label: 'Producing & Development Assets',
         value: '19',
         caption: '14 in Indonesia and 5 in Malaysia, across producing, development and exploration acreage.',
       },

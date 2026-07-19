@@ -4,13 +4,19 @@ import { useCallback, useEffect, useState } from 'react';
 const BOTTOM_MARGIN = 64;
 
 /**
- * Scroll-entrance trigger with a backstop, replacing framer-motion's `whileInView`.
+ * Bidirectional scroll trigger with a backstop, replacing framer-motion's `whileInView`.
  *
- * `whileInView` leaves an element at `opacity: 0` whenever its IntersectionObserver
- * never delivers a first callback — which is what produced the "content only appears
- * once I open DevTools" bug: opening the panel resized the viewport, which finally
- * flushed the observer. Here a geometry check runs as soon as the node mounts, and
- * again after the layout has settled, so anything on screen is revealed regardless.
+ * `visible` tracks the element continuously rather than latching on first sight, so the
+ * motion presets can play their `hidden` variant as an exit when the element scrolls
+ * back off screen.
+ *
+ * The IntersectionObserver is the source of truth — it reports both directions and
+ * costs no layout work. The geometry checks exist only as a backstop: `whileInView`
+ * left elements at `opacity: 0` whenever the observer never delivered a first callback,
+ * which produced the "content only appears once I open DevTools" bug (opening the panel
+ * resized the viewport, which finally flushed the observer). Deliberately no scroll
+ * listener — measuring every Reveal on the page per scroll event would thrash layout,
+ * and the observer already covers it.
  *
  * The ref is a callback ref rather than a `RefObject` so it can attach to any of the
  * motion tags, whose `ref` types are an intersection across every element kind.
@@ -22,26 +28,19 @@ export function useInViewport() {
   const ref = useCallback((node: HTMLElement | null) => setElement(node), []);
 
   useEffect(() => {
-    if (!element || visible) return;
+    if (!element) return;
 
-    const onScreen = () => {
+    const sync = () => {
       const rect = element.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      return rect.top < viewportHeight - BOTTOM_MARGIN && rect.bottom > 0;
+      setVisible(rect.top < viewportHeight - BOTTOM_MARGIN && rect.bottom > 0);
     };
 
-    if (onScreen()) {
-      setVisible(true);
-      return;
-    }
-
-    const reveal = () => {
-      if (onScreen()) setVisible(true);
-    };
+    sync();
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) setVisible(true);
+        for (const entry of entries) setVisible(entry.isIntersecting);
       },
       { rootMargin: `0px 0px -${BOTTOM_MARGIN}px 0px` },
     );
@@ -49,17 +48,15 @@ export function useInViewport() {
 
     // A late layout shift — image decode, webfont swap — can pull an element into view
     // without any scroll, so re-check once the page has had a moment to settle.
-    const timer = window.setTimeout(reveal, 500);
-    window.addEventListener('scroll', reveal, { passive: true });
-    window.addEventListener('resize', reveal);
+    const timer = window.setTimeout(sync, 500);
+    window.addEventListener('resize', sync);
 
     return () => {
       observer.disconnect();
       window.clearTimeout(timer);
-      window.removeEventListener('scroll', reveal);
-      window.removeEventListener('resize', reveal);
+      window.removeEventListener('resize', sync);
     };
-  }, [element, visible]);
+  }, [element]);
 
   return { ref, visible } as const;
 }

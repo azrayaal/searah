@@ -7,7 +7,7 @@ import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
 import { Counter } from '@/components/ui/Counter';
 import { Image } from '@/components/ui/Image';
 import { Icon } from '@/lib/icons';
-import { EASE, viewportOnce } from '@/lib/motion';
+import { EASE, viewportRepeat } from '@/lib/motion';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/hooks';
 import { about } from '@/data/about';
@@ -134,7 +134,7 @@ function ShareholdersSection({ content }: { content: AboutContent['shareholders'
               className="mt-8 h-px origin-left bg-white/20"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
-              viewport={viewportOnce}
+              viewport={viewportRepeat}
               transition={{ duration: 1, ease: EASE, delay: 0.15 * index }}
             />
 

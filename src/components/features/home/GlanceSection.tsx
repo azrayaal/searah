@@ -56,9 +56,9 @@ export function GlanceSection({ content }: GlanceSectionProps) {
             {content.subtitle}
           </p>
 
-          <button className="group mt-8 inline-flex items-center gap-3 text-sm font-medium text-charcoal">
-            See More
-            <span className="h-px w-10 bg-charcoal transition-all duration-300 group-hover:w-16" />
+          <button className="group border-b border-charcoal pb-2 hover:text-charcoal/50 hover:border-charcoal/50 animation duration-300 mt-8 inline-flex items-center gap-3 text-sm font-medium text-charcoal">
+            Explore More
+            {/* <span className="h-px w-10 bg-charcoal transition-all duration-300 group-hover:w-16" /> */}
           </button>
         </RevealItem>
 

@@ -26,11 +26,11 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
     <section
       className="on-dark relative isolate overflow-hidden py-16 text-white md:py-20 lg:py-[80px]"
       style={{
-        background: 'linear-gradient(135deg, #1A4FB5 0%, #14459F 35%, #0E3C8C 70%, #0B3785 100%)',
+        background: 'url(/assets/bg-entity.jpeg) no-repeat center/cover',
       }}
     >
       {/* Photograph bleeding in from the right, masked so it dissolves into the field */}
-          <div
+          {/* <div
           className="absolute inset-y-0 right-0 -z-10 hidden w-[58%] overflow-hidden lg:block"
           style={{
             WebkitMaskImage:
@@ -44,7 +44,7 @@ export function EntitiesRail({ intro, entities }: EntitiesRailProps) {
             className="absolute inset-0 h-full w-full object-cover object-center scale-110" 
             alt=""
           />
-        </div>
+        </div> */}
 
       <Container className="relative">
         <Reveal>

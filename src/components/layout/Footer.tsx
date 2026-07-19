@@ -1,7 +1,6 @@
 import { PrefetchLink } from '@/components/ui/PrefetchLink';
 import { Container } from '@/components/ui/Container';
 import { Icon } from '@/lib/icons';
-import { LogoMark } from './Logo';
 import { site, companyFacts } from '@/data/site';
 import type { FooterContent } from '@/types';
 
@@ -20,9 +19,9 @@ export function Footer({ content }: FooterProps) {
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr] lg:gap-20">
           <div>
             <div className="flex items-center gap-3">
-              <LogoMark className="h-10 w-10" />
+              <img src={site.logo.mark} alt={`${site.name} logo`} className="h-24 w-auto" />
               <div>
-                <p className="text-[1.4rem] font-bold leading-none text-white">{site.name}</p>
+                {/* <p className="text-[1.4rem] font-bold leading-none text-white">{site.name}</p> */}
                 <p className="mt-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-white/50">
                   {site.descriptor}
                 </p>
@@ -31,11 +30,22 @@ export function Footer({ content }: FooterProps) {
 
             <p className="mt-6 max-w-sm text-body-sm text-white/60">{site.description}</p>
 
-            <address className="mt-8 not-italic">
-              {content.address.map((line) => (
-                <p key={line} className="text-caption text-white/50">
-                  {line}
-                </p>
+            {/* Registered offices — a step down in size from the description above, so the
+                rail reads as supporting detail rather than a second paragraph. */}
+            <address className="mt-8 space-y-5 not-italic">
+              {content.offices.map((office) => (
+                <div key={office.name}>
+                  <p className="text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/55">
+                    {office.name}
+                  </p>
+                  <div className="mt-1">
+                    {office.lines.map((line) => (
+                      <p key={line} className="text-[0.78rem] leading-[1.55] text-white/40">
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                </div>
               ))}
             </address>
 
@@ -83,12 +93,18 @@ export function Footer({ content }: FooterProps) {
             <span className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white/35">
               Shareholders
             </span>
+            {/* The wordmarks stand in for the names — `alt` keeps them readable to
+                screen readers and if the file ever 404s. */}
             {content.shareholders.map((shareholder) => (
-              <span key={shareholder.name} className="text-body-sm font-semibold text-white/85">
-                {shareholder.name}
-                <span className="ml-2 text-caption font-normal text-white/40">
-                  {shareholder.share}
-                </span>
+              <span key={shareholder.name} className="flex items-center gap-2.5">
+                <img
+                  src={shareholder.logo}
+                  alt={shareholder.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-6 w-auto object-contain"
+                />
+                <span className="text-caption font-normal text-white/40">{shareholder.share}</span>
               </span>
             ))}
           </div>

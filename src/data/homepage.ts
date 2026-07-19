@@ -99,9 +99,9 @@ export const homepage: HomepageContent = {
     subtitle: 'Delivering reliabel energy solution strategic operations commited investment countries of operation between Indonesia and Malaysia',
     investment: { label: 'Committed investment', value: 'USD 20', unit: 'bn' },
     stats: [
-      { value: '19', label: 'Assets under management' },
-      { value: '300k', unit: 'BOE/D', label: 'Current production' },
-      { value: '2', unit: 'Indonesia · Malaysia', label: 'Countries of operation' },
+      { value: '19', label: 'Producing & Development Assets' },
+      { value: '300k', unit: 'BOE/D', label: 'Initial Production' },
+      { value: '2', unit: 'Malaysia · Indonesia', label: 'Countries of Operation' },
     ],
   },
 
@@ -197,9 +197,9 @@ export const homepage: HomepageContent = {
 
   entitiesSection: {
     eyebrow: 'Operating entities',
-    title: 'Three operating entities, one shared standard',
+    title: 'Three Operating Entities. One Commitment',
     description:
-      'Every asset in the portfolio is run by one of three entities — each with its own basin, its own engineering culture, and the same safety and emissions standard.',
+      'Each operating entity brings unique strengths and expertise while working to the same standards of safety, performance, and responsible operations.',
     cta: { label: 'About the group', href: '/about' },
   },
 
@@ -207,7 +207,7 @@ export const homepage: HomepageContent = {
     eyebrow: 'Asset portfolio',
     title: 'Nineteen assets. Two countries. One operating model.',
     description:
-      'Fourteen assets across the Indonesian archipelago and five offshore Malaysia — from mature producing hubs to frontier deepwater exploration.',
+      'Supporting a portfolio of 19 producing, development, and exploration assets across Indonesia and Malaysia, managed with a shared commitment to safety, operational excellence, and responsible energy development.',
     cta: { label: 'Open the full asset register', href: '/assets' },
   },
 

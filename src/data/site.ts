@@ -12,8 +12,8 @@ export const site: SiteConfig = {
   locale: 'en_GB',
   twitter: '@searah',
   logo: {
-    withText: '/assets/logo_with_text.png',
-    mark: '/assets/logo_without_text.png',
+    withText: '/logo_with_text.png',
+    mark: '/iconsearah.png',
   },
 };
 

@@ -50,15 +50,36 @@ export const footer: FooterContent = {
     { label: 'Privacy Policy', href: '/legal/privacy' },
     { label: 'Whistleblowing', href: '/services?category=HSE' },
   ],
-  address: [
-    'Searah Energy Holdings',
-    'Menara Searah, Level 38',
-    'Jl. Jend. Sudirman Kav. 52-53',
-    'Jakarta 12190, Indonesia',
+  offices: [
+    {
+      name: 'Searah Limited',
+      lines: ['Holbein Gardens, 7 Holbein Pl,', 'London SW1W 8NR, United Kingdom'],
+    },
+    {
+      name: 'Operating Company Malaysia',
+      lines: [
+        'Permata Sapura Tower, Kuala Lumpur City Centre, 50088,',
+        'Wilayah Persekutuan, Kuala Lumpur',
+      ],
+    },
+    {
+      name: 'Operating Company Ketapang',
+      lines: [
+        'Talavera Office Park, Talavera Suite, 3rd Floor,',
+        'Jl. TB Simatupang Kav 22-26, Jakarta, 12430',
+      ],
+    },
+    {
+      name: 'Operating Company Muara Bakau',
+      lines: [
+        'Pondok Indah Office Tower 3, Floors 19-22,',
+        'Jl. Sultan Iskandar Muda, Pondok Indah, Jakarta 12310',
+      ],
+    },
   ],
   copyright: `© ${new Date().getFullYear()} Searah Energy Holdings. All rights reserved.`,
   shareholders: [
-    { name: 'Eni S.p.A.', share: '50%' },
-    { name: 'PETRONAS', share: '50%' },
+    { name: 'Eni S.p.A.', share: '50%', logo: '/eni.png' },
+    { name: 'PETRONAS', share: '50%', logo: '/petronas.png' },
   ],
 };

@@ -59,7 +59,7 @@ function StatsRail({ counts }: { counts: Record<string, number> }) {
     {
       key: 'total',
       value: formatNumber(companyFacts.assets.total),
-      label: 'Assets under management',
+      label: 'Producing & Development Assets',
     },
     ...countries.map((country) => ({
       key: country,
