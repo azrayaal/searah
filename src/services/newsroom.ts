@@ -1,4 +1,4 @@
-import { fetchData } from '@/services/apiClient';
+import { fetchData, fetchEnvelope } from '@/services/apiClient';
 import { toNewsArticles } from '@/services/newsroom.adapter';
 import type { ApiNewsletter } from '@/services/newsroom.adapter';
 import { news, newsCategories } from '@/data/newsletter';
@@ -26,17 +26,36 @@ function byDateDesc(a: NewsArticle, b: NewsArticle): number {
   return b.date.localeCompare(a.date);
 }
 
+/** The API caps `limit` at 100 — asking for more is rejected outright, not truncated. */
+const PAGE_SIZE = 100;
+/** Backstop against a malformed `hasNextPage` turning the walk below into a spin. */
+const MAX_PAGES = 20;
+
 /**
- * The full published set.
+ * The full published set, walked page by page.
  *
- * `limit: 200` rather than paging: the newsroom filters and searches client-side across
- * the whole corpus, so a partial set would silently hide articles from the category
- * counts. Worth revisiting if the archive ever outgrows a single response.
+ * The newsroom filters, searches and counts categories client-side across the whole
+ * corpus, so a partial set would silently hide articles from the filter counts rather
+ * than visibly failing. Paging rather than one large request because the API caps
+ * `limit` at 100 by design; a single `limit=200` is refused with a 422, which is exactly
+ * how this surfaced — the listing rendered empty while the article page worked.
  */
 async function fetchAll(signal?: AbortSignal): Promise<NewsArticle[]> {
   if (NEWSROOM_SOURCE === 'dummy') return [...news].sort(byDateDesc);
 
-  const rows = await fetchData<ApiNewsletter[]>('/newsletters', { limit: 200 }, signal);
+  const rows: ApiNewsletter[] = [];
+
+  for (let page = 1; page <= MAX_PAGES; page += 1) {
+    const envelope = await fetchEnvelope<ApiNewsletter[]>(
+      '/newsletters',
+      { page, limit: PAGE_SIZE },
+      signal,
+    );
+
+    rows.push(...envelope.data);
+    if (!envelope.meta.pagination?.hasNextPage) break;
+  }
+
   return toNewsArticles(rows).sort(byDateDesc);
 }
 
