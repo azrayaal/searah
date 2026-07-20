@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { PageHero } from '@/components/layout/PageHero';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal';
@@ -11,23 +9,16 @@ import { EASE, viewportRepeat } from '@/lib/motion';
 import { cn } from '@/lib/cn';
 import { useSeo } from '@/hooks';
 import { about } from '@/data/about';
-import { employees } from '@/data/employees';
+import { leadershipGroups } from '@/data/leadership';
+import { LeadershipBoard } from '@/components/features/organisation/LeadershipBoard';
 import { navigation } from '@/data/navigation';
 import { companyFacts } from '@/data/site';
-import type { AboutContent, Employee, NavLink, TimelineEvent, ValueItem } from '@/types';
+import type { AboutContent, NavLink, TimelineEvent, ValueItem } from '@/types';
 
 /* ------------------------------------------------------------------ helpers */
 
 const ABOUT_HREF = '/about';
-const LEADERSHIP_HREF = '/about#leadership';
-
 const aboutNav = navigation.find((item) => item.href === ABOUT_HREF);
-const aboutColumns = aboutNav?.columns ?? [];
-const peopleColumn = aboutColumns.find((column) =>
-  column.links.some((link) => link.href === LEADERSHIP_HREF),
-);
-const leadershipLink = peopleColumn?.links.find((link) => link.href === LEADERSHIP_HREF);
-const directoryLink = peopleColumn?.links.find((link) => link.href === '/directory');
 
 const breadcrumb: NavLink[] = [{ label: aboutNav?.label ?? about.hero.eyebrow, href: ABOUT_HREF }];
 
@@ -396,63 +387,13 @@ function PortfolioSection({ content }: { content: AboutContent['portfolio'] }) {
 
 /* --------------------------------------------------------------- leadership */
 
-function LeaderTile({ leader, href }: { leader: Employee; href: string }) {
+function LeadershipSection() {
+  // The board carries its own dark band and heading, so it is rendered bare rather than
+  // wrapped in a `Section` — nesting it would double the vertical rhythm.
   return (
-    <RevealItem className="bg-white">
-      <Link
-        to={href}
-        className="group flex h-full min-h-[44px] flex-col p-6 transition-colors duration-500 hover:bg-sky-faint lg:p-8"
-        aria-label={`${leader.name} — ${leader.position}`}
-      >
-        <Image
-          media={leader.photo}
-          ratio="1/1"
-          zoom
-          className="w-20 rounded-full ring-1 ring-hairline"
-        />
-        <h3 className="mt-6 text-h3 text-navy-deep">{leader.name}</h3>
-        <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.08em] text-ocean">
-          {leader.position}
-        </p>
-        <p className="mt-4 text-caption text-muted">{leader.location}</p>
-
-        <span className="mt-6 flex items-center gap-2 text-caption font-semibold text-navy-deep">
-          {leader.department}
-          <ArrowRight
-            className="h-[18px] w-[18px] text-ocean transition-transform duration-300 ease-premium group-hover:translate-x-1"
-            aria-hidden
-          />
-        </span>
-      </Link>
-    </RevealItem>
-  );
-}
-
-function LeadershipSection({ leaders }: { leaders: Employee[] }) {
-  return (
-    <Section id="leadership" tone="white" spacing="airy">
-      <SectionHeader
-        eyebrow={peopleColumn?.title ?? ''}
-        title={leadershipLink?.label ?? ''}
-        cta={directoryLink}
-      />
-
-      {/* Rules are drawn per-tile rather than by a gap-px background: an incomplete
-          final row would otherwise expose the grid's fill as a grey block. */}
-      <RevealGroup
-        className="mt-12 grid grid-cols-1 overflow-hidden rounded-card border border-hairline sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4"
-        gap={0.05}
-      >
-        {leaders.map((leader) => (
-          <div
-            key={leader.id}
-            className="border-b border-r border-hairline last:border-b-0 sm:[&:nth-last-child(-n+1)]:border-b-0"
-          >
-            <LeaderTile leader={leader} href={directoryLink?.href ?? '/directory'} />
-          </div>
-        ))}
-      </RevealGroup>
-    </Section>
+    <div id="leadership">
+      <LeadershipBoard groups={leadershipGroups} />
+    </div>
   );
 }
 
@@ -461,7 +402,6 @@ function LeadershipSection({ leaders }: { leaders: Employee[] }) {
 export default function AboutPage() {
   useSeo({ title: about.hero.title, description: about.hero.subtitle });
 
-  const leaders = employees.filter((employee) => employee.entityId === 'GROUP');
 
   return (
     <>
@@ -486,7 +426,7 @@ export default function AboutPage() {
       <ValuesSection content={about.values} />
       <TimelineSection content={about.timeline} />
       <PortfolioSection content={about.portfolio} />
-      <LeadershipSection leaders={leaders} />
+      <LeadershipSection />
     </>
   );
 }

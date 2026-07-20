@@ -21,7 +21,8 @@ const BOTTOM_MARGIN = 64;
  * The ref is a callback ref rather than a `RefObject` so it can attach to any of the
  * motion tags, whose `ref` types are an intersection across every element kind.
  */
-export function useInViewport() {
+export function useInViewport(options: { once?: boolean } = {}) {
+  const { once = false } = options;
   const [element, setElement] = useState<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -30,17 +31,32 @@ export function useInViewport() {
   useEffect(() => {
     if (!element) return;
 
+    // `once` latches on first sight. The bidirectional default is right for decorative
+    // motion, but wrong for anything that *is* the content: a roster or a table that
+    // empties as the reader scrolls past reads as a loading failure, and it also means
+    // a full-page screenshot or a print captures blank sections.
+    let latched = false;
+
+    const apply = (next: boolean) => {
+      if (once) {
+        if (latched) return;
+        if (!next) return;
+        latched = true;
+      }
+      setVisible(next);
+    };
+
     const sync = () => {
       const rect = element.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      setVisible(rect.top < viewportHeight - BOTTOM_MARGIN && rect.bottom > 0);
+      apply(rect.top < viewportHeight - BOTTOM_MARGIN && rect.bottom > 0);
     };
 
     sync();
 
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) setVisible(entry.isIntersecting);
+        for (const entry of entries) apply(entry.isIntersecting);
       },
       { rootMargin: `0px 0px -${BOTTOM_MARGIN}px 0px` },
     );

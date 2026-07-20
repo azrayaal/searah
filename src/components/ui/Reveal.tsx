@@ -32,6 +32,8 @@ interface RevealProps {
   delay?: number;
   className?: string;
   as?: RevealTag;
+  /** Latch on first sight instead of fading back out when scrolled past. */
+  once?: boolean;
 }
 
 /** Scroll-triggered entrance for a single element. */
@@ -41,9 +43,10 @@ export function Reveal({
   delay = 0,
   className,
   as = 'div',
+  once = false,
 }: RevealProps) {
   const Tag = TAGS[as];
-  const { ref, visible } = useInViewport();
+  const { ref, visible } = useInViewport({ once });
 
   return (
     <Tag
