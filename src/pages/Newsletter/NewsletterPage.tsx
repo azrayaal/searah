@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { PageHero } from '@/components/layout/PageHero';
 import { Section } from '@/components/ui/Section';
@@ -8,7 +8,7 @@ import { Pagination } from '@/components/ui/Pagination';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { RevealGroup, RevealItem, Reveal } from '@/components/ui/Reveal';
 import { NewsCard } from '@/components/features/newsletter/NewsCard';
-import { newsByDate, newsCategories, featuredArticle } from '@/data/newsletter';
+import { useArticles } from '@/hooks/useNewsroom';
 import { entities } from '@/data/entities';
 import { useCollection, usePagination, useSeo } from '@/hooks';
 import type { NewsArticle } from '@/types';
@@ -25,8 +25,19 @@ export default function NewsletterPage() {
       'Announcements, operational updates and stories from across Searah and its three operating entities.',
   });
 
+  const { data: articles, loading, error } = useArticles();
+
+  // Derived from the loaded set rather than imported: with the API as the source the
+  // categories present depend on what is actually published, and a hard-coded list
+  // would offer filters that match nothing.
+  const newsCategories = useMemo(
+    () => [...new Set(articles.map((article) => article.category))].sort(),
+    [articles],
+  );
+  const featuredArticle = useMemo(() => articles.find((article) => article.featured), [articles]);
+
   const { query, setQuery, selected, setFacet, reset, results, activeCount } =
-    useCollection<NewsArticle>(newsByDate, {
+    useCollection<NewsArticle>(articles, {
       searchFields: (article) => [
         article.title,
         article.excerpt,
@@ -140,6 +151,18 @@ export default function NewsletterPage() {
                 className="mt-16"
               />
             </>
+          ) : loading ? (
+            // Distinguished from "no matches" on purpose: an empty grid that blames the
+            // reader's filters while the request is still in flight sends them off to
+            // clear filters that were never the problem.
+            <p className="py-16 text-center text-body-sm text-muted">Loading the newsroom…</p>
+          ) : error ? (
+            <EmptyState
+              title="The newsroom is unavailable"
+              description={error}
+              actionLabel="Try again"
+              onAction={() => window.location.reload()}
+            />
           ) : (
             <EmptyState
               title="No articles match those filters"

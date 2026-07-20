@@ -7,7 +7,7 @@ import { Image } from '@/components/ui/Image';
 import { Gallery } from '@/components/ui/Gallery';
 import { Badge } from '@/components/ui/Badge';
 import { NewsCard } from '@/components/features/newsletter/NewsCard';
-import { getArticleBySlug, news } from '@/data/newsletter';
+import { useArticle, useArticles } from '@/hooks/useNewsroom';
 import { entityIndex } from '@/data/entities';
 import { formatDate } from '@/lib/format';
 import { useSeo } from '@/hooks';
@@ -75,7 +75,7 @@ function Block({ block }: { block: ContentBlock }) {
   }
 }
 
-function relatedFor(article: NewsArticle) {
+function relatedFor(article: NewsArticle, news: NewsArticle[]) {
   const sameEntity = news.filter(
     (item) => item.id !== article.id && item.entityId === article.entityId,
   );
@@ -90,7 +90,9 @@ function relatedFor(article: NewsArticle) {
 
 export default function ArticlePage() {
   const { slug } = useParams<{ slug: string }>();
-  const article = slug ? getArticleBySlug(slug) : undefined;
+  const { data: article, loading } = useArticle(slug);
+  // The whole set, for the "related" rail at the foot of the article.
+  const { data: allArticles } = useArticles();
 
   useSeo({
     title: article?.title ?? 'Article',
@@ -100,10 +102,21 @@ export default function ArticlePage() {
     publishedAt: article?.date,
   });
 
+  // The redirect must wait for the request to settle. Firing it while `article` is
+  // still null would bounce every reader off a valid URL the moment the source becomes
+  // the API — the article exists, it just has not arrived yet.
+  if (loading) {
+    return (
+      <Section tone="white">
+        <p className="text-body-sm text-muted">Loading article…</p>
+      </Section>
+    );
+  }
+
   if (!article) return <Navigate to="/newsletter" replace />;
 
   const entity = article.entityId ? entityIndex[article.entityId] : null;
-  const related = relatedFor(article);
+  const related = relatedFor(article, allArticles);
 
   return (
     <>

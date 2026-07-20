@@ -16,7 +16,7 @@ import { NewsCard } from '@/components/features/newsletter/NewsCard';
 import { AssetMap } from '@/components/features/assets/AssetMap';
 import { AssetDetail } from '@/components/features/assets/AssetDetail';
 import { entities, getEntity, getEntityAssets } from '@/data/entities';
-import { getArticlesByEntity } from '@/data/newsletter';
+import { useEntityArticles } from '@/hooks/useNewsroom';
 import { getResourcesByIds } from '@/data/resources';
 import { Icon } from '@/lib/icons';
 import { useScrollDirection, useSeo } from '@/hooks';
@@ -134,7 +134,7 @@ export default function EntityPage() {
   }, [code]);
 
   const entityAssets = useMemo(() => (entity ? getEntityAssets(entity.id) : []), [entity]);
-  const entityNews = useMemo(() => (entity ? getArticlesByEntity(entity.id) : []), [entity]);
+  const { data: entityNews } = useEntityArticles(entity?.id);
   const downloads = useMemo(() => (entity ? getResourcesByIds(entity.downloads) : []), [entity]);
 
   useSeo({

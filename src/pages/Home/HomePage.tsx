@@ -8,7 +8,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { assets } from "@/data/assets";
 import { entities } from "@/data/entities";
 import { homepage } from "@/data/homepage";
-import { getHomeFeed } from "@/data/newsletter";
+import { useHomeFeed } from "@/hooks/useNewsroom";
 import { site } from "@/data/site";
 import { useSeo } from "@/hooks";
 
@@ -18,7 +18,7 @@ export default function HomePage() {
     description: site.description,
   });
 
-  const { lead, rest } = getHomeFeed();
+  const { data: feed } = useHomeFeed();
 
   return (
     <>
@@ -49,13 +49,17 @@ export default function HomePage() {
         />
       </AnimatedSection>
 
-      <AnimatedSection>
-        <NewsSection
-          intro={homepage.newsSection}
-          featured={lead}
-          articles={rest}
-        />
-      </AnimatedSection>
+      {/* The band is skipped entirely until a lead story exists, rather than rendering a
+          heading above an empty grid while the feed is in flight. */}
+      {feed.lead ? (
+        <AnimatedSection>
+          <NewsSection
+            intro={homepage.newsSection}
+            featured={feed.lead}
+            articles={feed.rest}
+          />
+        </AnimatedSection>
+      ) : null}
     </>
   );
 }
